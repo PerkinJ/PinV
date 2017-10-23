@@ -1,9 +1,6 @@
-# Preact Redux Example
+# PinV:a lightweight data visualization componnet library.
 
-A **10kb** Redux-powered alternative to [preact-boilerplate](https://github.com/developit/preact-boilerplate), implementing a To-Do List app.
-
-
-<img src="https://i.gyazo.com/d655af6fc8768487897b13eb31500aa7.gif" width="207" />
+A **10kb** Redux-powered alternative to [preact-boilerplate](https://github.com/developit/preact-boilerplate), implementing a Data  Visualization Lightweight Componnet Library based d3.js
 
 
 > As of `v2`, now wonderfully simplified via [preact-redux](https://github.com/developit/preact-redux) (no more preact-compat!).
@@ -24,7 +21,7 @@ A **10kb** Redux-powered alternative to [preact-boilerplate](https://github.com/
 **1. Clone this repo:**
 
 ```sh
-git clone https://github.com/developit/preact-redux-example.git my-app
+git clone git@github.com:PerkinJ/PinV.git my-app
 cd my-app
 ```
 
@@ -75,23 +72,6 @@ You can now deploy the contents of the `build` directory to production!
 
 ---
 
-
-## Structure
-
-Apps are built up from simple units of functionality called Components. A Component is responsible for rendering a small part of an application, given some input data called `props`, generally passed in as attributes in JSX. A component can be as simple as:
-
-```js
-class Link extends Component {
-  render({ to, children }) {
-    return <a href={ to }>{ children }</a>;
-  }
-}
-// usage:
-<Link to="/">Home</Link>
-```
-
-
----
 
 
 ## License
