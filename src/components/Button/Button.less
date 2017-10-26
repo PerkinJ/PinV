@@ -1,4 +1,6 @@
-.pinv-button {
+@import '~style/helpers';
+.pinvButton {
+    outline: none;
     display: inline-block;
     text-align: center;
     border-radius: 3px;
@@ -13,43 +15,41 @@
     background: #eeeeee;
     border-color: #dde3ec;
     color: #54595c;
-    &-ghost {
+    &ghost {
       background: none;
       color: #576b94;
       border-color: #e5e5e5;
     }
-    &-default {
+    &default {
       min-width: 100px;
       height: 36px;
     }
-    &-small {
+    &small {
       min-width: 90px;
       height: 32px;
     }
-    &-large {
+    &large {
       min-width: 124px;
       height: 38px;
       font-size: 18px;
     }
-    &-primary {
-      background: #6947f4;
-      color: #fff;
+    &primary {
+      background: @default-color;
+      color: @white;
       &:hover {
-        background: #5947f3;
-      }
-      &.xk-button-ghost {
-        background: none;
-        color: #fff;
-        border-color: #fff;
+        opacity:0.92;
+        background: @default-color;
       }
     }
-    &-secondary{
-        background: #fff;
+    &secondary{
+        background: @white;
         border-color: #dde3ec;
     }
-    &-danger {
+    &danger {
+      color:@white;
+      background:@error-color;
     }
-    &-disabled {
+    &disabled {
       cursor: not-allowed;
       background: #dedede;
       color: rgba(0, 0, 0, 0.25);

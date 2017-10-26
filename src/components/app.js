@@ -1,9 +1,9 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
-import Header from './header';
-import Home from './home';
-import Profile from './profile';
+import Header from './Header';
+import Home from './Home';
+import Profile from './Profile';
 
 export default class App extends Component {
 	/** Gets fired when the route changes.

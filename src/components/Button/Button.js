@@ -1,8 +1,14 @@
 import {h,Component} from 'preact'
-import './Button.less'
-import ClassNames from 'classnames'
+import styles from './Button.less'
+import classNames from 'classnames/bind'
+let cx = classNames.bind(styles)
 
 class Button extends Component{
+    static defaultProps = {
+        size: 'default',
+        htmlType: 'button',
+        onClick: () => null
+      }
     handleClick = e => {
         let { disabled, onClick } = this.props
         if (!disabled && onClick) {
@@ -19,14 +25,14 @@ class Button extends Component{
           children,
           style
         } = this.props
-        const prefix = 'pinv-button'
-        let classes = ClassNames(
+        const prefix = 'pinvButton'
+        let classes = cx(
           [
             prefix,
-            `${prefix}-${size}`,
-            `${prefix}-${type}`,
+            `${prefix}${size}`,
+            `${prefix}${type}`,
             {
-              [`${prefix}-disabled`]: disabled
+              [`${prefix}disabled`]: disabled
             }
           ],
           className
