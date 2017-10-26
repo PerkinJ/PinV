@@ -8,7 +8,7 @@ class Button extends Component{
         size: 'default',
         htmlType: 'button',
         onClick: () => null
-      }
+    }
     handleClick = e => {
         let { disabled, onClick } = this.props
         if (!disabled && onClick) {
@@ -29,10 +29,10 @@ class Button extends Component{
         let classes = cx(
           [
             prefix,
-            `${prefix}${size}`,
-            `${prefix}${type}`,
+            `${prefix}_${size}`,
+            `${prefix}_${type}`,
             {
-              [`${prefix}disabled`]: disabled
+              [`${prefix}_disabled`]: disabled
             }
           ],
           className

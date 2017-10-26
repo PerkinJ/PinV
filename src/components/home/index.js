@@ -3,6 +3,7 @@ import { h, Component } from 'preact';
 import style from './style.less' 
 import ScatterPlot from '../Scatter-plot'
 import Button from '../Button'
+import Input from '../Input'
 const numDataPoints = 50;
 const randomNum = () => Math.floor(Math.random() * 1000);
 const randomDataSet = () => {
@@ -33,6 +34,7 @@ export default class Home extends Component {
 				<div class={style.control}>
 					<Button size="large" onClick={() => this.randomizeData()} type="primary">Randomize Data</Button>
 				</div>
+				<Input onChange={(e)=>console.log(e)} type="textarea"  placeholder="testsss"/>
 			</div>
 		);
 	}

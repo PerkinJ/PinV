@@ -1,6 +1,6 @@
 # PinV
 
-**P**react **in** *V*isualization
+**P**react **in** **V**isualization
 
 a lightweight visualization component library based preact and d3
 
