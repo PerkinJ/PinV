@@ -1,7 +1,8 @@
 import { h, Component } from 'preact';
-import style from './style.less';
+// import style from './style.less'
+import './style.less' 
 import ScatterPlot from '../Scatter-plot'
-
+import Button from '../Button'
 const numDataPoints = 50;
 const randomNum = () => Math.floor(Math.random() * 1000);
 const randomDataSet = () => {
@@ -26,13 +27,14 @@ export default class Home extends Component {
 	  }
 	render() {
 		return (
-			<div class={style.home}>
+			<div class="home">
 				<h1>Home</h1>
 				<ScatterPlot {...this.state} {...styles} />
-				<div className="controls">
-					<button className="btn randomize" onClick={() => this.randomizeData()}>
+				<div class="control">
+					<button class="btn randomize" onClick={() => this.randomizeData()}>
 					Randomize Data
 					</button>
+					<Button  type="primary">test</Button>
 				</div>
 			</div>
 		);

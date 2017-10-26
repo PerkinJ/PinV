@@ -15,12 +15,12 @@ const xScale = (props) => {
     .domain([0, xMax(props.data)])
     .range([props.padding, props.width - props.padding * 2]);
 };
-
+// const quantize = d3.scale.quantize().domain([500,0]).range(['#888','#666','#444','#333','#000'])
 // 返回将数据缩放Y坐标以适合图表的函数
 const yScale = (props) => {
   return d3.scale.linear()
     .domain([0, yMax(props.data)])
-    .range([props.height - props.padding, props.padding]);
+    .range([props.height - props.padding, props.padding])
 };
 
 export default (props) => {

@@ -6,20 +6,20 @@ export default class Axis extends Component {
     super(props)
   }
   componentDidMount() {
-    this.renderAxis();
+    this.renderAxis()
   }
 
   componentDidUpdate() {
-    this.renderAxis();
+    this.renderAxis()
   }
 
   renderAxis() {
     const node = document.querySelector('.axis')
     const axis = d3.svg.axis().orient(this.props.orient).ticks(5).scale(this.props.scale);
-    d3.select(node).call(axis);
+    d3.select(node).call(axis)
   }
 
   render() {
-    return <g className="axis"  transform={this.props.translate}></g>
+    return <g class="axis" transform={this.props.translate}></g>
   }
 }

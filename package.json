@@ -88,7 +88,9 @@
     "webpack-dev-server": "^2.4.4"
   },
   "dependencies": {
-    "d3": "^3.5.16",    
+    "classname": "^0.0.0",
+    "classnames": "^2.2.5",
+    "d3": "^3.5.16",
     "preact": "^8.1.0",
     "preact-compat": "^3.15.0",
     "preact-render-to-string": "^3.6.0",
