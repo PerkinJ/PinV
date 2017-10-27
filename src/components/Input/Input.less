@@ -2,69 +2,178 @@
 .pinv_controls {
     vertical-align: top;
     position: relative;
-    .Select-control {
-        border-radius: 3px;
-        border-color: #dde3ec;
-    }
-    .pinv_text_box {
-        width: 100%;
-        display: inline-block;
-        position: relative;
-        vertical-align: middle;
-        border: 1px solid #dde3ec;
-        border-radius: 3px;
-        .pinv_input {
-            height: 100%;
-            width: 100%;
-            background-color: transparent;
-            border: 0;
-            outline: 0;
-            &.pinv_input_readonly{
-                color: #929292;
-            }
-        }
-    }
-    .pinv_input_box {
-        height: 40px;
-        line-height: 40px;
-        padding: 0 8.4px;
-    }
-    .pinv_input_box_disable {
-        width:100%;
-        background: #eee;
-        textarea {
-            cursor: no-drop;
-        }
-    }
-    .pinv_textarea_box{
-        height: 80px;
-        line-height: 40px;
-        padding-left: 10px;
-    }
-    .pinv_input_tip {
-        font-size: 13px;
-        line-height: 40px;
-        position: absolute;
-        bottom: 22%;
-        right: 3%;
-    }
-    .pinv_info {
-        color: #9b9b9b;
-        font-size: 13px;
-        line-height: 1;
-        margin-top: 10px;
-        min-width: 420px;
-        width: 100%;
-    }
-    .pinv_textarea{
-        height: 100%;
-        width: 100%;
-        border:none;
-        outline: none;
-    }
+}
+
+// textarea
+.pinv_textarea_box{    
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	margin: 1em;
+	min-height: 100px;
+	// max-width: 350px;
+	width: calc(100% - 2em);
+	vertical-align: top;
+}
+
+.pinv_textarea{
+	position: relative;
+	display: block;
+	float: right;
+	padding: 0.8em;
+	// width: 60%;
+	border: none;
+	border-radius: 0;
+	background: #f0f0f0;
+	color: @placerhodler-color;
+	font-weight: bold;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-appearance: none; /* for box shadows to show on iOS */
+	&:focus{
+		outline: none;
+	}
+}
+.textarea__label{
+	display: inline-block;
+	float: right;
+	padding: 0 1em;
+	width: 40%;
+	color: @form-color;
+	font-weight: bold;
+	font-size: 70.25%;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.textarea__content{
+	position: relative;
+	display: block;
+	padding: 1em 0;
+	width: 100%;
+}
+.pinv_textarea--minoru{
+	width: 100%;
+	background: @white;
+	box-shadow: 0px 0px 20px 2px @gray;
+	color: @form-color;
+	-webkit-transition: box-shadow 0.3s;
+	transition: box-shadow 0.3s;
+}
+.pinv_textarea--minoru:focus {
+	box-shadow: 0px 0px 0px 2px #eca29b;
+}
+.textarea__label--minoru {
+	padding: 0;
+	width: 100%;
+	text-align: left;
+	color:@placerhodler-color;
+}
+
+.textarea__label--minoru::after {
+	content: '';
+  	position: absolute;
+  	top: 0;
+  	z-index: -1;
+  	width: 100%;
+  	height: 4em;
+	box-shadow: 0px 0px 0px 0px;
+	color: rgba(199,152,157, 0.6);
+}
+ .pinv_textarea--minoru:focus  .textarea__label--minoru + {
+	color:@form-color;
+	pointer-events: none;
+}
+
+.pinv_textarea--minoru:focus + .textarea__label--minoru::after{
+	-webkit-animation: anim-shadow 0.3s forwards;
+	animation: anim-shadow 0.3s forwards;
+}
+.pinv_textarea--isao {
+	z-index: 10;
+	padding: 0.75em 0.1em 0.25em;
+	width: 100%;
+	background: transparent;
+	color: @form-color;
+}
+
+.textarea__label--isao {
+	position: relative;
+	overflow: hidden;
+	padding: 0;
+	width: 100%;
+	color: @placerhodler-color;
+	text-align: left;
+}
+
+.textarea__label--isao::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 2px;
+	background: @placerhodler-color;
+	-webkit-transform: scale3d(1, 0.4, 1);
+	transform: scale3d(1, 0.4, 1);
+	-webkit-transform-origin: 50% 100%;
+	transform-origin: 50% 100%;
+	-webkit-transition: -webkit-transform 0.3s, background-color 0.3s;
+	transition: transform 0.3s, background-color 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.textarea__label--isao::after {
+	content: attr(data-content);
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0.75em 0.15em;
+	color: @form-color;
+	opacity: 0;
+	-webkit-transform: translate3d(0, 50%, 0);
+	transform: translate3d(0, 50%, 0);
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+	transition: opacity 0.3s, transform 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	pointer-events: none;
+}
+
+.pinv_textarea--isao:focus + .textarea__label--isao::before {
+	background-color: @form-color;
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+}
+
+.pinv_textarea--isao:focus + .textarea__label--isao {
+	pointer-events: none;
+}
+
+.pinv_textarea--isao:focus + .textarea__label--isao::after {
+	opacity: 1;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.textarea__content--isao {
+	padding: 0.75em 0.15em;
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+	transition: opacity 0.3s, transform 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.pinv_textarea--isao:focus + .textarea__label--isao .textarea__content--isao {
+	opacity: 0;
+	-webkit-transform: translate3d(0, -50%, 0);
+	transform: translate3d(0, -50%, 0);
 }
 
 
+// input
 .input {
 	position: relative;
 	z-index: 1;
@@ -212,18 +321,7 @@
 	-webkit-transform: translate3d(0, -50%, 0);
 	transform: translate3d(0, -50%, 0);
 }
-::-webkit-input-placeholder { /* WebKit browsers */
-    color: @placerhodler-color;
-}
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:  @placerhodler-color;
-}
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: @placerhodler-color;
-}
-:-ms-input-placeholder { /* Internet Explorer 10+ */
-    color: @placerhodler-color;
-}
+
 
 
 /* Minoru */
@@ -284,4 +382,20 @@
 
 .input__label-content--minoru {
 	padding: 0.75em 0.15em;
+}
+
+textarea{
+	resize: none;	
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: @placerhodler-color;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:  @placerhodler-color;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: @placerhodler-color;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: @placerhodler-color;
 }
