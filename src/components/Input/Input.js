@@ -12,8 +12,9 @@ export default class Input extends Component{
     }
     static defaultProps = {
         disabled: false,
-        prefix: 'pinv'
-    }
+        prefix: 'pinv',
+        theme:'minoru'
+    }    
     render(){
         const props = this.props,state = this.state
         // uniform props
@@ -32,6 +33,10 @@ export default class Input extends Component{
             inputcx = cx('pinv_input', {
                 'pinv_input_readonly': props.disabled || props.readonly
               })
+        let theme = cx('input',`input--${props.theme}`),
+        theme_filed = cx('input__field',`input__field--${props.theme}`),
+        theme_label = cx('input__label', `input__label--${props.theme}`),
+        theme_content = cx('input__label_content', `input__label-content--${props.theme}`)
         return (
             (props.type === 'textarea'?<div
             style={Object.assign({}, props.style, this.state.inputStyles)}
@@ -46,19 +51,21 @@ export default class Input extends Component{
             </span>
             {props.info}
           </div>:<div
-          style={Object.assign({}, props.style, state.inputStyles)}
-          className={styles.pinv_controls}
+          style={Object.assign({}, props.style)}
+          class={styles.pinv_controls}
         >
-          <span className={inputbox}>
-            <input
-              className={inputcx}
-              type={props.type || 'text'}
-              {...uniformProps}
+        <span class={theme}>
+            <input class={theme_filed} 
+                style={Object.assign({}, props.inputStyles)}
+                type={props.type || 'text'}
+                {...uniformProps} 
             />
-          </span>
-          {props.info}
-        </div>)
-            
+            <label style={Object.assign({}, props.labelStyle)} class={theme_label} data-content={props.label}>
+                <span class={theme_content}>{props.label}</span>
+            </label>
+        </span>
+          {props.info}  
+        </div>)   
         )
     }
 }

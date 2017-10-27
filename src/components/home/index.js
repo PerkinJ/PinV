@@ -34,7 +34,7 @@ export default class Home extends Component {
 				<div class={style.control}>
 					<Button size="large" onClick={() => this.randomizeData()} type="primary">Randomize Data</Button>
 				</div>
-				<Input onChange={(e)=>console.log(e)} type="textarea"  placeholder="testsss"/>
+				<Input style={{textAlign:'center'}}label="姓名" onChange={(e)=>console.log(e)} type="text"  placeholder="这只是测试"/>
 			</div>
 		);
 	}
