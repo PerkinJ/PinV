@@ -1,6 +1,6 @@
 import {h,Component} from 'preact'
 import d3 from 'd3'
-
+import styles from './index.less'
 export default class Axis extends Component {
   constructor(props){
     super(props)
@@ -20,6 +20,6 @@ export default class Axis extends Component {
   }
 
   render() {
-    return <g class="axis" transform={this.props.translate}></g>
+    return <g class={styles.axis} transform={this.props.translate}></g>
   }
 }

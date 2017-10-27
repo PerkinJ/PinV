@@ -1,71 +1,79 @@
-import {h,Component} from 'preact'
-import styles from './style.less'
+import { h, Component } from 'preact'
+import styles from './Input.less'
 import classNames from 'classnames/bind'
 let cx = classNames.bind(styles)
 
-export default class Input extends Component{
-    constructor(props){
+export default class Input extends Component {
+    constructor(props) {
         super(props)
         this.state = {
-            inputStyles: null            
         }
     }
     static defaultProps = {
         disabled: false,
         prefix: 'pinv',
-        theme:'minoru'
-    }    
-    render(){
-        const props = this.props,state = this.state
+        theme: 'minoru',
+        type: 'text'
+    }
+    render() {
+        let { value, onChange, onBlur, onFocus, placeholder,
+            maxLength, defaultValue, readonly, disabled, theme,
+            style, inputStyle, labelStyle, label, type, info } = this.props
+        let state = this.state
         // uniform props
-        const uniformProps = {
-            value:props.value,
-            onChange:props.onChange,
-            onBlur:props.onBlur,
-            onFocus:props.onFocus,
-            placeholder:props.placeholder,
-            maxLength:props.maxLength,
-            defaultValue:props.defaultValue,
-            readOnly:props.disabled || props.readonly
+        let uniformProps = {
+            value,
+            onChange,
+            onBlur,
+            onFocus,
+            placeholder,
+            maxLength,
+            defaultValue,
+            style,
+            readOnly: disabled || readonly
         }
-        let textareacx = cx('pinv_text_box','pinv_textarea_box','pinv_input_box_disable'),
-            inputbox = cx('pinv_text_box','pinv_input_box'),
+        let textareacx = cx('pinv_text_box', 'pinv_textarea_box'),
+            inputbox = cx('pinv_text_box', 'pinv_input_box'),
             inputcx = cx('pinv_input', {
-                'pinv_input_readonly': props.disabled || props.readonly
-              })
-        let theme = cx('input',`input--${props.theme}`),
-        theme_filed = cx('input__field',`input__field--${props.theme}`),
-        theme_label = cx('input__label', `input__label--${props.theme}`),
-        theme_content = cx('input__label_content', `input__label-content--${props.theme}`)
+                'pinv_input_readonly': disabled || readonly
+            })
+        // 过滤其他不符合要求的theme    
+        theme = theme === 'isao' || theme === 'minoru'? theme: 'minoru'
+        type = type === 'text' || type === 'textarea' ? type :'text'
+        // 根据不同theme，设置不同的style
+        let textFiled = cx('input', `input--${theme}`, ),
+            textFiled_filed = cx('input__field',
+                `input__field--${theme}`,
+                { 'input__disabled': disabled || readonly }),
+            textFiled_label = cx('input__label', `input__label--${theme}`),
+            textFiled_content = cx('input__label_content', `input__label-content--${theme}`)
         return (
-            (props.type === 'textarea'?<div
-            style={Object.assign({}, props.style, this.state.inputStyles)}
-            className={styles.pinv_controls}
-          >
-            <span className={textareacx}>
-              <textarea
-                className={styles.pinv_textarea}
-                type={props.type || 'text'}
-                {...uniformProps}
-              />
-            </span>
-            {props.info}
-          </div>:<div
-          style={Object.assign({}, props.style)}
-          class={styles.pinv_controls}
-        >
-        <span class={theme}>
-            <input class={theme_filed} 
-                style={Object.assign({}, props.inputStyles)}
-                type={props.type || 'text'}
-                {...uniformProps} 
-            />
-            <label style={Object.assign({}, props.labelStyle)} class={theme_label} data-content={props.label}>
-                <span class={theme_content}>{props.label}</span>
-            </label>
-        </span>
-          {props.info}  
-        </div>)   
+            (type === 'textarea' ? <div
+                style={Object.assign({}, style)}
+                className={styles.pinv_controls}
+            >
+                <span className={textareacx}>
+                    <textarea
+                        className={styles.pinv_textarea}
+                        {...uniformProps}
+                    />
+                </span>
+                {info}
+            </div> : <div
+                style={style}
+                class={styles.pinv_controls}
+            >
+                <span class={textFiled}>
+                    <input class={textFiled_filed}
+                        style={inputStyle}
+                        {...uniformProps}
+                    />
+                    <label style={labelStyle} class={textFiled_label} data-content={label}>
+                        <span class={textFiled_content}>{label}</span>
+                    </label>
+                </span>
+                {info}
+            </div>)
         )
     }
 }

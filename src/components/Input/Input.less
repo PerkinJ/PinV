@@ -70,21 +70,23 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 1em;
-    max-width: 350px;
+    // max-width: 350px;
 	width: calc(100% - 2em);
     vertical-align: top;
 }
-
+.input__disabled{
+	cursor: no-drop;
+}
 .input__field {
 	position: relative;
 	display: block;
 	float: right;
 	padding: 0.8em;
-	width: 60%;
+	// width: 60%;
 	border: none;
 	border-radius: 0;
 	background: #f0f0f0;
-	color: #dadada;
+	color: @placerhodler-color;
 	font-weight: bold;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	-webkit-appearance: none; /* for box shadows to show on iOS */
@@ -143,7 +145,7 @@
 	overflow: hidden;
 	padding: 0;
 	width: 100%;
-	color: #dadada;
+	color: @placerhodler-color;
 	text-align: left;
 }
 
@@ -153,7 +155,7 @@
 	top: 0;
 	width: 100%;
 	height: 2px;
-	background: #dadada;
+	background: @placerhodler-color;
 	-webkit-transform: scale3d(1, 0.4, 1);
 	transform: scale3d(1, 0.4, 1);
 	-webkit-transform-origin: 50% 100%;
@@ -238,6 +240,7 @@
 	padding: 0;
 	width: 100%;
 	text-align: left;
+	color:@placerhodler-color;
 }
 
 .input__label--minoru::after {
@@ -256,6 +259,7 @@
 }
 
 .input__field--minoru:focus + .input__label--minoru {
+	color:@form-color;
 	pointer-events: none;
 }
 

@@ -1,5 +1,6 @@
-import {h,Component}  from 'preact';
-import Axis   from './axis';
+import {h,Component}  from 'preact'
+import Axis from './axis'
+import styles from './index.less'
 
 export default (props) => {
   const xSettings = {
@@ -12,7 +13,7 @@ export default (props) => {
     scale: props.yScale,
     orient: 'left'
   };
-  return <g className="xy-axis">
+  return <g class={styles.xy_axis}>
     <Axis {...xSettings}/>
     <Axis {...ySettings}/>
   </g>

@@ -1,13 +1,13 @@
 import { h, Component } from 'preact';
 // import style from './style.less'
 import style from './style.less' 
-import ScatterPlot from '../Scatter-plot'
+import ScatterPlot from '../ScatterPlot'
 import Button from '../Button'
 import Input from '../Input'
-const numDataPoints = 50;
-const randomNum = () => Math.floor(Math.random() * 1000);
+const numDataPoints = 50
+const randomNum = () => Math.floor(Math.random() * 1000)
 const randomDataSet = () => {
-  return Array.apply(null, {length: numDataPoints}).map(() => [randomNum(), randomNum()]);
+  return Array.apply(null, {length: numDataPoints}).map(() => [randomNum(), randomNum()])
 }
 
 const randomizeData = () => {
@@ -34,8 +34,11 @@ export default class Home extends Component {
 				<div class={style.control}>
 					<Button size="large" onClick={() => this.randomizeData()} type="primary">Randomize Data</Button>
 				</div>
-				<Input style={{textAlign:'center'}}label="姓名" onChange={(e)=>console.log(e)} type="text"  placeholder="这只是测试"/>
+				<div style={{width:'400px',margin:'0 auto'}}>
+					<Input inputStyle={{color:'#000'}} theme="isao" label="姓名" onChange={(e)=>console.log(e)} type="text"  placeholder="这只是测试"/>
+					<Input theme="minor" label="姓名" onChange={(e)=>console.log(e)} type="text"  placeholder="这只是测试"/>
+				</div>
 			</div>
-		);
+		)
 	}
 }
