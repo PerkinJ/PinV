@@ -33,6 +33,9 @@
 		outline: none;
 	}
 }
+.textarea__disabled{
+	cursor: no-drop;
+}
 .textarea__label{
 	display: inline-block;
 	float: right;
@@ -190,7 +193,7 @@
 	position: relative;
 	display: block;
 	float: right;
-	padding: 0.8em;
+	padding: 0.7em;
 	// width: 60%;
 	border: none;
 	border-radius: 0;
@@ -347,7 +350,7 @@
   	top: 0;
   	z-index: -1;
   	width: 100%;
-  	height: 4em;
+  	height: 3em;
 	box-shadow: 0px 0px 0px 0px;
 	color: rgba(199,152,157, 0.6);
 }
@@ -384,6 +387,49 @@
 	padding: 0.75em 0.15em;
 }
 
+// inputNumber
+
+.inputNumber{
+	position: relative;
+	width:300px;
+	display: inline-block;
+}
+.inputNumber_box{
+	height:100%;
+	background: #fff;
+	display: -webkit-flex;	
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	// justify-content:space-around;
+	position: absolute;
+	right:0px;
+	top:0px;
+	width:40px;
+	button{
+		background: #fff;
+			
+		outline:1px;
+		width:100%;
+		flex:1;
+		&:hover{
+			background: @form-color;
+		}
+		&:active{
+			opacity: 0.8;
+		}
+	}
+}
+
+.inputNumber_up{
+	border:none;
+	border-left:2px solid @form-color;	
+	border-bottom:2px solid @form-color;
+}
+.inputNumber_down{
+	border:none;
+	border-left:2px solid @form-color;	
+}
 textarea{
 	resize: none;	
 }
@@ -399,3 +445,9 @@ textarea{
 :-ms-input-placeholder { /* Internet Explorer 10+ */
     color: @placerhodler-color;
 }
+
+input::-webkit-outer-spin-button,  
+input::-webkit-inner-spin-button {  
+	-webkit-appearance: none;  
+	background:#000;
+}  

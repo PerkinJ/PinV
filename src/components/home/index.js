@@ -31,7 +31,7 @@ export default class Home extends Component {
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
 				<ScatterPlot {...this.state} {...styles} />
-				<div class={style.control}>
+				<div style={{width:'500px',textAlign:'center'}} class={style.control}>
 					<h3>Button组件</h3>
 					<Button size="small" onClick={() => this.randomizeData()} type="primary">Randomize Data</Button>
 					<Button  onClick={() => this.randomizeData()} type="primary">Randomize Data</Button>
@@ -41,8 +41,8 @@ export default class Home extends Component {
 					<Button  type="ghost" onClick={() => this.randomizeData()} >Randomize Data</Button>
 					<Button  type="danger" onClick={() => this.randomizeData()} >Randomize Data</Button>
 				</div>
-				<div style={{width:'400px',margin:'50px auto'}} class={style.control}>
-					<h3>Input组件</h3>
+				<div style={{width:'400px'}} class={style.control}>
+					<h3 style={{textAlign:'center'}}>Input组件</h3>
 					<Input 
 						inputStyle={{color:'#000'}} 
 						theme="isao" label="姓名" 
@@ -50,7 +50,7 @@ export default class Home extends Component {
 						type="text"  
 						placeholder="这只是测试"
 					/>				
-					<Input 
+					<Input
 						theme="minor" 
 						label="姓名" 
 						onChange={(e)=>console.log(e)} 
@@ -64,8 +64,15 @@ export default class Home extends Component {
 						onChange={(e)=>console.log(e)}  
 						placeholder="这只是测试"
 					/>
-					<Input type="textarea"  label="姓名" onChange={(e)=>console.log(e)}  placeholder="这只是测试"/>
-					<div>
+					<Input 
+						type="textarea"  
+						label="姓名" 
+						placeholder="这只是测试"
+					/>
+					<Input type="number" label="数字" placeholder="请输入数字"/>
+					<div style={{textAlign:'center'}}>
+						<Input type="text" label="账号" placeholder="请输入账号"/>
+						<Input type="password" label="密码" placeholder="请输入密码"/>
 						<Button style={{background:'#673ab7'}} type="primary">submit</Button>
 						<Button>reset</Button>	
 					</div>
