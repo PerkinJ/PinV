@@ -4,6 +4,8 @@ import style from './style.less'
 import ScatterPlot from '../ScatterPlot'
 import Button from '../Button'
 import Input from '../Input'
+import Histogram from '../Histogram/Histogram'
+import d3 from 'd3'
 const numDataPoints = 50
 const randomNum = () => Math.floor(Math.random() * 1000)
 const randomDataSet = () => {
@@ -17,7 +19,12 @@ const styles = {
 	width   : 500,
 	height  : 300,
 	padding : 30,
-  }
+	}
+const data1 = d3.range(20, 130, 5)
+	.map(latency => ({
+		latency,
+		count: 5000 + Math.random() * 15000
+	}));
 export default class Home extends Component {
 	constructor(props) {
 		super(props);
@@ -30,7 +37,14 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
-				<ScatterPlot {...this.state} {...styles} />
+				<div class={style.control}>
+					<h3>散点图组件</h3>
+					<ScatterPlot {...this.state} {...styles} />
+				</div>
+				<div class={style.control}>
+					<h3>直方图组件</h3>
+					<Histogram data={data1}/>
+				</div>
 				<div style={{width:'500px',textAlign:'center'}} class={style.control}>
 					<h3>Button组件</h3>
 					<Button size="small" onClick={() => this.randomizeData()} type="primary">Randomize Data</Button>
