@@ -20,10 +20,10 @@ const styles = {
 	height  : 300,
 	padding : 30,
 	}
-const data1 = d3.range(20, 130, 5)
-	.map(latency => ({
-		latency,
-		count: 500 + Math.random() * 1500
+const data1 = d3.range(0, 120, 5)
+	.map(key => ({
+		key,
+		value: 500 + Math.random() * 1500
 	}));
 export default class Home extends Component {
 	constructor(props) {
