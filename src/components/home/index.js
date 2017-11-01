@@ -4,7 +4,7 @@ import style from './style.less'
 import ScatterPlot from '../ScatterPlot'
 import Button from '../Button'
 import Input from '../Input'
-import Histogram from '../Histogram/Histogram'
+import Histogram from '../Histogram'
 import d3 from 'd3'
 const numDataPoints = 50
 const randomNum = () => Math.floor(Math.random() * 1000)
@@ -17,7 +17,7 @@ const randomizeData = () => {
 };
 const styles = {
 	width   : 500,
-	height  : 300,
+	height  : 400,
 	padding : 30,
 	}
 const data1 = d3.range(0, 120, 5)

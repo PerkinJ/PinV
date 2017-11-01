@@ -1,0 +1,71 @@
+import { h, Component } from 'preact'
+import d3 from 'd3'
+import styles from './index.less'
+import classNames from 'classnames/bind'
+let cx = classNames.bind(styles)
+
+class Axis extends Component {
+    // 计算x轴的长度
+    getScaleX = (length, domain = "") => {
+        if (domain) {
+            return d3.scale.linear()
+                .domain(domain)
+                .range([0, length])
+        } else {
+            let { data, dataKey } = this.props
+            if (!data) console.error("you didn't add data")
+            if (!dataKey) console.error("you didn't add dataKey")
+            let xDomian = d3.max(data, function (d) { return d[dataKey] })
+            return d3.scale.linear()
+                .domain([0, xDomian])
+                .range([0, length])
+        }
+
+    }
+    // 计算y轴的长度
+    getScaleY = (length, domain = "") => {
+        if (domain) {
+            return d3.scale.linear()
+                .domain(domain)
+                .range([length, 0])
+        } else {
+            let { data, dataKey } = this.props
+            if (!data) console.error("you didn't add data")
+            if (!dataKey) console.error("you didn't add dataKey")
+            let yDomain = 1.2 * d3.max(data, function (d) { return d[dataKey] })
+            return d3.scale.linear()
+                .domain([yDomain, 0])
+                .range([0, length])
+        }
+    }
+    render({ orient, tickSize = null, textAnchor, unit, tickFormat = '', type = 'x', length, domain, dataKey, data,hide=false, ...props }) {
+        let path = orient === "bottom" ? "M0.5,6V0.5H936.5V6" : "M-6,236.5H0.5V0.5H-6";
+        let scale = type === 'x' ? this.getScaleX(length, domain) : this.getScaleY(length, domain)
+        let ticks = scale.ticks(tickSize)
+        return (
+            <g {...props} fill="none">
+                <path class={hide?styles.hidden:styles.show} stroke={props.stroke} d={path}></path>
+                {ticks.map(d => {
+                    let space = scale(d);
+
+                    if (orient === "bottom") {
+                        return (
+                            <g class={styles.tick} opacity="1" transform={`translate( ${space},0)`}>
+                                <line stroke="#000" y2="6"></line>
+                                <text text-anchor={textAnchor} fill="#000" y="9" dy="0.71em">{d}{unit}</text>
+                            </g>
+                        );
+                    } else {
+                        return (
+                            <g class={styles.tick} opacity="1" transform={`translate(0,${space} )`}>
+                                <line stroke="#000" x2="-6"></line>
+                                <text text-anchor={textAnchor} fill="#000" x="-9" dy="0.32em">{d3.format(tickFormat)(d)}{unit}</text>
+                            </g>
+                        );
+                    }
+                })}
+            </g>
+        )
+    }
+}
+export default Axis
