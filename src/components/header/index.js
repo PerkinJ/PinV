@@ -13,6 +13,6 @@ export default class Header extends Component {
 					<Link href="/profile/john">John</Link>
 				</nav>
 			</header>
-		);
+		)
 	}
 }

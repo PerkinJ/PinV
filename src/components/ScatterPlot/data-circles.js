@@ -1,17 +1,17 @@
-import {h,Component}  from 'preact';
+import { h } from 'preact'
 
 const renderCircles = (props) => {
-  return (coords, index) => {
-    const circleProps = {
-      cx: props.xScale(coords[0]),
-      cy: props.yScale(coords[1]),
-      r: 2,
-      key: index
-    };
-    return <circle {...circleProps} />;
-  };
-};
+	return (coords, index) => {
+		const circleProps = {
+			cx: props.xScale(coords[0]),
+			cy: props.yScale(coords[1]),
+			r: 2,
+			key: index
+		}
+		return <circle {...circleProps} />
+	}
+}
 
 export default (props) => {
-  return <g>{ props.data.map(renderCircles(props)) }</g>
+	return <g>{props.data.map(renderCircles(props))}</g>
 }
