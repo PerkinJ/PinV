@@ -20,11 +20,12 @@ const styles = {
 	height: 400,
 	padding: 30,
 }
-const data1 = d3.range(0, 120, 5)
+const data1 = d3.range(0, 100, 10)
 	.map(key => ({
-		key,
-		value: 500 + Math.random() * 1500
+		key:key,
+		value: 10 + Math.random() * 40
 	}))
+
 export default class Home extends Component {
 	constructor(props) {
 		super(props)
@@ -44,10 +45,13 @@ export default class Home extends Component {
 				<div class={style.control}>
 					<h3>直方图组件</h3>
 					<Histogram
+						hidden={true}
+						XAxis="key"
+						YAxis="value"
 						data={data1}
-						width={600}
-						height={400}
-						margin={{top:30,bottom:40,left:30,right:10}}
+						width={500}
+						height={300}
+						padding={{top:32,bottom:32,left:30,right:20}}
 					/>
 				</div>
 				<div style={{ width: '500px', textAlign: 'center' }} class={style.control}>

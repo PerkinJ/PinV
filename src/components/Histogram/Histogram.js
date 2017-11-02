@@ -4,35 +4,36 @@ import Axis from '../Axis'
 import styles from './index.less'
 import classNames from 'classnames/bind'
 let cx = classNames.bind(styles)
-
+const padding = 20
 class Histogram extends Component {
 	static defaultProps = {
 		width: 1000,
-		height: 300,
-		margin: {top:32,bottom:32,left:40,right:20},
+		height: 400,
+		padding: {top:32,bottom:32,left:40,right:20},
 		// left: 40,
-		tickSize: 3,
-		tickFormat: '.0s',
-		delta: 1
+		tickSize: 5,
+		tickFormat: '',
+		delta: 1,
 	}
-	render({ data, margin, width, height, tickSize, tickFormat, delta }) {
-		const dWidth = width - margin.left-margin.right
-		const dHeight = height - margin.top - margin.bottom
-		const scaleX = d3.scale.linear()
-			.domain([0, 120])
+	render({ data, padding, width, height, XAxis,YAxis,tickSize, tickFormat, delta }) {
+		let dWidth = width - padding.left-padding.right,
+			dHeight = height - padding.top - padding.bottom
+		let xDomain = d3.max(data, function (d) { return d[XAxis] }),
+			yDomain = d3.max(data,function(d){ return d[YAxis]})
+		let scaleX = d3.scale.linear()
+			.domain([0, xDomain])
 			.range([0, dWidth])
-		const scaleY = d3.scale.linear()
-			.domain([0, 2000])
+		let scaleY = d3.scale.linear()
+			.domain([0, yDomain])
 			.range([dHeight, 0])
 		let axisx = cx('axis', 'x'),
 			axisy = cx('axis', 'y')
 		let color = d3.scale.category10()
-
 		return (
 			<svg width={width} height={height}>
 				<Axis
 					type="x"
-					dataKey="key"
+					dataKey={XAxis}
 					data={data}
 					length={dWidth}
 					stroke="#673ab7"
@@ -40,11 +41,10 @@ class Histogram extends Component {
 					class={axisx}
 					textAnchor="middle"
 					unit={'ms'}
-					margin={margin}
-					transform={"translate(" + margin.left + "," + (dHeight + margin.top) + ")"} />
+					transform={"translate(" + padding.left + "," + (dHeight + padding.top) + ")"} />
 				<Axis
 					type='y'
-					dataKey="value"
+					dataKey={YAxis}
 					length={dHeight}
 					data={data}
 					stroke="#673ab7"
@@ -53,13 +53,13 @@ class Histogram extends Component {
 					tickSize={tickSize}
 					tickFormat={tickFormat}
 					textAnchor="end"
-					transform={"translate(" + margin.left + "," + margin.top + ")"} />
+					transform={"translate(" + padding.left + "," + padding.top + ")"} />
 				<g class={styles.graph}>
 					{data.map(d => {
 						return (<rect
 							width={dWidth / data.length - delta}
 							height={dHeight - scaleY(d.value)}
-							transform={"translate(" + (scaleX(d.key) + margin.left) + "," + (scaleY(d.value) + margin.top) + ")"}
+							transform={"translate(" + (scaleX(d.key) + padding.left) + "," + (scaleY(d.value) + padding.top) + ")"}
 							fill={color(d.value)}>
 						</rect>
 						)
