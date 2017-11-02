@@ -43,7 +43,12 @@ export default class Home extends Component {
 				</div>
 				<div class={style.control}>
 					<h3>直方图组件</h3>
-					<Histogram data={data1} />
+					<Histogram
+						data={data1}
+						width={600}
+						height={400}
+						margin={{top:30,bottom:40,left:30,right:10}}
+					/>
 				</div>
 				<div style={{ width: '500px', textAlign: 'center' }} class={style.control}>
 					<h3>Button组件</h3>

@@ -9,15 +9,15 @@ class Histogram extends Component {
 	static defaultProps = {
 		width: 1000,
 		height: 300,
-		margin: 64,
-		left: 40,
+		margin: {top:32,bottom:32,left:40,right:20},
+		// left: 40,
 		tickSize: 3,
 		tickFormat: '.0s',
 		delta: 1
 	}
-	render({ data, margin, width, height, left, tickSize, tickFormat, delta }) {
-		const dWidth = width - margin
-		const dHeight = height - margin
+	render({ data, margin, width, height, tickSize, tickFormat, delta }) {
+		const dWidth = width - margin.left-margin.right
+		const dHeight = height - margin.top - margin.bottom
 		const scaleX = d3.scale.linear()
 			.domain([0, 120])
 			.range([0, dWidth])
@@ -40,7 +40,8 @@ class Histogram extends Component {
 					class={axisx}
 					textAnchor="middle"
 					unit={'ms'}
-					transform={"translate(" + left + "," + (dHeight + margin / 2) + ")"} />
+					margin={margin}
+					transform={"translate(" + margin.left + "," + (dHeight + margin.top) + ")"} />
 				<Axis
 					type='y'
 					dataKey="value"
@@ -52,13 +53,13 @@ class Histogram extends Component {
 					tickSize={tickSize}
 					tickFormat={tickFormat}
 					textAnchor="end"
-					transform={"translate(" + left + "," + (margin / 2) + ")"} />
+					transform={"translate(" + margin.left + "," + margin.top + ")"} />
 				<g class={styles.graph}>
 					{data.map(d => {
 						return (<rect
 							width={dWidth / data.length - delta}
 							height={dHeight - scaleY(d.value)}
-							transform={"translate(" + (scaleX(d.key) + left) + "," + (scaleY(d.value) + margin / 2) + ")"}
+							transform={"translate(" + (scaleX(d.key) + margin.left) + "," + (scaleY(d.value) + margin.top) + ")"}
 							fill={color(d.value)}>
 						</rect>
 						)

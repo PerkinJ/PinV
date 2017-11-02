@@ -3,6 +3,7 @@ import styles from './Button.less'
 import classNames from 'classnames/bind'
 let cx = classNames.bind(styles)
 
+const prefix = 'pinvButton'
 class Button extends Component {
 	static defaultProps = {
 		size: 'default',
@@ -24,7 +25,6 @@ class Button extends Component {
 			disabled,
 			children,
 			style } = this.props
-		const prefix = 'pinvButton'
 		let classes = cx(
 			[
 				prefix,
