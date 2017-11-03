@@ -30,7 +30,7 @@ class Histogram extends Component {
 			axisy = cx('axis', 'y')
 		let color = d3.scale.category10()
 		return (
-			<svg width={width} height={height}>
+			<svg width={width+100} height={height}>
 				<Axis
 					type="x"
 					dataKey={XAxis}
@@ -40,7 +40,6 @@ class Histogram extends Component {
 					orient="bottom"
 					class={axisx}
 					textAnchor="middle"
-					unit={'ms'}
 					transform={"translate(" + padding.left + "," + (dHeight + padding.top) + ")"} />
 				<Axis
 					type='y'
@@ -57,9 +56,9 @@ class Histogram extends Component {
 				<g class={styles.graph}>
 					{data.map(d => {
 						return (<rect
-							width={dWidth / data.length - delta}
+							width={dWidth / data.length}
 							height={dHeight - scaleY(d.value)}
-							transform={"translate(" + (scaleX(d.key) + padding.left) + "," + (scaleY(d.value) + padding.top) + ")"}
+							transform={"translate(" + (scaleX(d.key) + padding.left +10) + "," + (scaleY(d.value) + padding.top ) + ")"}
 							fill={color(d.value)}>
 						</rect>
 						)

@@ -35,6 +35,7 @@ export default class Home extends Component {
 		this.setState({ data: randomDataSet() })
 	}
 	render() {
+		console.log(data1)
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>

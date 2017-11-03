@@ -38,9 +38,10 @@ class Axis extends Component {
 		}
 	}
 	render({ data,orient = 'bottom', tickSize = null, textAnchor, unit, tickFormat = '', type = 'x', length, domain, hide = false, ...props }) {
-		let path = orient === "bottom" ? `M0.5,6V0.5H${length}V6` : `M-6,${length}H0.5V0.5H-6`
 		let scale = type === 'x' ? this.getScaleX(length, domain) : this.getScaleY(length, domain)
-		let ticks = scale.ticks(tickSize)
+		let ticks = type === 'x' ?scale.ticks(data.length):scale.ticks(tickSize)
+		let delta = length/ticks.length
+		let path = orient === "bottom" ? `M0.5,6V0.5H${length+1.5*delta}V6` : `M-6,${length}H0.5V0.5H-6`
 		return (
 			<g {...props} fill="none">
 				<path class={hide ? styles.hidden : styles.show} stroke={props.stroke} d={path}></path>
@@ -48,7 +49,7 @@ class Axis extends Component {
 					let space = scale(d)
 					if (orient === "bottom") {
 						return (
-							<g class={styles.tick} opacity="1" transform={`translate( ${space},0)`}>
+							<g class={styles.tick} opacity="1" transform={`translate( ${space+delta/2+10},0)`}>
 								<line stroke="#000" y2="6"></line>
 								<text text-anchor={textAnchor} fill="#000" y="9" dy="0.71em">{d}{unit}</text>
 							</g>
