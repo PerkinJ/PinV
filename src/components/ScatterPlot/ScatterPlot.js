@@ -5,33 +5,33 @@ import XYAxis from './x-y-axis'
 import Axis from '../Axis'
 import styles from './index.less'
 // 从数据集中返回最大的 X 坐标
-const xMax = (data,key) => d3.max(data, (d) => d[key])
+const xMax = (data, key) => d3.max(data, (d) => d[key])
 
 // 从数据集返回最大的 Y 坐标
-const yMax = (data,key) => d3.max(data, (d) => d[key])
+const yMax = (data, key) => d3.max(data, (d) => d[key])
 
 // 返回将数据缩放X坐标以适合图表的函数
 const xScale = (props) => {
-	let {padding,data,XAxis,width} = props
+	let { padding, data, XAxis, width } = props
 	return d3.scale.linear()
-		.domain([0, xMax(data,XAxis)])
+		.domain([0, xMax(data, XAxis)])
 		.range([padding.left, width - padding.left])
 }
 // const quantize = d3.scale.quantize().domain([500,0]).range(['#888','#666','#444','#333','#000'])
 // 返回将数据缩放Y坐标以适合图表的函数
 const yScale = (props) => {
-	let {data,YAxis,height,padding} = props
+	let { data, YAxis, height, padding } = props
 	return d3.scale.linear()
-		.domain([0, yMax(data,YAxis)])
+		.domain([0, yMax(data, YAxis)])
 		.range([height - padding.top - padding.bottom, padding.top])
 }
 
 export default (props) => {
 	const scales = { xScale: xScale(props), yScale: yScale(props) }
-	let { width,height,padding,data,tickSize = 5} = props
-	let dWidth = width-padding.left-padding.right,
-			dHeight = height - padding.top - padding.bottom
-	return <svg width={width + padding.left +padding.right } height={height + padding.top + padding.bottom}>
+	let { width, height, padding, data, tickSize = 5 } = props
+	let dWidth = width - padding.left - padding.right,
+		dHeight = height - padding.top - padding.bottom
+	return <svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
 		{/*<XYAxis  {...props} {...scales} />*/}
 		<Axis
 			hidden={false}
