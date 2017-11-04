@@ -7,30 +7,31 @@ let cx = classNames.bind(styles)
 const padding = 20
 class Histogram extends Component {
 	static defaultProps = {
-		width: 1000,
+		width: 600,
 		height: 400,
-		padding: {top:32,bottom:32,left:40,right:20},
+		padding: { top: 32, bottom: 32, left: 40, right: 20 },
 		// left: 40,
 		tickSize: 5,
 		tickFormat: '',
 		delta: 1,
 	}
-	render({ data, padding, width, height, XAxis,YAxis,tickSize, tickFormat, delta }) {
-		let dWidth = width - padding.left-padding.right,
+	render({ data, padding, width, height, XAxis, YAxis, tickSize, tickFormat, delta }) {
+		let dWidth = width - padding.left - padding.right,
 			dHeight = height - padding.top - padding.bottom
 		let xDomain = d3.max(data, function (d) { return d[XAxis] }),
-			yDomain = d3.max(data,function(d){ return d[YAxis]})
+			yDomain = d3.max(data, function (d) { return d[YAxis] })
 		let scaleX = d3.scale.linear()
 			.domain([0, xDomain])
 			.range([0, dWidth])
 		let scaleY = d3.scale.linear()
 			.domain([0, yDomain])
-			.range([dHeight, 0])
+			.range([dHeight, padding.bottom])
 		let axisx = cx('axis', 'x'),
 			axisy = cx('axis', 'y')
 		let color = d3.scale.category10()
+
 		return (
-			<svg width={width+100} height={height}>
+			<svg width={width + padding.left +padding.right} height={height + padding.top + padding.bottom}>
 				<Axis
 					type="x"
 					dataKey={XAxis}
@@ -55,10 +56,11 @@ class Histogram extends Component {
 					transform={"translate(" + padding.left + "," + padding.top + ")"} />
 				<g class={styles.graph}>
 					{data.map(d => {
+						let width = dWidth / data.length
 						return (<rect
-							width={dWidth / data.length}
+							width={width}
 							height={dHeight - scaleY(d.value)}
-							transform={"translate(" + (scaleX(d.key) + padding.left +10) + "," + (scaleY(d.value) + padding.top ) + ")"}
+							transform={"translate(" + (scaleX(d.key) + padding.left) + "," + (scaleY(d.value) + padding.top) + ")"}
 							fill={color(d.value)}>
 						</rect>
 						)

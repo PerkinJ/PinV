@@ -20,7 +20,7 @@ const styles = {
 	height: 400,
 	padding: 30,
 }
-const data1 = d3.range(0, 100, 10)
+const data1 = d3.range(0, 100, 5)
 	.map(key => ({
 		key:key,
 		value: 10 + Math.random() * 40
@@ -35,13 +35,18 @@ export default class Home extends Component {
 		this.setState({ data: randomDataSet() })
 	}
 	render() {
-		console.log(data1)
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
 				<div class={style.control}>
 					<h3>散点图组件</h3>
-					<ScatterPlot {...this.state} {...styles} />
+					<ScatterPlot
+						XAxis="key"
+						YAxis="value"
+						data={data1}
+						width={500}
+						height={300}
+						padding={{top:32,bottom:32,left:30,right:20}} />
 				</div>
 				<div class={style.control}>
 					<h3>直方图组件</h3>

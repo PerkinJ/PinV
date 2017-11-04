@@ -5,54 +5,57 @@ import XYAxis from './x-y-axis'
 import Axis from '../Axis'
 import styles from './index.less'
 // 从数据集中返回最大的 X 坐标
-const xMax = (data) => d3.max(data, (d) => d[0])
+const xMax = (data,key) => d3.max(data, (d) => d[key])
 
 // 从数据集返回最大的 Y 坐标
-const yMax = (data) => d3.max(data, (d) => d[1])
+const yMax = (data,key) => d3.max(data, (d) => d[key])
 
 // 返回将数据缩放X坐标以适合图表的函数
 const xScale = (props) => {
+	let {padding,data,XAxis,width} = props
 	return d3.scale.linear()
-		.domain([0, xMax(props.data)])
-		.range([props.padding, props.width - props.padding * 2])
+		.domain([0, xMax(data,XAxis)])
+		.range([padding.left, width - padding.left])
 }
 // const quantize = d3.scale.quantize().domain([500,0]).range(['#888','#666','#444','#333','#000'])
 // 返回将数据缩放Y坐标以适合图表的函数
 const yScale = (props) => {
+	let {data,YAxis,height,padding} = props
 	return d3.scale.linear()
-		.domain([0, yMax(props.data)])
-		.range([props.height - props.padding, props.padding])
+		.domain([0, yMax(data,YAxis)])
+		.range([height - padding.top - padding.bottom, padding.top])
 }
-const data = d3.range(0, 120, 15)
-	.map(key => ({
-		key,
-		value: 500 + Math.random() * 1500
-	}))
+
 export default (props) => {
 	const scales = { xScale: xScale(props), yScale: yScale(props) }
-	return <svg width={props.width} height={props.height}>
-		<XYAxis {...props} {...scales} />
+	let { width,height,padding,data,tickSize = 5} = props
+	let dWidth = width-padding.left-padding.right,
+			dHeight = height - padding.top - padding.bottom
+	return <svg width={width + padding.left +padding.right } height={height + padding.top + padding.bottom}>
+		{/*<XYAxis  {...props} {...scales} />*/}
 		<Axis
 			hidden={false}
 			type="x"
 			dataKey="key"
 			data={data}
-			length={props.width}
+			length={dWidth}
 			orient="bottom"
+			stroke="#673ab7"
 			textAnchor="middle"
 			class={styles.axis}
-			transform={"translate( 15,380)"} />
+			transform={"translate(" + padding.left + "," + (height - padding.top) + ")"} />
 		<Axis
 			hidden={false}
 			type="y"
 			dataKey="value"
 			data={data}
-			length={props.height}
+			length={dHeight}
 			orient="left"
+			tickSize={tickSize}
+			stroke="#673ab7"
 			textAnchor="middle"
 			class={styles.axis}
-			transform={"translate( 15,0)"} />
-
+			transform={"translate(" + padding.left + "," + padding.top + ")"} />
 		<DataCircles {...props} {...scales} />
 	</svg>
 }
