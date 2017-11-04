@@ -42,7 +42,6 @@ class Axis extends Component {
 		let ticks = type === 'x' ?scale.ticks(data.length):scale.ticks(tickSize)
 		let delta = Number(length/ticks.length)
 		let path = orient === "bottom" ? `M0.5,6V0.5H${length+1.5*delta}V6` : `M-6,${length}H0.5V0.5H-6`
-		console.log('path',path)
 		return (
 			<g {...props} fill="none">
 				<path class={hide ? styles.hidden : styles.show} stroke={props.stroke} d={path}></path>

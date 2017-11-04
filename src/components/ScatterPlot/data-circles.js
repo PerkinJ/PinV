@@ -2,7 +2,6 @@ import { h } from 'preact'
 
 const renderCircles = (props) => {
 	return (coords, index) => {
-		console.log(props)
 		let delta = props.width / props.data.length
 		const circleProps = {
 			cx: props.xScale(coords[props.XAxis]) + delta/2,

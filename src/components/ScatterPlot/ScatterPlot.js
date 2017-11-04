@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import { h,Component } from 'preact'
 import d3 from 'd3'
 import DataCircles from './data-circles'
 import XYAxis from './x-y-axis'
@@ -25,37 +25,50 @@ const yScale = (props) => {
 		.domain([0, yMax(data, YAxis)])
 		.range([height - padding.top - padding.bottom, padding.top])
 }
-
-export default (props) => {
-	const scales = { xScale: xScale(props), yScale: yScale(props) }
-	let { width, height, padding, data, tickSize = 5 } = props
-	let dWidth = width - padding.left - padding.right,
-		dHeight = height - padding.top - padding.bottom
-	return <svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
-		{/*<XYAxis  {...props} {...scales} />*/}
-		<Axis
-			hidden={false}
-			type="x"
-			dataKey="key"
-			data={data}
-			length={dWidth}
-			orient="bottom"
-			stroke="#673ab7"
-			textAnchor="middle"
-			class={styles.axis}
-			transform={"translate(" + padding.left + "," + (height - padding.top) + ")"} />
-		<Axis
-			hidden={false}
-			type="y"
-			dataKey="value"
-			data={data}
-			length={dHeight}
-			orient="left"
-			tickSize={tickSize}
-			stroke="#673ab7"
-			textAnchor="middle"
-			class={styles.axis}
-			transform={"translate(" + padding.left + "," + padding.top + ")"} />
-		<DataCircles {...props} {...scales} />
-	</svg>
+class ScatterPlot extends Component{
+	static defaultProps = {
+		width: 600,
+		height: 400,
+		padding: { top: 32, bottom: 32, left: 20, right: 20 },
+		// left: 40,
+		tickSize: 5,
+		tickFormat: '',
+		stroke:'#673ab7'
+	}
+	render(props){
+		const scales = { xScale: xScale(props), yScale: yScale(props) }
+		let { width, height, padding, data, tickSize = 5,tickFormat,stroke } = props
+		let dWidth = width - padding.left - padding.right,
+			dHeight = height - padding.top - padding.bottom
+		return <svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
+			{/*<XYAxis  {...props} {...scales} />*/}
+			<Axis
+				hidden={false}
+				type="x"
+				dataKey="key"
+				data={data}
+				length={dWidth}
+				orient="bottom"
+				stroke={stroke}
+				textAnchor="middle"
+				class={styles.axis}
+				transform={"translate(" + padding.left + "," + (height - padding.top) + ")"} />
+			<Axis
+				hidden={false}
+				type="y"
+				dataKey="value"
+				data={data}
+				length={dHeight}
+				orient="left"
+				tickSize={tickSize}
+				tickFormat={tickFormat}
+				textAnchor="end"
+				stroke={stroke}
+				textAnchor="middle"
+				class={styles.axis}
+				transform={"translate(" + padding.left + "," + padding.top + ")"} />
+			<DataCircles {...props} {...scales} />
+		</svg>
+	}
 }
+export default ScatterPlot

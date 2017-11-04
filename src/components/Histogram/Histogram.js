@@ -4,18 +4,17 @@ import Axis from '../Axis'
 import styles from './index.less'
 import classNames from 'classnames/bind'
 let cx = classNames.bind(styles)
-const padding = 20
 class Histogram extends Component {
 	static defaultProps = {
 		width: 600,
 		height: 400,
-		padding: { top: 32, bottom: 32, left: 40, right: 20 },
+		padding: { top: 32, bottom: 32, left: 20, right: 20 },
 		// left: 40,
 		tickSize: 5,
 		tickFormat: '',
-		delta: 1,
+		stroke:'#673ab7'
 	}
-	render({ data, padding, width, height, XAxis, YAxis, tickSize, tickFormat, delta }) {
+	render({ data, padding, width, height, XAxis, YAxis, tickSize, tickFormat,stroke }) {
 		let dWidth = width - padding.left - padding.right,
 			dHeight = height - padding.top - padding.bottom
 		let xDomain = d3.max(data, function (d) { return d[XAxis] }),
@@ -37,7 +36,7 @@ class Histogram extends Component {
 					dataKey={XAxis}
 					data={data}
 					length={dWidth}
-					stroke="#673ab7"
+					stroke={stroke}
 					orient="bottom"
 					class={axisx}
 					textAnchor="middle"
@@ -47,7 +46,7 @@ class Histogram extends Component {
 					dataKey={YAxis}
 					length={dHeight}
 					data={data}
-					stroke="#673ab7"
+					stroke={stroke}
 					orient="left"
 					class={axisy}
 					tickSize={tickSize}
