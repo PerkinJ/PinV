@@ -1,13 +1,13 @@
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import autoprefixer from 'autoprefixer';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import OfflinePlugin from 'offline-plugin';
-import path from 'path';
-const ENV = process.env.NODE_ENV || 'development';
+import webpack from 'webpack'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import autoprefixer from 'autoprefixer'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import OfflinePlugin from 'offline-plugin'
+import path from 'path'
+const ENV = process.env.NODE_ENV || 'development'
 
-const CSS_MAPS = ENV!=='production';
+const CSS_MAPS = ENV!=='production'
 
 module.exports = {
 	context: path.resolve(__dirname, "src"),
@@ -63,7 +63,7 @@ module.exports = {
 							options: {
 								sourceMap: CSS_MAPS,
 								plugins: () => {
-									autoprefixer({ browsers: [ 'last 2 versions' ] });
+									autoprefixer({ browsers: [ 'last 2 versions' ] })
 								}
 							}
 						},
@@ -89,7 +89,7 @@ module.exports = {
 							options: {
 								sourceMap: CSS_MAPS,
 								plugins: () => {
-									autoprefixer({ browsers: [ 'last 2 versions' ] });
+									autoprefixer({ browsers: [ 'last 2 versions' ] })
 								}
 							}
 						},
@@ -210,4 +210,4 @@ module.exports = {
 			// }
 		}
 	}
-};
+}
