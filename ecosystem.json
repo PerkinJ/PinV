@@ -1,0 +1,26 @@
+{
+	"apps":{
+		"name":"PinV",
+		"script":"npm start",
+		"env":{
+			"COMMON_VARIABLE":"true"
+		},
+		"env_production":{
+			"NODE_ENV":"production"
+		}
+	},
+	"deploy":{
+		"production":{
+			"user":"perkin",
+			"host":["123.56.3.23"],
+			"ref":"origin/master",
+			"repo":"git@github.com:PerkinJ/PinV.git",
+			"path":"/www/PinV/production",
+			"ssh_options":"StrictHostKeyChecking=no",
+			"post-deploy":"npm install --registry=https://registry.npm.taobao.org && pm2 startOrRestart ecosystem.json --env production",
+			"env":{
+				"NODE_ENV":"production"
+			}
+		}
+	}
+}

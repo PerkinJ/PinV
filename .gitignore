@@ -3,4 +3,3 @@ npm-debug*
 /build
 .DS_Store
 .idea
-ecosystem.json
