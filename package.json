@@ -1,7 +1,7 @@
 {
-  "name": "preact-boilerplate",
-  "version": "6.0.0",
-  "description": "Ready-to-go Preact starter project powered by webpack.",
+  "name": "PinV",
+  "version": "1.0.0",
+  "description": "PinV project powered by webpack.",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
     "start": "serve build -s -c 1",
@@ -89,7 +89,6 @@
     "webpack-dev-server": "^2.4.4"
   },
   "dependencies": {
-    "classname": "^0.0.0",
     "classnames": "^2.2.5",
     "d3": "^3.5.16",
     "express": "^4.16.2",
