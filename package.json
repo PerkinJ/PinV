@@ -10,7 +10,8 @@
     "prebuild": "mkdirp build && ncp src/assets build/assets",
     "test": "npm run -s lint && jest --coverage",
     "test:watch": "npm run -s test -- --watch",
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "deploy":"pm2 deploy ecosystem.json production"
   },
   "keywords": [
     "preact",
