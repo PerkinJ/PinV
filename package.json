@@ -91,6 +91,8 @@
     "classname": "^0.0.0",
     "classnames": "^2.2.5",
     "d3": "^3.5.16",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
     "preact": "^8.1.0",
     "preact-compat": "^3.15.0",
     "preact-render-to-string": "^3.6.0",
