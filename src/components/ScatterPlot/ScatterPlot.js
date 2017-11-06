@@ -1,7 +1,6 @@
 import { h,Component } from 'preact'
 import d3 from 'd3'
 import DataCircles from './data-circles'
-import XYAxis from './x-y-axis'
 import Axis from '../Axis'
 import styles from './index.less'
 // 从数据集中返回最大的 X 坐标
@@ -38,7 +37,7 @@ class ScatterPlot extends Component{
 	render(props){
 		const scales = { xScale: xScale(props), yScale: yScale(props) }
 		let { width, height, padding, data, tickSize = 5,tickFormat,stroke } = props
-		let dWidth = width - padding.left - padding.right,
+		let dWidth = width - padding.left - padding.right -data.length/2,  // 这里要减去每个circle的半径
 			dHeight = height - padding.top - padding.bottom
 		return <svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
 			{/*<XYAxis  {...props} {...scales} />*/}
@@ -64,7 +63,6 @@ class ScatterPlot extends Component{
 				tickFormat={tickFormat}
 				textAnchor="end"
 				stroke={stroke}
-				textAnchor="middle"
 				class={styles.axis}
 				transform={"translate(" + padding.left + "," + padding.top + ")"} />
 			<DataCircles {...props} {...scales} />
