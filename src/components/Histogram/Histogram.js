@@ -1,5 +1,5 @@
 import { h, Component } from 'preact'
-import d3 from 'd3'
+import * as d3 from 'd3'
 import Axis from '../Axis'
 import styles from './index.less'
 import classNames from 'classnames/bind'
@@ -19,15 +19,15 @@ class Histogram extends Component {
 			dHeight = height - padding.top - padding.bottom
 		let xDomain = d3.max(data, (d) => d[XAxis]),
 			yDomain = d3.max(data, (d) => d[YAxis])
-		let scaleX = d3.scale.linear()
+		let scaleX = d3.scaleLinear()
 			.domain([0, xDomain])
 			.range([0, dWidth])
-		let scaleY = d3.scale.linear()
+		let scaleY = d3.scaleLinear()
 			.domain([0, yDomain])
 			.range([dHeight, padding.bottom])
 		let axisx = cx('axis', 'x'),
 			axisy = cx('axis', 'y')
-		let color = d3.scale.category10()
+		let color = d3.scaleOrdinal(d3.schemeCategory10)
 
 		return (
 			<svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
