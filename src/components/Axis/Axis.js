@@ -1,5 +1,5 @@
 import { h, Component } from 'preact'
-import d3 from 'd3'
+import * as d3 from 'd3'
 import styles from './index.less'
 
 
@@ -15,7 +15,7 @@ class Axis extends Component {
 			if (!data) console.error("you didn't add data")
 			if (!dataKey) console.error("you didn't add dataKey")
 			let xDomian = d3.max(data, function (d) { return d[dataKey] })
-			return d3.scale.linear()
+			return d3.scaleLinear()
 				.domain([0, xDomian])
 				.range([0, length])
 		}
@@ -32,7 +32,7 @@ class Axis extends Component {
 			if (!data) console.error("you didn't add data")
 			if (!dataKey) console.error("you didn't add dataKey")
 			let yDomain = 1.2 * d3.max(data, function (d) { return d[dataKey] })
-			return d3.scale.linear()
+			return d3.scaleLinear()
 				.domain([yDomain, 0])
 				.range([0, length])
 		}

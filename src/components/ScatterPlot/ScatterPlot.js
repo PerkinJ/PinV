@@ -1,5 +1,5 @@
 import { h,Component } from 'preact'
-import d3 from 'd3'
+import * as d3 from 'd3'
 import DataCircles from './data-circles'
 import Axis from '../Axis'
 import styles from './index.less'
@@ -12,7 +12,7 @@ const yMax = (data, key) => d3.max(data, (d) => d[key])
 // 返回将数据缩放X坐标以适合图表的函数
 const xScale = (props) => {
 	let { padding, data, XAxis, width } = props
-	return d3.scale.linear()
+	return d3.scaleLinear()
 		.domain([0, xMax(data, XAxis)])
 		.range([padding.left, width - padding.left])
 }
@@ -20,7 +20,7 @@ const xScale = (props) => {
 // 返回将数据缩放Y坐标以适合图表的函数
 const yScale = (props) => {
 	let { data, YAxis, height, padding } = props
-	return d3.scale.linear()
+	return d3.scaleLinear()
 		.domain([0, yMax(data, YAxis)])
 		.range([height - padding.top - padding.bottom, padding.top])
 }
