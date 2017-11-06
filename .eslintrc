@@ -27,7 +27,7 @@
     "sleep": 1
   },
   "rules": {
-    "react/jsx-no-bind": [2, { "ignoreRefs": true }],
+    "react/jsx-no-bind": [0, { "ignoreRefs": true }],
     "react/jsx-no-duplicate-props": 2,
     "react/self-closing-comp": 2,
     "react/prefer-es6-class": 2,
@@ -60,7 +60,7 @@
     "no-new-func": 2,
     "guard-for-in": 2,
     "eqeqeq": 1,
-    "no-else-return": 2,
+    "no-else-return": 0,
     "no-redeclare": 2,
     "no-dupe-keys": 2,
     "radix": 2,
@@ -80,6 +80,6 @@
     "no-useless-concat": 2,
     "no-var": 2,
     "object-shorthand": 2,
-    "prefer-arrow-callback": 2
+    "prefer-arrow-callback": 1
   }
 }

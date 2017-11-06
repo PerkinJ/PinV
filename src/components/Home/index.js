@@ -15,15 +15,11 @@ const randomDataSet = () => {
 const randomizeData = () => {
 	return { data: randomDataSet() }
 }
-const styles = {
-	width: 500,
-	height: 400,
-	padding: 30,
-}
+
 const data1 = d3.range(0, 100, 5)
 	.map(key => ({
 		key:key,
-		value: 10 + Math.random() * 40
+		value: Math.random() * 80
 	}))
 
 export default class Home extends Component {

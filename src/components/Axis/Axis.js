@@ -44,20 +44,20 @@ class Axis extends Component {
 		let path = orient === "bottom" ? `M0.5,6V0.5H${length+1.5*delta}V6` : `M-6,${length}H0.5V0.5H-6`
 		return (
 			<g {...props} fill="none">
-				<path class={hide ? styles.hidden : styles.show} stroke={props.stroke} d={path}></path>
+				<path class={hide ? styles.hidden : styles.show} stroke={props.stroke} d={path} />
 				{ticks.map(d => {
 					let space = scale(d)
 					if (orient === "bottom") {
 						return (
 							<g class={styles.tick} opacity="1" transform={`translate( ${space+delta/2},0)`}>
-								<line stroke="#000" y2="6"></line>
+								<line stroke="#000" y2="6" />
 								<text text-anchor={textAnchor} fill="#000" y="9" dy="0.71em">{d}{unit}</text>
 							</g>
 						)
 					} else {
 						return (
 							<g class={styles.tick} opacity="1" transform={`translate(0,${space} )`}>
-								<line stroke="#000" x2="-6"></line>
+								<line stroke="#000" x2="-6" />
 								<text text-anchor={textAnchor} fill="#000" x="-9" dy="0.32em">{d3.format(tickFormat)(d)}{unit}</text>
 							</g>
 						)

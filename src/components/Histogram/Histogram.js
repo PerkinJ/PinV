@@ -12,13 +12,13 @@ class Histogram extends Component {
 		// left: 40,
 		tickSize: 5,
 		tickFormat: '',
-		stroke:'#673ab7'
+		stroke: '#673ab7'
 	}
-	render({ data, padding, width, height, XAxis, YAxis, tickSize, tickFormat,stroke }) {
+	render({ data, padding, width, height, XAxis, YAxis, tickSize, tickFormat, stroke }) {
 		let dWidth = width - padding.left - padding.right,
 			dHeight = height - padding.top - padding.bottom
-		let xDomain = d3.max(data, function (d) { return d[XAxis] }),
-			yDomain = d3.max(data, function (d) { return d[YAxis] })
+		let xDomain = d3.max(data, (d) => d[XAxis]),
+			yDomain = d3.max(data, (d) => d[YAxis])
 		let scaleX = d3.scale.linear()
 			.domain([0, xDomain])
 			.range([0, dWidth])
@@ -30,7 +30,7 @@ class Histogram extends Component {
 		let color = d3.scale.category10()
 
 		return (
-			<svg width={width + padding.left +padding.right} height={height + padding.top + padding.bottom}>
+			<svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
 				<Axis
 					type="x"
 					dataKey={XAxis}
@@ -60,8 +60,7 @@ class Histogram extends Component {
 							width={width}
 							height={dHeight - scaleY(d.value)}
 							transform={"translate(" + (scaleX(d.key) + padding.left) + "," + (scaleY(d.value) + padding.top) + ")"}
-							fill={color(d.value)}>
-						</rect>
+							fill={color(d.value)} />
 						)
 					})}
 				</g>
