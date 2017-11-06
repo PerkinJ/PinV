@@ -5,7 +5,7 @@ import ScatterPlot from '../ScatterPlot'
 import Button from '../Button'
 import Input from '../Input'
 import Histogram from '../Histogram'
-import d3 from 'd3'
+import * as d3 from 'd3'
 const numDataPoints = 50
 const randomNum = () => Math.floor(Math.random() * 1000)
 const randomDataSet = () => {
@@ -18,7 +18,7 @@ const randomizeData = () => {
 
 const data1 = d3.range(0, 100, 5)
 	.map(key => ({
-		key:key,
+		key,
 		value: Math.random() * 80
 	}))
 

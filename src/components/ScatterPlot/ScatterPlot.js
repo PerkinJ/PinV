@@ -40,7 +40,6 @@ class ScatterPlot extends Component{
 		let dWidth = width - padding.left - padding.right -data.length/2,  // 这里要减去每个circle的半径
 			dHeight = height - padding.top - padding.bottom
 		return <svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
-			{/*<XYAxis  {...props} {...scales} />*/}
 			<Axis
 				hidden={false}
 				type="x"
@@ -51,7 +50,7 @@ class ScatterPlot extends Component{
 				stroke={stroke}
 				textAnchor="middle"
 				class={styles.axis}
-				transform={"translate(" + padding.left + "," + (height - padding.top) + ")"} />
+				transform={`translate(${padding.left},${height - padding.top} )`} />
 			<Axis
 				hidden={false}
 				type="y"
@@ -64,7 +63,7 @@ class ScatterPlot extends Component{
 				textAnchor="end"
 				stroke={stroke}
 				class={styles.axis}
-				transform={"translate(" + padding.left + "," + padding.top + ")"} />
+				transform={`translate(${padding.left},${padding.top})`} />
 			<DataCircles {...props} {...scales} />
 		</svg>
 	}

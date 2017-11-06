@@ -40,7 +40,7 @@ class Histogram extends Component {
 					orient="bottom"
 					class={axisx}
 					textAnchor="middle"
-					transform={"translate(" + padding.left + "," + (dHeight + padding.top) + ")"} />
+					transform={`translate(${padding.left},${dHeight + padding.top})`} />
 				<Axis
 					type='y'
 					dataKey={YAxis}
@@ -52,14 +52,14 @@ class Histogram extends Component {
 					tickSize={tickSize}
 					tickFormat={tickFormat}
 					textAnchor="end"
-					transform={"translate(" + padding.left + "," + padding.top + ")"} />
+					transform={`translate(${padding.left} ,${padding.top})`} />
 				<g class={styles.graph}>
 					{data.map(d => {
 						let width = dWidth / data.length
 						return (<rect
 							width={width}
 							height={dHeight - scaleY(d.value)}
-							transform={"translate(" + (scaleX(d.key) + padding.left) + "," + (scaleY(d.value) + padding.top) + ")"}
+							transform={`translate(${scaleX(d.key) + padding.left},${scaleY(d.value) + padding.top})`}
 							fill={color(d.value)} />
 						)
 					})}
