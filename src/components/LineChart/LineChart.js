@@ -2,6 +2,7 @@ import { h,Component } from 'preact'
 import * as d3 from 'd3'
 import Axis from '../Axis'
 import styles from './index.less'
+import DataCircles from '../ScatterPlot/data-circles'
 
 class LineChart extends Component{
 	static defaultProps = {
@@ -12,7 +13,9 @@ class LineChart extends Component{
 		tickSize: 5,
 		tickFormat: '',
 		stroke:'#673ab7',
-		shape:'curveCardinal'
+		shape:'curveCardinal',
+		r:2,
+		color:'rgb(255,0,0)'
 	}
 	render(props){
 		let { width, height, padding, data, XAxis, YAxis, tickSize = 5,tickFormat,stroke,shape } = props
@@ -58,6 +61,13 @@ class LineChart extends Component{
 				class={styles.axis}
 				transform={`translate(${padding.left},${padding.top})`} />
 			<path  stroke={stroke} fill="none" d={linePath(data)} transform={`translate(${padding.left +10},${padding.top})`}/>
+			<g transform={`translate(${padding.left - props.r},0)`} >
+				<DataCircles
+					xScale={scaleX}
+					yScale={scaleY}
+					{...props}
+				/>
+			 </g>
 		</svg>
 	}
 }

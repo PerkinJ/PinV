@@ -1,21 +1,22 @@
 import { h } from 'preact'
 import * as d3 from 'd3'
-let hsl = d3.hsl(183,0.9,0.6)
-let minColor = hsl.brighter(),
-	maxColor= hsl.darker()
-let color = d3.interpolate(minColor,maxColor)
-// let color = d3.scaleOrdinal(d3.schemeCategory10)
+import { handleD3Color } from '../../utils/utils'
+
 
 const renderCircles = (props) => {
-	let max = 1.2*d3.max(props.data,(d)=>d.value)
+	let max = 1.2 * d3.max(props.data, (d) => d.value)
+	let colorVal = handleD3Color(props.color)
+	let minColor = colorVal.brighter(),
+		maxColor = colorVal.darker()
+	let color = d3.interpolate(minColor, maxColor)
 	return (coords, index) => {
 		let delta = props.width / props.data.length
 		const circleProps = {
-			cx: props.xScale(coords[props.XAxis]) + delta/2,
+			cx: props.xScale(coords[props.XAxis]) + delta / 2,
 			cy: props.yScale(coords[props.YAxis]),
-			r: 4,
+			r: props.r,
 			key: index,
-			fill:color(props.yScale(coords[props.YAxis])/max)
+			fill: color(props.yScale(coords[props.YAxis]) / max)
 		}
 		return <circle {...circleProps} />
 	}

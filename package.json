@@ -11,7 +11,8 @@
     "test": "npm run -s lint && jest --coverage",
     "test:watch": "npm run -s test -- --watch",
     "lint": "eslint src test",
-    "deploy": "pm2 deploy ecosystem.json production"
+    "deploy": "pm2 deploy ecosystem.json production",
+    "precommit":"npm run lint"
   },
   "keywords": [
     "preact",

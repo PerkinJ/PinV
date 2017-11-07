@@ -7,17 +7,8 @@ import Input from '../Input'
 import Histogram from '../Histogram'
 import LineChart from '../LineChart'
 import * as d3 from 'd3'
-const numDataPoints = 50
-const randomNum = () => Math.floor(Math.random() * 1000)
-const randomDataSet = () => {
-	return Array.apply(null, { length: numDataPoints }).map(() => [randomNum(), randomNum()])
-}
 
-const randomizeData = () => {
-	return { data: randomDataSet() }
-}
-
-const data1 = d3.range(0, 100, 5)
+const randomData = ()=> d3.range(0, 100, 5)
 	.map(key => ({
 		key,
 		value: Math.random() * 80
@@ -26,12 +17,14 @@ const data1 = d3.range(0, 100, 5)
 export default class Home extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { data: randomDataSet() }
+		this.state = { data:randomData()}
 	}
-	randomizeData() {
-		this.setState({ data: randomDataSet() })
+	randomizeData = ()=>{
+		this.setState({
+			data:randomData()
+		})
 	}
-	render() {
+	render({},{data}) {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
@@ -40,7 +33,7 @@ export default class Home extends Component {
 					<LineChart
 						XAxis="key"
 						YAxis="value"
-						data={data1}
+						data={data}
 						width={500}
 						height={300}
 						shape="curveCardinal"
@@ -51,7 +44,7 @@ export default class Home extends Component {
 					<ScatterPlot
 						XAxis="key"
 						YAxis="value"
-						data={data1}
+						data={data}
 						width={500}
 						height={300}
 						padding={{top:32,bottom:32,left:30,right:20}} />
@@ -62,7 +55,7 @@ export default class Home extends Component {
 						hidden={true}
 						XAxis="key"
 						YAxis="value"
-						data={data1}
+						data={data}
 						width={500}
 						height={300}
 						padding={{top:32,bottom:32,left:30,right:20}}
@@ -70,13 +63,13 @@ export default class Home extends Component {
 				</div>
 				<div style={{ width: '500px', textAlign: 'center' }} class={style.control}>
 					<h3>Button组件</h3>
-					<Button size="small" onClick={() => this.randomizeData()} type="primary">Randomize Data</Button>
-					<Button onClick={() => this.randomizeData()} type="primary">Randomize Data</Button>
-					<Button size="large" onClick={() => this.randomizeData()} type="primary">Randomize Data</Button>
+					<Button size="small" onClick={this.randomizeData} type="primary">Randomize Data</Button>
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+					<Button size="large" onClick={this.randomizeData} type="primary">Randomize Data</Button>
 					<br />
-					<Button onClick={() => this.randomizeData()} >Randomize Data</Button>
-					<Button type="ghost" onClick={() => this.randomizeData()} >Randomize Data</Button>
-					<Button type="danger" onClick={() => this.randomizeData()} >Randomize Data</Button>
+					<Button onClick={this.randomizeData} >Randomize Data</Button>
+					<Button type="ghost" onClick={this.randomizeData} >Randomize Data</Button>
+					<Button type="danger" onClick={this.randomizeData} >Randomize Data</Button>
 				</div>
 				<div style={{ width: '400px' }} class={style.control}>
 					<h3 style={{ textAlign: 'center' }}>Input组件</h3>

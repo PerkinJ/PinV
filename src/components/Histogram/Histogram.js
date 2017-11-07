@@ -2,8 +2,7 @@ import { h, Component } from 'preact'
 import * as d3 from 'd3'
 import Axis from '../Axis'
 import styles from './index.less'
-import classNames from 'classnames/bind'
-let cx = classNames.bind(styles)
+
 class Histogram extends Component {
 	static defaultProps = {
 		width: 600,

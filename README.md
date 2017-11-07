@@ -4,7 +4,11 @@
 
 a lightweight visualization component library based preact and d3
 
+### 一款基于preact+d3.js的轻量级组件库
+
+
 本项目基于[preact-boilerplate](https://github.com/developit/preact-boilerplate#css-modules)脚手架开发
+
 
 ### 项目开发规范
 - CSS Modules
@@ -17,4 +21,6 @@ a lightweight visualization component library based preact and d3
 - [x] Input组件
 
 可视化组件
-- [x] 散点图（目前坐标轴没有渲染出来，可能与css-modules有关）
+- [x] LineChart组件（折线图）
+- [x] ScatterPlot组件（散点图）
+- [x] Histogram组件（直方图）

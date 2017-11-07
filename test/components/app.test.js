@@ -9,7 +9,8 @@ describe('App', () => {
 
 	beforeAll( () => {
 		scratch = document.createElement('div')
-		(document.body || document.documentElement).appendChild(scratch)
+		let body = document.body || document.documentElement
+		body.appendChild(scratch)
 	})
 
 	beforeEach( () => {
