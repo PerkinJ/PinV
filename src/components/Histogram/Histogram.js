@@ -15,7 +15,7 @@ class Histogram extends Component {
 		stroke: '#673ab7'
 	}
 	render({ data, padding, width, height, XAxis, YAxis, tickSize, tickFormat, stroke }) {
-		let dWidth = width - padding.left - padding.right,
+		let dWidth = width - padding.left - padding.right -data.length/2,
 			dHeight = height - padding.top - padding.bottom
 		let xDomain = d3.max(data, (d) => d[XAxis]),
 			yDomain = d3.max(data, (d) => d[YAxis])
@@ -25,10 +25,7 @@ class Histogram extends Component {
 		let scaleY = d3.scaleLinear()
 			.domain([0, yDomain])
 			.range([dHeight, padding.bottom])
-		let axisx = cx('axis', 'x'),
-			axisy = cx('axis', 'y')
 		let color = d3.scaleOrdinal(d3.schemeCategory10)
-
 		return (
 			<svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
 				<Axis
@@ -38,7 +35,7 @@ class Histogram extends Component {
 					length={dWidth}
 					stroke={stroke}
 					orient="bottom"
-					class={axisx}
+					class={styles.axis}
 					textAnchor="middle"
 					transform={`translate(${padding.left},${dHeight + padding.top})`} />
 				<Axis
@@ -48,7 +45,7 @@ class Histogram extends Component {
 					data={data}
 					stroke={stroke}
 					orient="left"
-					class={axisy}
+					class={styles.axis}
 					tickSize={tickSize}
 					tickFormat={tickFormat}
 					textAnchor="end"

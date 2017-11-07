@@ -14,7 +14,7 @@ class Axis extends Component {
 			let { data, dataKey } = this.props
 			if (!data) console.error("you didn't add data")
 			if (!dataKey) console.error("you didn't add dataKey")
-			let xDomian = d3.max(data, function (d) { return d[dataKey] })
+			let xDomian = d3.max(data,(d)=> d[dataKey])
 			return d3.scaleLinear()
 				.domain([0, xDomian])
 				.range([0, length])
@@ -31,7 +31,7 @@ class Axis extends Component {
 			let { data, dataKey } = this.props
 			if (!data) console.error("you didn't add data")
 			if (!dataKey) console.error("you didn't add dataKey")
-			let yDomain = 1.2 * d3.max(data, function (d) { return d[dataKey] })
+			let yDomain = 1.2 * d3.max(data,(d)=>d[dataKey])
 			return d3.scaleLinear()
 				.domain([yDomain, 0])
 				.range([0, length])

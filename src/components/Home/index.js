@@ -5,6 +5,7 @@ import ScatterPlot from '../ScatterPlot'
 import Button from '../Button'
 import Input from '../Input'
 import Histogram from '../Histogram'
+import LineChart from '../LineChart'
 import * as d3 from 'd3'
 const numDataPoints = 50
 const randomNum = () => Math.floor(Math.random() * 1000)
@@ -34,6 +35,17 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
+				<div class={style.control}>
+					<h3>折线图组件</h3>
+					<LineChart
+						XAxis="key"
+						YAxis="value"
+						data={data1}
+						width={500}
+						height={300}
+						shape="curveCardinal"
+						padding={{top:32,bottom:32,left:30,right:20}} />
+				</div>
 				<div class={style.control}>
 					<h3>散点图组件</h3>
 					<ScatterPlot

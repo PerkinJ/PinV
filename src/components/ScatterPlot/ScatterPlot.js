@@ -36,14 +36,14 @@ class ScatterPlot extends Component{
 	}
 	render(props){
 		const scales = { xScale: xScale(props), yScale: yScale(props) }
-		let { width, height, padding, data, tickSize = 5,tickFormat,stroke } = props
+		let { width, height, padding, data, tickSize = 5,tickFormat,stroke, XAxis, YAxis,} = props
 		let dWidth = width - padding.left - padding.right -data.length/2,  // 这里要减去每个circle的半径
 			dHeight = height - padding.top - padding.bottom
 		return <svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
 			<Axis
 				hidden={false}
 				type="x"
-				dataKey="key"
+				dataKey={XAxis}
 				data={data}
 				length={dWidth}
 				orient="bottom"
@@ -54,7 +54,7 @@ class ScatterPlot extends Component{
 			<Axis
 				hidden={false}
 				type="y"
-				dataKey="value"
+				dataKey={YAxis}
 				data={data}
 				length={dHeight}
 				orient="left"
