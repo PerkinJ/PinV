@@ -6,6 +6,7 @@ import Button from '../Button'
 import Input from '../Input'
 import Histogram from '../Histogram'
 import LineChart from '../LineChart'
+import PieChart from '../PieChart'
 import * as d3 from 'd3'
 
 const randomData = ()=> d3.range(0, 100, 5)
@@ -28,6 +29,18 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
+				<div class={style.control}>
+					<h3>饼状图组件</h3>
+					<PieChart
+						width="500"
+						height="500"
+						size="500"
+						innerRadius={300}
+						textColor="red"
+						dataKey="sales"
+					/>
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+				</div>
 				<div class={style.control}>
 					<h3>折线图组件</h3>
 					<LineChart
