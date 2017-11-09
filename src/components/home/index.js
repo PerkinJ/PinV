@@ -15,6 +15,15 @@ const randomData = ()=> d3.range(0, 100, 5)
 		value: Math.random() * 80
 	}))
 
+const phoneData = [
+	{ name: 'apple', sales: 2000 },
+	{ name: 'huawei', sales: 1800 },
+	{ name: 'sansung', sales: 2200 },
+	{ name: 'xiaomi', sales: 1600 },
+	{ name: 'oppo', sales: 1700 },
+	{ name: 'vivo', sales: 2500 },
+	{ name: 'others', sales: 2100 }
+]
 export default class Home extends Component {
 	constructor(props) {
 		super(props)
@@ -32,6 +41,7 @@ export default class Home extends Component {
 				<div class={style.control}>
 					<h3>饼状图组件</h3>
 					<PieChart
+						data={phoneData}
 						width="500"
 						height="500"
 						size="500"
