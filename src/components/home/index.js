@@ -38,6 +38,7 @@ export default class Home extends Component {
 						height={300}
 						shape="curveCardinal"
 						padding={{top:32,bottom:32,left:30,right:20}} />
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div class={style.control}>
 					<h3>散点图组件</h3>
@@ -48,6 +49,7 @@ export default class Home extends Component {
 						width={500}
 						height={300}
 						padding={{top:32,bottom:32,left:30,right:20}} />
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div class={style.control}>
 					<h3>直方图组件</h3>
@@ -60,6 +62,7 @@ export default class Home extends Component {
 						height={300}
 						padding={{top:32,bottom:32,left:30,right:20}}
 					/>
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div style={{ width: '500px', textAlign: 'center' }} class={style.control}>
 					<h3>Button组件</h3>

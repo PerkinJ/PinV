@@ -34,6 +34,12 @@ class LineChart extends Component{
 			.x((d)=>scaleX(d[XAxis]))
 			.y((d)=>scaleY(d[YAxis]))
 			.curve(d3[shape])
+		const lineProps = {
+			stroke,
+			fill:'none',
+			d:linePath(data),
+			transform:`translate(${padding.left +10},${padding.top})`
+		}
 		   // v4与v3的区别 v3的interpolate不再使用  https://github.com/d3/d3-shape/blob/master/README.md#curves
 		return <svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
 			<Axis
@@ -60,7 +66,7 @@ class LineChart extends Component{
 				stroke={stroke}
 				class={styles.axis}
 				transform={`translate(${padding.left},${padding.top})`} />
-			<path  stroke={stroke} fill="none" d={linePath(data)} transform={`translate(${padding.left +10},${padding.top})`}/>
+			<path class={styles.line} {...lineProps}/>
 			<g transform={`translate(${padding.left - props.r},0)`} >
 				<DataCircles
 					xScale={scaleX}

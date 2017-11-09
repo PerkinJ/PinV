@@ -53,6 +53,7 @@ class Histogram extends Component {
 					{data.map(d => {
 						let width = dWidth / data.length
 						return (<rect
+							class={styles.rect}
 							width={width}
 							height={dHeight - scaleY(d.value)}
 							transform={`translate(${scaleX(d.key) + padding.left},${scaleY(d.value) + padding.top})`}
