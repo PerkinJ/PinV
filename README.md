@@ -21,6 +21,7 @@ a lightweight visualization component library based preact and d3
 - [x] Input组件
 
 可视化组件
+- [x] PieChart组件（饼状图）
 - [x] LineChart组件（折线图）
 - [x] ScatterPlot组件（散点图）
 - [x] Histogram组件（直方图）
