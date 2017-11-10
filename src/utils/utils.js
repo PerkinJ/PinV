@@ -12,6 +12,6 @@ export function handleD3Color(str) {
 
 // 颜色生成器
 export function colorGenerator(numberOfSteps) {
-	const colors = d3.range(numberOfSteps).map((index) => d3.hsl((360 / numberOfSteps) * index, 0.9, 0.94))
+	const colors = d3.range(numberOfSteps).map((index) => d3.hsl((360 / numberOfSteps) * index, 0.8, 0.64))
 	return (index) => colors[index]
 }

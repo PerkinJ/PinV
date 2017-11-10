@@ -21,7 +21,7 @@ const phoneData = [
 	{ name: 'sansung', sales: 2200 },
 	{ name: 'xiaomi', sales: 1600 },
 	{ name: 'oppo', sales: 1700 },
-	{ name: 'vivo', sales: 2500 },
+	{ name: 'vivo', sales: 1500 },
 	{ name: 'others', sales: 2100 }
 ]
 export default class Home extends Component {
@@ -44,10 +44,15 @@ export default class Home extends Component {
 						data={phoneData}
 						width="500"
 						height="500"
-						size="500"
-						innerRadius={300}
-						textColor="red"
+						innerRadius={0}
+						outerRadius={180}
+						textColor="#000"
 						dataKey="sales"
+						nameKey="name"
+						padAngle={0}
+						cornerRadius={0}
+						startAngle={0}
+						endAngle={1}
 					/>
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
