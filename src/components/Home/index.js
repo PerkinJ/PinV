@@ -6,6 +6,7 @@ import Button from '../Button'
 import Input from '../Input'
 import Histogram from '../Histogram'
 import LineChart from '../LineChart'
+import PieChart from '../PieChart'
 import * as d3 from 'd3'
 
 const randomData = ()=> d3.range(0, 100, 5)
@@ -14,6 +15,15 @@ const randomData = ()=> d3.range(0, 100, 5)
 		value: Math.random() * 80
 	}))
 
+const phoneData = [
+	{ name: 'apple', sales: 2000 },
+	{ name: 'huawei', sales: 1800 },
+	{ name: 'sansung', sales: 2200 },
+	{ name: 'xiaomi', sales: 1600 },
+	{ name: 'oppo', sales: 1700 },
+	{ name: 'vivo', sales: 1500 },
+	{ name: 'others', sales: 2100 }
+]
 export default class Home extends Component {
 	constructor(props) {
 		super(props)
@@ -29,6 +39,24 @@ export default class Home extends Component {
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
 				<div class={style.control}>
+					<h3>饼状图组件</h3>
+					<PieChart
+						data={phoneData}
+						width="500"
+						height="500"
+						innerRadius={0}
+						outerRadius={180}
+						textColor="#000"
+						dataKey="sales"
+						nameKey="name"
+						padAngle={0}
+						cornerRadius={0}
+						startAngle={0}
+						endAngle={1}
+					/>
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+				</div>
+				<div class={style.control}>
 					<h3>折线图组件</h3>
 					<LineChart
 						XAxis="key"
@@ -38,6 +66,7 @@ export default class Home extends Component {
 						height={300}
 						shape="curveCardinal"
 						padding={{top:32,bottom:32,left:30,right:20}} />
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div class={style.control}>
 					<h3>散点图组件</h3>
@@ -48,6 +77,7 @@ export default class Home extends Component {
 						width={500}
 						height={300}
 						padding={{top:32,bottom:32,left:30,right:20}} />
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div class={style.control}>
 					<h3>直方图组件</h3>
@@ -60,6 +90,7 @@ export default class Home extends Component {
 						height={300}
 						padding={{top:32,bottom:32,left:30,right:20}}
 					/>
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div style={{ width: '500px', textAlign: 'center' }} class={style.control}>
 					<h3>Button组件</h3>
