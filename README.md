@@ -9,6 +9,7 @@ a lightweight visualization component library based preact and d3
 
 本项目基于[preact-boilerplate](https://github.com/developit/preact-boilerplate#css-modules)脚手架开发
 
+[API文档](https://github.com/PerkinJ/PinV/blob/master/API.md)
 
 ### 项目开发规范
 - CSS Modules
