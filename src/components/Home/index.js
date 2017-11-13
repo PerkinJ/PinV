@@ -53,6 +53,7 @@ export default class Home extends Component {
 						cornerRadius={0}
 						startAngle={0}
 						endAngle={1}
+						unit="万台"
 					/>
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>

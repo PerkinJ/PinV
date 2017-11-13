@@ -1,9 +1,9 @@
-import { h } from 'preact'
+import { h,Component } from 'preact'
 import * as d3 from 'd3'
 import styles from './index.less'
 import { colorGenerator } from '../../utils/utils'
 import { getPieData } from '../../utils/model'
-
+import Tooltip from '../Tooltip'
 
 const calculateArc = (value, arcProps) => (
 	d3.arc()
@@ -15,36 +15,78 @@ const calculateArc = (value, arcProps) => (
 		.padAngle(arcProps.padAngle)
 )
 
-const PieChart = ({ width = 500, height = 500, startAngle = 0, endAngle = 1, cx, cy, innerRadius, outerRadius, cornerRadius, padAngle, textColor, data, dataKey, nameKey }) => {
-	const pieData = getPieData(data, dataKey,startAngle,endAngle)
-	let arcProps = {
-		innerRadius: innerRadius && innerRadius < outerRadius ? innerRadius : 0,
-		outerRadius: outerRadius || width / 3,
-		textColor: textColor || '#000',
-		cx: cx || width / 2,
-		cy: cy || height / 2,
-		cornerRadius: cornerRadius || 0,
-		padAngle: padAngle || 0
-
+class PieChart extends Component{
+	constructor(props){
+		super(props)
+		this.state = {
+			tooltip:'',
+			left:0,
+			top:0
+		}
 	}
-	return (
-		<svg width={width} height={height} class={styles.chart}>
-			{pieData.map((value, index, arr) =>
-				<Segment
-					{...arcProps}
-					index={index}
-					arc={calculateArc(value, arcProps)}
-					label={data}
-					length={arr.length}
-					nameKey={nameKey}
-					dataKey={dataKey}
-				/>
-			)}
-		</svg>
-	)
+	componentDidMount(){
+		const {data, dataKey,nameKey,startAngle,endAngle,unit = ''} = this.props
+		const pieData = getPieData(data, dataKey,startAngle,endAngle)
+
+		let pieChart = d3.select(this.pieChart)
+		let arcs = pieChart.selectAll('g').data(pieData)
+		arcs.on('mouseover',(d)=>{
+			this.setState({
+				tooltip:`${d.data[nameKey]}:${d.data[dataKey]}${unit}`,
+				tooltipStyle:{
+					left:d3.event.pageX - 10,
+					top:d3.event.pageY - 260,
+					opacity:0.9
+				}
+			})
+		}).on('mousemove',()=>{
+			this.setState({
+				tooltipStyle:{
+					left:d3.event.pageX - 10,
+					top:d3.event.pageY - 260,
+					opacity:0.9
+				}
+			})
+		}).on('mouseout',()=>{
+			this.setState({
+				tooltipStyle:{
+					opacity:0
+				}
+			})
+		})
+	}
+	render({ width = 500, height = 500, startAngle = 0, endAngle = 1, cx, cy, innerRadius, outerRadius, cornerRadius, padAngle, textColor, data, dataKey, nameKey },{tooltip,tooltipStyle}){
+		const pieData = getPieData(data, dataKey,startAngle,endAngle)
+		let arcProps = {
+			innerRadius: innerRadius && innerRadius < outerRadius ? innerRadius : 0,
+			outerRadius: outerRadius || width / 3,
+			textColor: textColor || '#000',
+			cx: cx || width / 2,
+			cy: cy || height / 2,
+			cornerRadius: cornerRadius || 0,
+			padAngle: padAngle || 0
+		}
+		return (
+			<div class={styles.container}>
+				<Tooltip tooltipStyle={tooltipStyle} content={tooltip}/>
+
+				<svg ref={el => this.pieChart = el} width={width} height={height} class={styles.chart}>
+					{pieData.map((value, index, arr) =>
+						<Segment
+							{...arcProps}
+							index={index}
+							arc={calculateArc(value, arcProps)}
+							label={data}
+							length={arr.length}
+							nameKey={nameKey}
+							dataKey={dataKey}
+						/>
+					)}
+				</svg>
+			</div>
+		)
+	}
 }
-
-
 
 const Segment = ({ cx, cy, arc, index, label, highlight, innerRadius, outerRadius, textColor, length, nameKey, dataKey }) => {
 	// if (highlight) {
