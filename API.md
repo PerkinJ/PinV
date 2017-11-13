@@ -68,6 +68,32 @@ tickFormat | string | '' | y轴value的format，例如'.0s' |
  | hidden | boolean | false | 是否隐藏x,y坐标轴 | 
  | stroke | string | '#673ab7' | 轴线的颜色 | 
 
+## 可视化基础组件
+### Axix
+#### Description
+坐标轴是普遍使用的度量工具，对于柱状图、折线图、散点图之类的图表来说更是基本组成单元。
+#### Properties
+ | Name | Type | Default | Description | 
+ | :---: | :---: | :---: | :---: | 
+ | type | string | 'x' | 只有x跟y两个选择，表示x轴或者y轴 | 
+ | data | array | | 源数据，要求格式为对象数组，例如[{age:24,weight:140},{age:24,weight:140}] | 
+ | orient | string | 'bottom' | 'bottom' or 'left' 分别表示坐标轴刻度向下或者刻度向右
+ | tickSize | number | null | 表示坐标轴分为多少份 |
+ | tickFormat | | string | 刻度单位格式化 |
+ | textAnchor | string | 'middle' | 'middle','top','end'三个选项，表示坐标单位的位置 |
+ | unit | string |  | 单位 |
+ | length | number | | 坐标轴的长度 | 
+| hide | boolean | false | 是否隐藏坐标轴
+
+### tooltip
+#### Description
+提示框，当用户鼠标划到某图形元素时，出现一个提示框，里面写有描述文字
+#### Properties
+ | Name | Type | Default | Description | 
+ | :---: | :---: | :---: | :---: |
+| content | string | | 提示框出现的内容 |
+| tooltipStyle | object | | {left:30,top:20,opacity:1} 必须包含以上属性，其他属性可以自行添加，比如background,width,height等 |
+
 ## 基本组件
 ### Button
 #### Properties
