@@ -24,7 +24,7 @@ class PieChart extends Component{
 			top:0
 		}
 	}
-	componentDidMount(){
+	renderTooltip = ()=>{
 		const {data, dataKey,nameKey,startAngle,endAngle,unit = ''} = this.props
 		const pieData = getPieData(data, dataKey,startAngle,endAngle)
 
@@ -55,6 +55,12 @@ class PieChart extends Component{
 			})
 		})
 	}
+	componentDidUpdate(){
+		this.renderTooltip()
+	}
+	componentDidMount(){
+		this.renderTooltip()
+	}
 	render({ width = 500, height = 500, startAngle = 0, endAngle = 1, cx, cy, innerRadius, outerRadius, cornerRadius, padAngle, textColor, data, dataKey, nameKey },{tooltip,tooltipStyle}){
 		const pieData = getPieData(data, dataKey,startAngle,endAngle)
 		let arcProps = {
@@ -69,7 +75,6 @@ class PieChart extends Component{
 		return (
 			<div class={styles.container}>
 				<Tooltip tooltipStyle={tooltipStyle} content={tooltip}/>
-
 				<svg ref={el => this.pieChart = el} width={width} height={height} class={styles.chart}>
 					{pieData.map((value, index, arr) =>
 						<Segment
@@ -97,7 +102,7 @@ const Segment = ({ cx, cy, arc, index, label, highlight, innerRadius, outerRadiu
 	let text = label[index][nameKey]
 	return (
 		<g class={styles.segment} transform={`translate(${cx}, ${cy})`}>
-			<path d={arc()} fill={colors(index).toString()} />
+			<path class={styles.path} d={arc()} fill={colors(index).toString()} />
 			<Label textColor={textColor} arc={arc.innerRadius(innerRadius).outerRadius(outerRadius)}>{`${percent.toFixed(2)}%`}</Label>
 			{highlight && <circle r="45" fill={colors(index).toString()} />}
 			<line

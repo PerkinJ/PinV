@@ -14,27 +14,33 @@ const randomData = ()=> d3.range(0, 100, 5)
 		key,
 		value: Math.random() * 80
 	}))
+const getRandomPhoneData = ()=>{
+	return [
+		{ name: 'apple', sales: 1000 + Math.floor(Math.random() * 1000) },
+		{ name: 'huawei', sales: 800 + Math.floor(Math.random() * 1000)},
+		{ name: 'sansung', sales: 1200 + Math.floor(Math.random() * 1000)},
+		{ name: 'xiaomi', sales: 700 + Math.floor(Math.random() * 1000)},
+		{ name: 'oppo', sales: 800 + Math.floor(Math.random() * 1000) },
+		{ name: 'vivo', sales:  500 + Math.floor(Math.random() * 1000)},
+		{ name: 'others', sales:  1300 + Math.floor(Math.random() * 1000)}
+	]
+}
 
-const phoneData = [
-	{ name: 'apple', sales: 2000 },
-	{ name: 'huawei', sales: 1800 },
-	{ name: 'sansung', sales: 2200 },
-	{ name: 'xiaomi', sales: 1600 },
-	{ name: 'oppo', sales: 1700 },
-	{ name: 'vivo', sales: 1500 },
-	{ name: 'others', sales: 2100 }
-]
 export default class Home extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { data:randomData()}
+		this.state = {
+			data:randomData(),
+			phoneData:getRandomPhoneData()
+		}
 	}
 	randomizeData = ()=>{
 		this.setState({
-			data:randomData()
+			data:randomData(),
+			phoneData:getRandomPhoneData()
 		})
 	}
-	render({},{data}) {
+	render({},{data,phoneData}) {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>

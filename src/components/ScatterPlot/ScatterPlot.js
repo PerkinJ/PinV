@@ -34,7 +34,8 @@ class ScatterPlot extends Component{
 		tickFormat: '',
 		stroke:'#673ab7',
 		r:4,
-		color:'#ff0'
+		color:'#ff0',
+		fill:'#000'
 	}
 	render(props){
 		const scales = { xScale: xScale(props), yScale: yScale(props) }
