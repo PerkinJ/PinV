@@ -1,4 +1,4 @@
-import { h,Component } from 'preact'
+import { h, Component } from 'preact'
 import * as d3 from 'd3'
 import styles from './index.less'
 import { colorGenerator } from '../../utils/utils'
@@ -15,54 +15,56 @@ const calculateArc = (value, arcProps) => (
 		.padAngle(arcProps.padAngle)
 )
 
-class PieChart extends Component{
-	constructor(props){
+class PieChart extends Component {
+	constructor(props) {
 		super(props)
 		this.state = {
-			tooltip:'',
-			left:0,
-			top:0
+			tooltip: '',
+			left: 0,
+			top: 0
 		}
 	}
-	renderTooltip = ()=>{
-		const {data, dataKey,nameKey,startAngle,endAngle,unit = ''} = this.props
-		const pieData = getPieData(data, dataKey,startAngle,endAngle)
+	renderTooltip = () => {
+		const { height, data, dataKey, nameKey, startAngle, endAngle, unit = '' } = this.props
+		const pieData = getPieData(data, dataKey, startAngle, endAngle)
 
 		let pieChart = d3.select(this.pieChart)
 		let arcs = pieChart.selectAll('g').data(pieData)
-		arcs.on('mouseover',(d)=>{
-			this.setState({
-				tooltip:`${d.data[nameKey]}:${d.data[dataKey]}${unit}`,
-				tooltipStyle:{
-					left:d3.event.pageX - 10,
-					top:d3.event.pageY - 260,
-					opacity:0.9
+		let _this = this
+		let mouseTop = height / 2 + 10
+		arcs.on('mouseover', function (d) {
+			_this.setState({
+				tooltip: `${d.data[nameKey]}:${d.data[dataKey]}${unit}`,
+				tooltipStyle: {
+					left: d3.event.pageX,
+					top: d3.mouse(this)[1] + mouseTop,
+					opacity: 0.9
 				}
 			})
-		}).on('mousemove',()=>{
-			this.setState({
-				tooltipStyle:{
-					left:d3.event.pageX - 10,
-					top:d3.event.pageY - 260,
-					opacity:0.9
+		}).on('mousemove', function () {
+			_this.setState({
+				tooltipStyle: {
+					left: d3.event.pageX,
+					top: d3.mouse(this)[1] + mouseTop,
+					opacity: 0.9
 				}
 			})
-		}).on('mouseout',()=>{
+		}).on('mouseout', () => {
 			this.setState({
-				tooltipStyle:{
-					opacity:0
+				tooltipStyle: {
+					opacity: 0
 				}
 			})
 		})
 	}
-	componentDidUpdate(){
+	componentDidUpdate() {
 		this.renderTooltip()
 	}
-	componentDidMount(){
+	componentDidMount() {
 		this.renderTooltip()
 	}
-	render({ width = 500, height = 500, startAngle = 0, endAngle = 1, cx, cy, innerRadius, outerRadius, cornerRadius, padAngle, textColor, data, dataKey, nameKey },{tooltip,tooltipStyle}){
-		const pieData = getPieData(data, dataKey,startAngle,endAngle)
+	render({ width = 500, height = 500, startAngle = 0, endAngle = 1, cx, cy, innerRadius, outerRadius, cornerRadius, padAngle, textColor, data, dataKey, nameKey }, { tooltip, tooltipStyle }) {
+		const pieData = getPieData(data, dataKey, startAngle, endAngle)
 		let arcProps = {
 			innerRadius: innerRadius && innerRadius < outerRadius ? innerRadius : 0,
 			outerRadius: outerRadius || width / 3,
@@ -74,7 +76,7 @@ class PieChart extends Component{
 		}
 		return (
 			<div class={styles.container}>
-				<Tooltip tooltipStyle={tooltipStyle} content={tooltip}/>
+				<Tooltip tooltipStyle={tooltipStyle} content={tooltip} />
 				<svg ref={el => this.pieChart = el} width={width} height={height} class={styles.chart}>
 					{pieData.map((value, index, arr) =>
 						<Segment
@@ -93,10 +95,7 @@ class PieChart extends Component{
 	}
 }
 
-const Segment = ({ cx, cy, arc, index, label, highlight, innerRadius, outerRadius, textColor, length, nameKey, dataKey }) => {
-	// if (highlight) {
-	// 	arc.innerRadius(0).outerRadius(250)
-	// }
+const Segment = ({ cx, cy, arc, index, label, innerRadius, outerRadius, textColor, length, nameKey, dataKey }) => {
 	const colors = colorGenerator(length)
 	let percent = Number(label[index][dataKey]) / d3.sum(label, (d) => d[dataKey]) * 100
 	let text = label[index][nameKey]
@@ -104,7 +103,6 @@ const Segment = ({ cx, cy, arc, index, label, highlight, innerRadius, outerRadiu
 		<g class={styles.segment} transform={`translate(${cx}, ${cy})`}>
 			<path class={styles.path} d={arc()} fill={colors(index).toString()} />
 			<Label textColor={textColor} arc={arc.innerRadius(innerRadius).outerRadius(outerRadius)}>{`${percent.toFixed(2)}%`}</Label>
-			{highlight && <circle r="45" fill={colors(index).toString()} />}
 			<line
 				stroke="black"
 				x1={arc.centroid()[0] * 2}

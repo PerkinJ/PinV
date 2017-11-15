@@ -33,9 +33,11 @@
 tickFormat | string | '' | y轴value的format，例如'.0s' | 
  | hidden | boolean | false | 是否隐藏x,y坐标轴 | 
  | stroke | string | '#673ab7' | 轴线的颜色 | 
- | r | number | 4 | 散点的半径 | 
+ | r | number | 3 | 散点的半径 | 
  | shape | string | 'curveCardinal' | 曲线的插值模式。具体取值请参考[d3-shape](https://github.com/d3/d3-shape/blob/master/README.md#curves) | 
-
+| interactive | boolean | true | 是否显示交互
+| circleProps | object | {r:5,fill:'#666'} | 显示交互后，点击circle触发的样式 |
+| tipLineProps | object | {stroke:'#666',strokeWidth:1} | 显示交互后，点击circle触发的虚线的样式 | 
 
 ### ScatterPlot（散点图）
 #### Properties

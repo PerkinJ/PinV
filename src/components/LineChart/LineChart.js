@@ -5,6 +5,20 @@ import styles from './index.less'
 import DataCircles from '../ScatterPlot/data-circles'
 import Tooltip from '../Tooltip'
 class LineChart extends Component {
+	constructor(props){
+		super(props)
+		this.state = {
+			circleStyle:{
+				style:{display:'none'}
+			},
+			vLineStyle:{
+				style:{display:'none'}
+			},
+			hLineStyle:{
+				style:{display:'none'}
+			}
+		}
+	}
 	static defaultProps = {
 		width: 600,
 		height: 400,
@@ -15,9 +29,24 @@ class LineChart extends Component {
 		stroke: '#673ab7',
 		shape: 'curveCardinal',
 		r: 3,
-		color: 'rgb(255,0,0)'
+		interactive:true, // 是否显示交互的效果
+		color: 'rgb(255,0,0)',
+		circleProps:{    //circle的style属性
+			r:5,
+			fill:'#666'
+		},
+		tipLineProps:{   //两条虚线的公共样式
+			stroke:'#666'
+		}
 	}
 	componentDidMount() {
+		this.renderData()
+	}
+	componentDidUpdate(){
+		this.renderData()
+	}
+	// 主要处理不同数据下，focusLine以及focusCircle的位置以及样式
+	renderData = ()=>{
 		let { width, height, padding, data, XAxis, YAxis } = this.props
 		let dWidth = width - padding.left - padding.right - data.length / 2,  // 这里要减去每个circle的半径
 			dHeight = height - padding.top - padding.bottom
@@ -32,70 +61,95 @@ class LineChart extends Component {
 			.range([dHeight, padding.bottom])
 		let lineChart = d3.select(this.lineChart)
 		let rect = lineChart.selectAll('rect')
-		let focusCircle = lineChart.append('g')
-			.attr('class', 'focusCircle')
-			.style('display', 'none')
-		focusCircle.append('circle')
-			.attr('r', 5)
-			.attr('fill', '#666')
 
-		let focusLine = lineChart.append('g')
-			.attr('class', 'focusLine')
-			.style('display', 'none')
-		let vLine = focusLine.append('line'),
-			hLine = focusLine.append('line')
 		let _this = this
-		rect.on('mouseover', () => {
-			focusCircle.style('display', 'none')
-			focusLine.style('display', null)
-			vLine.style('display', 'none')
-			hLine.style('display', 'none')
 
-		}).on('mouseout', () => {
-			focusCircle.style('display', 'none')
-			focusLine.style('display', null)
-			vLine.style('display', 'none')
-			hLine.style('display', 'none')
-
-		}).on('mousemove', function () {
-			_this.setState({
-				content: `test`,
-				tooltipStyle: {
-					left: d3.event.pageX,
-					top: d3.event.pageY,
-					opacity: 0.9
-				}
-			})
+		rect.on('mouseover', function () {
 			let mouseX = d3.mouse(this)[0] - padding.left
+			// 通过比例尺的反函数计算原数据中的值
 			let x0 = scaleX.invert(mouseX)
 			// x0取值应该在[0,xDomain]之间
 			x0 = x0 < 0 ? 0 : x0 >= xDomain ? xDomain : Number(Math.round(x0))
+			// 查找元素组中x0的值，并返回索引
+			let bisect = d3.bisector((d) => d[XAxis]).left
+			let index = bisect(data, x0)
+
+			let x1 = data[index][XAxis], y1 = data[index][YAxis]
+			_this.setState({
+				content: `${XAxis}  ${x1} : ${YAxis}  ${y1}`,
+				tooltipStyle: {
+					left: d3.mouse(this)[0],
+					top: d3.mouse(this)[1],
+					opacity: 0.9
+				},
+				circleStyle:{
+					style:{display:'none'}
+				},
+				vLineStyle:{
+					style:{display:'none'}
+				},
+				hLineStyle:{
+					style:{display:'none'}
+				}
+			})
+		}).on('mouseout', () => {
+			this.setState({
+				tooltipStyle: {
+					opacity: 0
+				},
+				circleStyle:{
+					style:{display:'none'}
+				},
+				vLineStyle:{
+					style:{display:'none'}
+				},
+				hLineStyle:{
+					style:{display:'none'}
+				}
+			})
+		}).on('mousemove', function () {
+			let mouseX = d3.mouse(this)[0] - padding.left
+
+			// 通过比例尺的反函数计算原数据中的值
+			let x0 = scaleX.invert(mouseX)
+			// x0取值应该在[0,xDomain]之间
+			x0 = x0 < 0 ? 0 : x0 >= xDomain ? xDomain : Number(Math.round(x0))
+			// 查找元素组中x0的值，并返回索引
 			let bisect = d3.bisector((d) => d[XAxis]).left
 			let index = bisect(data, x0)
 
 			let x1 = data[index][XAxis], y1 = data[index][YAxis]
 			let focusX = scaleX(x1) + padding.left + 10, focusY = scaleY(y1) + padding.top
-			focusCircle.style('display', 'block').attr('transform', `translate(${focusX},${focusY})`)
 
-			vLine.style('display', 'block')
-				.attr('x1', focusX)
-				.attr('y1', focusY)
-				.attr('x2', focusX)
-				.attr('y2', height - padding.bottom)
-				.attr('stroke', '#666')
-				.attr('stroke-dasharray', 3)
-			hLine.style('display', 'block')
-				.attr('x1', focusX)
-				.attr('y1', focusY)
-				.attr('x2', padding.left)
-				.attr('y2', focusY)
-				.attr('stroke', '#666')
-				.attr('stroke-dasharray', 3)
+			_this.setState({
+				content: `${XAxis}  ${x1} : ${YAxis}  ${y1}`,
+				tooltipStyle: {
+					left: d3.event.pageX,
+					top: d3.mouse(this)[1],
+					opacity: 0.9
+				},
+				circleStyle:{
+					style:{display:'block'},
+					transform:`translate(${focusX},${focusY})`
+				},
+				vLineStyle:{
+					style:{display:'block'},
+					x1:focusX,
+					y1:focusY,
+					x2:focusX,
+					y2:height - padding.bottom
+				},
+				hLineStyle:{
+					x1:focusX,
+					y1:focusY,
+					x2:padding.left,
+					y2:focusY
+				}
+			})
 		})
 	}
-
-	render(props, { content, tooltipStyle }) {
-		let { width, height, padding, data, XAxis, YAxis, tickSize = 5, tickFormat, stroke, shape } = props
+	render(props, { content, tooltipStyle,circleStyle,vLineStyle,hLineStyle }) {
+		let { interactive,width, height, padding, data, XAxis, YAxis, tickSize = 5, tickFormat, stroke, shape,circleProps,tipLineProps } = props
 		let dWidth = width - padding.left - padding.right - data.length / 2,  // 这里要减去每个circle的半径
 			dHeight = height - padding.top - padding.bottom
 
@@ -154,8 +208,6 @@ class LineChart extends Component {
 					class={styles.axis}
 					transform={`translate(${padding.left},${padding.top})`} />
 				<path class={styles.line} {...lineProps} />
-				<rect id="rect" class={styles.overlay} {...rectProps} />
-
 				<g transform={`translate(${padding.left - props.r},0)`} >
 					<DataCircles
 						xScale={scaleX}
@@ -163,6 +215,14 @@ class LineChart extends Component {
 						{...props}
 						fill='#fff'
 					/>
+				</g>
+				{interactive&&<rect id="rect" class={styles.overlay} {...rectProps} />}
+				<g class="focusCircle" {...circleStyle}>
+					<circle {...circleProps}/>
+				</g>
+				<g class="focusLine" >
+					<line stroke-dasharray="3" {...tipLineProps} {...vLineStyle}/>
+					<line stroke-dasharray="3" {...tipLineProps} {...hLineStyle}/>
 				</g>
 			</svg>
 		</div>

@@ -12,7 +12,7 @@ import * as d3 from 'd3'
 const randomData = ()=> d3.range(0, 100, 5)
 	.map(key => ({
 		key,
-		value: Math.random() * 80
+		value: Math.round(Math.random() * 80)
 	}))
 const getRandomPhoneData = ()=>{
 	return [
@@ -44,6 +44,19 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
+
+				<div class={style.control}>
+					<h3>折线图组件</h3>
+					<LineChart
+						XAxis="key"
+						YAxis="value"
+						data={data}
+						width={500}
+						height={300}
+						shape="curveCardinal"
+						padding={{top:32,bottom:32,left:30,right:20}} />
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+				</div>
 				<div class={style.control}>
 					<h3>饼状图组件</h3>
 					<PieChart
@@ -61,18 +74,6 @@ export default class Home extends Component {
 						endAngle={1}
 						unit="万台"
 					/>
-					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
-				</div>
-				<div class={style.control}>
-					<h3>折线图组件</h3>
-					<LineChart
-						XAxis="key"
-						YAxis="value"
-						data={data}
-						width={500}
-						height={300}
-						shape="curveCardinal"
-						padding={{top:32,bottom:32,left:30,right:20}} />
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div class={style.control}>
