@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import * as d3 from 'd3'
 import Axis from '../Axis'
 import styles from './index.less'
-import DataCircles from '../ScatterPlot/data-circles'
+import Circles from '../Circles'
 import Tooltip from '../Tooltip'
 class LineChart extends Component {
 	constructor(props){
@@ -37,7 +37,8 @@ class LineChart extends Component {
 		},
 		tipLineProps:{   //两条虚线的公共样式
 			stroke:'#666'
-		}
+		},
+		circleStroke:null
 	}
 	componentDidMount() {
 		this.renderData()
@@ -119,7 +120,7 @@ class LineChart extends Component {
 			let index = bisect(data, x0)
 
 			let x1 = data[index][XAxis], y1 = data[index][YAxis]
-			let focusX = scaleX(x1) + padding.left + 10, focusY = scaleY(y1) + padding.top
+			let focusX = scaleX(x1) + padding.left + 11, focusY = scaleY(y1) + padding.top
 
 			_this.setState({
 				content: `${XAxis}  ${x1} : ${YAxis}  ${y1}`,
@@ -149,7 +150,7 @@ class LineChart extends Component {
 		})
 	}
 	render(props, { content, tooltipStyle,circleStyle,vLineStyle,hLineStyle }) {
-		let { interactive,width, height, padding, data, XAxis, YAxis, tickSize = 5, tickFormat, stroke, shape,circleProps,tipLineProps } = props
+		let { interactive,width, height, padding, data, XAxis, YAxis, tickSize = 5, tickFormat, stroke, shape,circleProps,tipLineProps,circleStroke } = props
 		let dWidth = width - padding.left - padding.right - data.length / 2,  // 这里要减去每个circle的半径
 			dHeight = height - padding.top - padding.bottom
 
@@ -209,14 +210,15 @@ class LineChart extends Component {
 					transform={`translate(${padding.left},${padding.top})`} />
 				<path class={styles.line} {...lineProps} />
 				<g transform={`translate(${padding.left - props.r},0)`} >
-					<DataCircles
+					<Circles
 						xScale={scaleX}
 						yScale={scaleY}
 						{...props}
 						fill='#fff'
+						circleStroke={circleStroke}
 					/>
 				</g>
-				{interactive&&<rect id="rect" class={styles.overlay} {...rectProps} />}
+				{interactive&&<rect class={styles.overlay} {...rectProps} />}
 				<g class="focusCircle" {...circleStyle}>
 					<circle {...circleProps}/>
 				</g>

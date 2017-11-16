@@ -38,6 +38,7 @@ tickFormat | string | '' | y轴value的format，例如'.0s' |
 | interactive | boolean | true | 是否显示交互
 | circleProps | object | {r:5,fill:'#666'} | 显示交互后，点击circle触发的样式 |
 | tipLineProps | object | {stroke:'#666',strokeWidth:1} | 显示交互后，点击circle触发的虚线的样式 | 
+ | circleStroke | string | '' | circle圆环的颜色 | 
 
 ### ScatterPlot（散点图）
 #### Properties
@@ -53,7 +54,9 @@ tickFormat | string | '' | y轴value的format，例如'.0s' |
  | tickFormat | string | '' | y轴value的format，例如'.0s' | 
  | hidden | boolean | false | 是否隐藏x,y坐标轴 | 
  | stroke | string | '#673ab7' | 轴线的颜色
-r | number | 4 | 散点的半径 | 
+ | r | number | 4 | 散点的半径 |
+ | circleStroke | string | '' | circle圆环的颜色 |
+ 
 
 ### Histogram（直方图）
 #### Properties

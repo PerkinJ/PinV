@@ -84,6 +84,7 @@ export default class Home extends Component {
 						data={data}
 						width={500}
 						height={300}
+						circleStroke="#000"
 						padding={{top:32,bottom:32,left:30,right:20}} />
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>

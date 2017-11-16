@@ -16,8 +16,8 @@ const renderCircles = (props) => {
 			cy: props.yScale(coords[props.YAxis]),
 			r: props.r,
 			key: index,
-			fill: props.fill || '#000',
-			stroke:color(props.yScale(coords[props.YAxis]) / max),
+			fill: props.fill || color(props.yScale(coords[props.YAxis]) / max),
+			stroke:props.circleStroke || color(props.yScale(coords[props.YAxis]) / max),
 			strokeWidth:1
 		}
 		return <circle class={styles.circle} {...circleProps} />
