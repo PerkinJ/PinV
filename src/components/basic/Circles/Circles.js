@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import * as d3 from 'd3'
-import { handleD3Color } from '../../utils/utils'
+import { handleD3Color } from 'utils/utils'
 import styles from './index.less'
 
 const renderCircles = (props) => {

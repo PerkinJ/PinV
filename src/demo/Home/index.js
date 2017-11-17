@@ -1,12 +1,6 @@
 import { h, Component } from 'preact'
-// import style from './style.less'
 import style from './style.less'
-import ScatterPlot from '../ScatterPlot'
-import Button from '../Button'
-import Input from '../Input'
-import Histogram from '../Histogram'
-import LineChart from '../LineChart'
-import PieChart from '../PieChart'
+import { ScatterPlot,Button,Input,Histogram,LineChart,PieChart } from 'pinv'
 import * as d3 from 'd3'
 
 const randomData = ()=> d3.range(0, 100, 5)

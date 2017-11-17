@@ -1,9 +1,9 @@
 import { h, Component } from 'preact'
 import * as d3 from 'd3'
 import styles from './index.less'
-import { colorGenerator } from '../../utils/utils'
-import { getPieData } from '../../utils/model'
-import Tooltip from '../Tooltip'
+import { colorGenerator } from 'utils/utils'
+import { getPieData } from 'utils/model'
+import Tooltip from '../../basic/Tooltip'
 
 const calculateArc = (value, arcProps) => (
 	d3.arc()

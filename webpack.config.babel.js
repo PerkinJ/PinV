@@ -28,7 +28,9 @@ module.exports = {
 		],
 		alias: {
 			components: path.resolve(__dirname, "src/components"),    // used for tests
+			'pinv': path.resolve(__dirname, "src/components"),   // 暂时用'pinv'代替
 			style: path.resolve(__dirname, "src/style"),
+			utils:path.resolve(__dirname,"src/utils"),
 			'react': 'preact-compat',
 			'react-dom': 'preact-compat'
 		}
@@ -50,7 +52,7 @@ module.exports = {
 			{
 				// Transform our own .(less|css) files with PostCSS and CSS-modules
 				test: /\.(less|css)$/,
-				include: [path.resolve(__dirname, 'src/components')],
+				include: [path.resolve(__dirname, 'src/components'),path.resolve(__dirname, 'src/demo')],
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use: [
@@ -76,7 +78,7 @@ module.exports = {
 			},
 			{
 				test: /\.(less|css)$/,
-				exclude: [path.resolve(__dirname, 'src/components')],
+				exclude: [path.resolve(__dirname, 'src/components'),path.resolve(__dirname, 'src/demo')],
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use: [

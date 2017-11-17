@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import * as d3 from 'd3'
-import Axis from '../Axis'
+import Axis from '../../basic/Axis'
 import styles from './index.less'
 
 class Histogram extends Component {
