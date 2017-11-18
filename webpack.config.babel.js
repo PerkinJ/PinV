@@ -65,7 +65,7 @@ module.exports = {
 							options: {
 								sourceMap: CSS_MAPS,
 								plugins: () => {
-									autoprefixer({ browsers: [ 'last 2 versions' ] })
+									autoprefixer({ browsers: [ 'last 2 versions' ] })  //首先我们先用less-loader编译less为css，然后在通过postcss-loader给编译后的css加前缀
 								}
 							}
 						},
@@ -164,7 +164,7 @@ module.exports = {
 				drop_console: true
 			}
 		}),
-
+		// https://segmentfault.com/a/1190000010669126
 		new OfflinePlugin({
 			relativePaths: false,
 			AppCache: false,

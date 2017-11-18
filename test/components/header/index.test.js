@@ -1,9 +1,9 @@
 import { h } from 'preact'
 import { expect } from 'chai'
 
-import Header from '../../../src/components/header'
+import Header from '../../../src/demo/header'
 
-describe('components/Header', () => {
+describe('mode/Header', () => {
 
 	it('should show the correct navigation links', () => {
 		const header = <Header/>

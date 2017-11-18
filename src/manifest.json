@@ -1,6 +1,6 @@
 {
-  "name": "Preact PWA",
-  "short_name": "Preact PWA",
+  "name": "PinV",
+  "short_name": "PinV",
   "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",

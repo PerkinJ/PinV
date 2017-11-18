@@ -33,3 +33,6 @@ a lightweight visualization component library based preact and d3
 - [x] LineChart组件（折线图）
 - [x] ScatterPlot组件（散点图）
 - [x] Histogram组件（直方图）
+
+### License
+PinV is available under the [MIT license](https://opensource.org/licenses/MIT)
