@@ -19,6 +19,7 @@
  | padAngle | number | 0 | 每个弧的间隔 | 
  | startAngle | number | 0 | 饼状图的起始范围（值只能取0-1） | 
  | endAngle | number | 1 | 饼状图的终止范围（值只能取0-1） | 
+| interactive | boolean | true | 是否显示交互
 
 ### LineChart（折线图）
 #### Properties
@@ -56,7 +57,8 @@ tickFormat | string | '' | y轴value的format，例如'.0s' |
  | stroke | string | '#673ab7' | 轴线的颜色
  | r | number | 4 | 散点的半径 |
  | circleStroke | string | '' | circle圆环的颜色 |
- 
+ | interactive | boolean | true | 是否显示交互
+
 
 ### Histogram（直方图）
 #### Properties
@@ -72,6 +74,7 @@ tickFormat | string | '' | y轴value的format，例如'.0s' |
 tickFormat | string | '' | y轴value的format，例如'.0s' | 
  | hidden | boolean | false | 是否隐藏x,y坐标轴 | 
  | stroke | string | '#673ab7' | 轴线的颜色 | 
+| interactive | boolean | true | 是否显示交互
 
 ## 可视化基础组件
 ### Axix

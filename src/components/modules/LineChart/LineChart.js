@@ -173,9 +173,9 @@ class LineChart extends Component {
 			transform: `translate(${padding.left + 10},${padding.top})`
 		}
 		const rectProps = {
-			width,
+			width:width - padding.left,
 			height: height - padding.top - padding.bottom,
-			transform: `translate(${padding.left - 20},${padding.top})`  // 这里-20主要解决x轴单位偏移的问题
+			transform: `translate(${padding.left},${padding.top})`
 		}
 		// v4与v3的区别 v3的interpolate不再使用  https://github.com/d3/d3-shape/blob/master/README.md#curves
 		return <div class={styles.container}>

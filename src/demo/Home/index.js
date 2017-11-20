@@ -38,7 +38,19 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
-
+				<div class={style.control}>
+					<h3>直方图组件</h3>
+					<Histogram
+						hidden={true}
+						XAxis="key"
+						YAxis="value"
+						data={data}
+						width={500}
+						height={300}
+						padding={{top:32,bottom:32,left:30,right:20}}
+					/>
+					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+				</div>
 				<div class={style.control}>
 					<h3>折线图组件</h3>
 					<LineChart
@@ -80,19 +92,6 @@ export default class Home extends Component {
 						height={300}
 						circleStroke="#000"
 						padding={{top:32,bottom:32,left:30,right:20}} />
-					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
-				</div>
-				<div class={style.control}>
-					<h3>直方图组件</h3>
-					<Histogram
-						hidden={true}
-						XAxis="key"
-						YAxis="value"
-						data={data}
-						width={500}
-						height={300}
-						padding={{top:32,bottom:32,left:30,right:20}}
-					/>
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div style={{ width: '500px', textAlign: 'center' }} class={style.control}>

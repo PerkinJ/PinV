@@ -174,9 +174,9 @@ class ScatterPlot extends Component {
 			dHeight = height - padding.top - padding.bottom
 
 		const rectProps = {
-			width,
+			width:width - padding.left,
 			height: height - padding.top - padding.bottom,
-			transform: `translate(${padding.left - 20},${padding.top})`  // 这里-20主要解决x轴单位偏移的问题
+			transform: `translate(${padding.left},${padding.top})`
 		}
 		return <div class={styles.container}>
 			<Tooltip
