@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import style from './style.less'
-import { ScatterPlot,Button,Input,Histogram,LineChart,PieChart } from 'pinv'
+import { ScatterPlot,Button,Input,Histogram,LineChart,PieChart,TreeLayout } from 'pinv'
 import * as d3 from 'd3'
 
 const randomData = ()=> d3.range(0, 100, 5)
@@ -17,6 +17,45 @@ const getRandomPhoneData = ()=>{
 		{ name: 'oppo', sales: 800 + Math.floor(Math.random() * 1000) },
 		{ name: 'vivo', sales:  500 + Math.floor(Math.random() * 1000)},
 		{ name: 'others', sales:  1300 + Math.floor(Math.random() * 1000)}
+	]
+}
+const treeData = {
+	"name": "A1",
+	"children": [
+		{
+			"name": "B1",
+			"children": [
+				{
+					"name": "C1",
+					"value": 100
+				},
+				{
+					"name": "C2",
+					"value": 300
+				},
+				{
+					"name": "C3",
+					"value": 200
+				}
+			]
+		},
+		{
+			"name": "B2",
+			"children": [
+				{
+					"name": "C4",
+					"value": 100
+				},
+				{
+					"name": "C5",
+					"value": 300
+				}
+			]
+		},
+		{
+			"name":"B3",
+			"value":400
+		}
 	]
 }
 
@@ -38,6 +77,18 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
+				<div class={style.control}>
+					<h3>树形组件</h3>
+					<TreeLayout
+						data={treeData}
+						width="400"
+						height="300"
+						padding={{top:0,bottom:0,left:10,right:10}}
+						dataKey="value"
+						nameKey="name"
+						interactive={true}
+					/>
+				</div>
 				<div class={style.control}>
 					<h3>直方图组件</h3>
 					<Histogram

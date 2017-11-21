@@ -3,6 +3,7 @@ import Histogram from './modules/Histogram'
 import LineChart from './modules/LineChart'
 import PieChart from './modules/PieChart'
 import ScatterPlot from './modules/ScatterPlot'
+import TreeLayout from './modules/TreeLayout'
 // 可视化基础组件
 import Axis from './basic/Axis'
 import Circles from './basic/Axis'
@@ -19,6 +20,7 @@ export  {
 	LineChart,
 	PieChart,
 	ScatterPlot,
+	TreeLayout,
 	/**
 	 * 可视化基础组件 basic
 	 */

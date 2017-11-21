@@ -1,6 +1,18 @@
 # PinV API文档
 
 ## 可视化组件
+
+### TreeLayout（树形图）
+ | Name | Type | Default | Description | 
+ | :---: | :---: | :---: | :---: | 
+ | data | array | | 数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象| 
+ | width | number | 500 | 图形的宽度 | 
+ | height | number | 300 | 图形的高度 | 
+ | interactive | boolean | true | 是否显示交互
+ | padding | object | { top: 0, bottom: 0, left: 10, right: 10 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } |
+ | nameKey | string | | 除children外，每一个选项的名字，例如上述数据的name | 
+ | dataKey | string | | 除children外，每一个选项对应的值，例如上述数据的value | 
+
 ### PieChart（饼状图）
 #### Properties
  | Name | Type | Default | Description | 
@@ -19,7 +31,7 @@
  | padAngle | number | 0 | 每个弧的间隔 | 
  | startAngle | number | 0 | 饼状图的起始范围（值只能取0-1） | 
  | endAngle | number | 1 | 饼状图的终止范围（值只能取0-1） | 
-| interactive | boolean | true | 是否显示交互
+ | interactive | boolean | true | 是否显示交互
 
 ### LineChart（折线图）
 #### Properties

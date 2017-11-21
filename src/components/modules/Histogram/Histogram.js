@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import Axis from '../../basic/Axis'
 import styles from './index.less'
 import Tooltip from '../../basic/Tooltip'
-
+import {addEvent,removeEvent} from '../../../utils/utils'
 class Histogram extends Component {
 	static defaultProps = {
 		width: 600,
@@ -46,10 +46,10 @@ class Histogram extends Component {
 		})
 	}
 	componentDidMount(){
-		this.rectContainer.addEventListener('mouseleave',this.handleMouseOut)
+		addEvent(this.rectContainer,'mouseleave',this.handleMouseOut)
 	}
 	componentWillUnmount(){
-		this.rectContainer.removeEventListener('mouseleave',this.handleMouseOut)
+		removeEvent(this.rectContainer,'mouseleave',this.handleMouseOut)
 	}
 	render({ data, padding, width, height, XAxis, YAxis, tickSize, tickFormat, stroke, interactive }, { content, tooltipStyle,activeIdx }) {
 		let dWidth = width - padding.left - padding.right - data.length / 2,
@@ -95,6 +95,7 @@ class Histogram extends Component {
 				<g class={styles.graph} ref={el => this.rectContainer = el} >
 					{data.map((d, index) => {
 						let width = dWidth / data.length
+						// 	这里为了交互效果，增加了一个蒙层rect
 						return (
 							<g>
 								<rect
