@@ -2,6 +2,37 @@
 
 ## 可视化组件
 
+### TreeMapLayout（簇形图）
+ | Name | Type | Default | Description | 
+ | :---: | :---: | :---: | :---: | 
+ | data | array | | 数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象| 
+ | width | number | 500 | 图形的宽度 | 
+ | height | number | 300 | 图形的高度 | 
+ | interactive | boolean | true | 是否显示交互
+ | padding | object | { top: 0, bottom: 0, left: 10, right: 10 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } |
+ | nameKey | string | | 除children外，每一个选项的名字，例如上述数据的name | 
+ | dataKey | string | | 除children外，每一个选项对应的值，例如上述数据的value | 
+ | tile | string | 'treemapSquarify' | [d3](https://github.com/d3/d3-hierarchy/blob/master/README.md#treemap)提供的几种内置的tilting methods，包括treemapBinary,treemapDice,treemapSlice,treemapSquarify,treemapResquarify
+ | ratio | number | | 该属性只有当tile为treemapSquarify时，才使用。ratio>=1，表示生成矩形的长宽比。注意，指定比率仅仅是平铺算法的提示，不保证一定按照指定的宽高比生成矩形。如果不指定，默认为黄金比率,	φ = (1 + sqrt(5)) / 2
+ | rectPadding | number | 0 | 将内部和外部填充设置为指定的数字，并返回此树形图布局。如果未指定填充，则返回当前的内部填充函数
+ |paddingInner | number | 0 | 如果指定了填充，则将内部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前内部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。内部填充用于分隔节点的相邻子节点。
+ | paddingOuter | number | 0 | 如果指定了填充，则将顶部，右侧，底部和左侧填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数。|
+ | paddingLeft | number | 0 |
+ 如果指定了填充，则将顶部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。顶部填充用于将节点的顶部边缘与子节点分开。
+ | paddingRight | number | 0 | 同上 | 
+ | paddingTop | number | 0 | 同上 | 
+ | paddingBottom | number | 0 | 同上 | 
+### ClusterLayout（簇形图）
+ | Name | Type | Default | Description | 
+ | :---: | :---: | :---: | :---: | 
+ | data | array | | 数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象| 
+ | width | number | 500 | 图形的宽度 | 
+ | height | number | 300 | 图形的高度 | 
+ | interactive | boolean | true | 是否显示交互
+ | padding | object | { top: 0, bottom: 0, left: 10, right: 10 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } |
+ | nameKey | string | | 除children外，每一个选项的名字，例如上述数据的name | 
+ | dataKey | string | | 除children外，每一个选项对应的值，例如上述数据的value | 
+
 ### TreeLayout（树形图）
  | Name | Type | Default | Description | 
  | :---: | :---: | :---: | :---: | 

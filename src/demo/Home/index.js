@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import style from './style.less'
-import { ScatterPlot,Button,Input,Histogram,LineChart,PieChart,TreeLayout,ClusterLayout } from 'pinv'
+import { ScatterPlot,Button,Input,Histogram,LineChart,PieChart,TreeLayout,ClusterLayout,TreeMapLayout } from 'pinv'
 import * as d3 from 'd3'
 
 const randomData = ()=> d3.range(0, 100, 5)
@@ -77,6 +77,19 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
+				<div class={style.control}>
+					<h3>树矩形组件</h3>
+					<TreeMapLayout
+						data={treeData}
+						width="400"
+						height="300"
+						padding={{top:0,bottom:0,left:10,right:10}}
+						dataKey="value"
+						nameKey="name"
+						interactive={true}
+						ratio="2"
+					/>
+				</div>
 				<div class={style.control}>
 					<h3>簇形组件</h3>
 					<ClusterLayout

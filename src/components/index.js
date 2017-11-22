@@ -5,6 +5,7 @@ import PieChart from './modules/PieChart'
 import ScatterPlot from './modules/ScatterPlot'
 import TreeLayout from './modules/TreeLayout'
 import ClusterLayout from './modules/ClusterLayout'
+import TreeMapLayout from './modules/TreeMapLayout'
 // 可视化基础组件
 import Axis from './basic/Axis'
 import Circles from './basic/Axis'
@@ -23,6 +24,7 @@ export  {
 	ScatterPlot,
 	TreeLayout,
 	ClusterLayout,
+	TreeMapLayout,
 	/**
 	 * 可视化基础组件 basic
 	 */
