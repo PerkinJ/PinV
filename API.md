@@ -2,10 +2,52 @@
 
 ## 可视化组件
 
-### TreeMapLayout（簇形图）
+### SunburstLayout (辐射组件)
+| Name | Type | Default | Description | 
+ | :---: | :---: | :---: | :---: | 
+ | data | array | | 数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象| 
+ | width | number | 500 | 图形的宽度 | 
+ | height | number | 300 | 图形的高度 | 
+ | interactive | boolean | true | 是否显示交互
+ | padding | object | { top: 0, bottom: 0, left: 10, right: 10 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } |
+ | nameKey | string | | 除children外，每一个选项的名字，例如上述数据的name | 
+ | dataKey | string | | 除children外，每一个选项对应的值，例如上述数据的value | 
+ | angle | number | 1 | [0-1]，表示Sunburst组件的弧度范围，默认是1，表示为360度 | 
+ | radius | number | 140 | 表示Sunburst的半径 | 
+ | hoverColor | string | | 悬浮图形的颜色值 | 
+ | backgroundColor | string | | 图形默认的背景色 | 
+
+### PartitionLayout （分区布局）
  | Name | Type | Default | Description | 
  | :---: | :---: | :---: | :---: | 
  | data | array | | 数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象| 
+ | width | number | 500 | 图形的宽度 | 
+ | height | number | 300 | 图形的高度 | 
+ | interactive | boolean | true | 是否显示交互
+ | padding | object | { top: 0, bottom: 0, left: 10, right: 10 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } |
+ | nameKey | string | | 除children外，每一个选项的名字，例如上述数据的name | 
+ | dataKey | string | | 除children外，每一个选项对应的值，例如上述数据的value | 
+ | partitionPadding | number | 10 | 圆填充中每个圆之间的间隔 |
+ | hoverColor | string | | 悬浮图形的颜色值 | 
+ | backgroundColor | string | | 图形默认的背景色 | 
+
+### PackLayout（圆填充）
+ | Name | Type | Default | Description | 
+ | :---: | :---: | :---: | :---: | 
+ | data | array | | 数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象| 
+ | width | number | 500 | 图形的宽度 | 
+ | height | number | 300 | 图形的高度 | 
+ | interactive | boolean | true | 是否显示交互
+ | padding | object | { top: 0, bottom: 0, left: 10, right: 10 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } |
+ | nameKey | string | | 除children外，每一个选项的名字，例如上述数据的name | 
+ | dataKey | string | | 除children外，每一个选项对应的值，例如上述数据的value | 
+ | packPadding | number | 10 | 圆填充中每个圆之间的间隔 |
+ | hoverColor | string | | 悬浮图形的颜色值 | 
+ | backgroundColor | string | | 图形默认的背景色 | 
+### TreeMapLayout（簇形图）
+ | Name | Type | Default | Description | 
+ | :---: | :---: | :---: | :---: | 
+ | data | array | | 数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象 | 
  | width | number | 500 | 图形的宽度 | 
  | height | number | 300 | 图形的高度 | 
  | interactive | boolean | true | 是否显示交互
@@ -18,10 +60,13 @@
  |paddingInner | number | 0 | 如果指定了填充，则将内部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前内部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。内部填充用于分隔节点的相邻子节点。
  | paddingOuter | number | 0 | 如果指定了填充，则将顶部，右侧，底部和左侧填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数。|
  | paddingLeft | number | 0 |
- 如果指定了填充，则将顶部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。顶部填充用于将节点的顶部边缘与子节点分开。
+ 如果指定了填充，则将顶部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。顶部填充用于将节点的顶部边缘与子节点分开。 |
  | paddingRight | number | 0 | 同上 | 
  | paddingTop | number | 0 | 同上 | 
  | paddingBottom | number | 0 | 同上 | 
+ | hoverColor | string | | 悬浮图形的颜色值 | 
+ | backgroundColor | string | | 图形默认的背景色 | 
+
 ### ClusterLayout（簇形图）
  | Name | Type | Default | Description | 
  | :---: | :---: | :---: | :---: | 
@@ -32,7 +77,8 @@
  | padding | object | { top: 0, bottom: 0, left: 10, right: 10 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } |
  | nameKey | string | | 除children外，每一个选项的名字，例如上述数据的name | 
  | dataKey | string | | 除children外，每一个选项对应的值，例如上述数据的value | 
-
+ | hoverColor | string | | 悬浮图形的颜色值 | 
+ | backgroundColor | string | | 图形默认的背景色 | 
 ### TreeLayout（树形图）
  | Name | Type | Default | Description | 
  | :---: | :---: | :---: | :---: | 
@@ -43,7 +89,8 @@
  | padding | object | { top: 0, bottom: 0, left: 10, right: 10 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } |
  | nameKey | string | | 除children外，每一个选项的名字，例如上述数据的name | 
  | dataKey | string | | 除children外，每一个选项对应的值，例如上述数据的value | 
-
+ | hoverColor | string | | 悬浮图形的颜色值 | 
+ | backgroundColor | string | | 图形默认的背景色 | 
 ### PieChart（饼状图）
 #### Properties
  | Name | Type | Default | Description | 

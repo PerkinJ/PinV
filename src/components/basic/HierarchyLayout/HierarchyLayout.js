@@ -21,12 +21,19 @@ class HierarchyLayout extends Component {
 		tile: 'treemapSquarify', //表示生成矩形树的tiling method 算法
 		ratio: 2, 	// 当tile为 treemapSquarify,才有效，表示生成矩形的理论长宽比
 		paddingOuter: 20,
-		paddingInner:0,
-		rectPadding:0,
-		paddingLeft:0,
-		paddingRight:0,
-		paddingTop:0,
-		paddingBottom:0
+		paddingInner: 0,
+		rectPadding: 0,
+		paddingLeft: 0,
+		paddingRight: 0,
+		paddingTop: 0,
+		paddingBottom: 0,
+		partitionPadding:0,   //partition's padding
+		packPadding:10,      // pack's padding
+		radius:140,			// SunburstLayout 的半径
+		angle:1,			// SunburstLayout 的angle范围[0-1]
+		backgroundColor:'#CDDC39',	// 默认背景颜色
+		hoverColor:'rgba(139,195,74,0.8)'		// 悬浮颜色
+
 	}
 	handleMouseOver = (e, d, index) => {
 		const { dataKey, nameKey } = this.props
@@ -46,7 +53,11 @@ class HierarchyLayout extends Component {
 			tooltipStyle: { opacity: 0 }
 		})
 	}
-	render({ width, height, padding, data, interactive, type }, { tooltipStyle, content, activeIdx }) {
+	computeTextRotation = (d) => {
+		let angle = (d.x0 + d.x1) / Math.PI * 90
+		return (angle < 180) ? angle - 90 : angle + 90
+	}
+	render({ width, height, padding, data, interactive, type,backgroundColor,hoverColor }, { tooltipStyle, content, activeIdx }) {
 		let root = d3.hierarchy(data)
 		switch (type) {
 			case 'tree':
@@ -89,7 +100,7 @@ class HierarchyLayout extends Component {
 												cy={d.y}
 												r={activeIdx === index ? "18" : "14"}
 												key={index + 1}
-												fill={activeIdx === index ? "rgba(255,100,0,0.8)" : "#f04134"} />
+												fill={activeIdx === index ? hoverColor : backgroundColor} />
 											<text
 												fill={activeIdx === index ? "#fff" : "#000"}
 												class={styles.label}
@@ -105,47 +116,53 @@ class HierarchyLayout extends Component {
 					</div>
 				)
 			}
-			case 'treemap': {
-				const { rectPadding,paddingOuter,paddingInner,paddingLeft,paddingRight,paddingTop,paddingBottom, tile, ratio } = this.props
-				let treemapLayout = d3.treemap()
-				treemapLayout.size([width, height])
-				paddingOuter?treemapLayout.paddingOuter(paddingOuter):''
-				paddingInner?treemapLayout.paddingInner(paddingInner):''
-				paddingLeft?treemapLayout.paddingLeft(paddingLeft):''
-				paddingRight?treemapLayout.paddingRight(paddingRight):''
-				paddingTop?treemapLayout.paddingTop(paddingTop):''
-				paddingBottom?treemapLayout.paddingBottom(paddingBottom):''
-				rectPadding?treemapLayout.padding(rectPadding):''
-				/* paddingTop, paddingRight, Left and Bottom available */
-				// treemapDice,treemapSlice,treemapSquarify,treemapResquarify
-				switch (tile) {
-					case 'treemapBinary':
-						treemapLayout.tile(d3.treemapBinary)
-						break
-					case 'treemapDice':
-						treemapLayout.tile(d3.treemapDice)
-						break
-					case 'treemapSlice':
-						treemapLayout.tile(d3.treemapSlice)
-						break
-					case 'treemapResquarify':
-						treemapLayout.tile(d3.treemapResquarify)
-						break
-					default:
-						treemapLayout.tile(d3.treemapSquarify.ratio(ratio))
+			case 'treemap':
+			case 'partition': {
+				const { rectPadding, paddingOuter, paddingInner, paddingLeft, paddingRight, paddingTop, paddingBottom, tile, ratio } = this.props
+				let layout = type === 'treemap' ? d3.treemap() : d3.partition()
+				layout.size([width, height])
+				if (type === 'treemap'){
+					paddingOuter ? layout.paddingOuter(paddingOuter) : ''
+					paddingInner ? layout.paddingInner(paddingInner) : ''
+					paddingLeft ? layout.paddingLeft(paddingLeft) : ''
+					paddingRight ? layout.paddingRight(paddingRight) : ''
+					paddingTop ? layout.paddingTop(paddingTop) : ''
+					paddingBottom ? layout.paddingBottom(paddingBottom) : ''
+					rectPadding ? layout.padding(rectPadding) : ''
+					/* paddingTop, paddingRight, Left and Bottom available */
+					// treemapDice,treemapSlice,treemapSquarify,treemapResquarify
+					switch (tile) {
+						case 'treemapBinary':
+							layout.tile(d3.treemapBinary)
+							break
+						case 'treemapDice':
+							layout.tile(d3.treemapDice)
+							break
+						case 'treemapSlice':
+							layout.tile(d3.treemapSlice)
+							break
+						case 'treemapResquarify':
+							layout.tile(d3.treemapResquarify)
+							break
+						default:
+							layout.tile(d3.treemapSquarify.ratio(ratio))
+					}
+				}
+				if (type === 'partition'){
+					layout.padding(this.props.partitionPadding)
 				}
 				root.sum(d => d.value)
-				treemapLayout(root)
-				let treemapData = root.descendants()
+				layout(root)
+				let data = root.descendants()
 				return (
 					<div class={styles.container}>
 						<Tooltip
 							content={content}
 							tooltipStyle={tooltipStyle}
 						/>
-						<svg ref={el => this.treemap = el} class="graph" id="treemap" width={width} height={height}>
-							<g>
-								{treemapData && treemapData.map((d, index) => {
+						<svg viewBox="0 0 405 310" ref={el => this.treemap = el} width={width - padding.left - padding.right} height={height - padding.top - padding.bottom}>
+							<g transform="translate(1,0)">
+								{data && data.map((d, index) => {
 									return (
 										<g
 											onMouseOut={interactive ? this.handleMouseOut : null}
@@ -155,12 +172,11 @@ class HierarchyLayout extends Component {
 											<rect
 												width={d.x1 - d.x0}
 												height={d.y1 - d.y0}
-												fill={activeIdx === index ? "rgba(255,100,0,0.8)" : "rgba(255,255,255,0.2)"}
 												stroke="#2f2f2f"
-											/>
+												fill={activeIdx === index ? hoverColor : backgroundColor} />
 											<text
-												dx="12"
-												dy="14"
+												dx="3"
+												dy="15"
 												fill={activeIdx === index ? "#fff" : "#000"}>
 												{d.data.name}
 											</text>
@@ -168,6 +184,104 @@ class HierarchyLayout extends Component {
 									)
 								})}
 
+							</g>
+						</svg>
+					</div>
+				)
+			}
+			case 'pack': {
+				let packLayout = d3.pack()
+				packLayout.size([width - padding.left - padding.right, height - padding.bottom - padding.top - 20])
+				packLayout.padding(this.props.packPadding)
+
+				root.sum(d => d.value)
+				packLayout(root)
+				let packData = root.descendants()
+
+				return (
+					<div class={styles.container}>
+						<Tooltip
+							content={content}
+							tooltipStyle={tooltipStyle}
+						/>
+						<svg ref={el => this.pack = el} width={width} height={height}>
+							<g transform="translate(0,10)">
+								{packData && packData.map((d, index) => {
+									return (
+										<g
+											onMouseOut={interactive ? this.handleMouseOut : null}
+											onMouseMove={interactive ? (e) => this.handleMouseOver(e, d, index) : null}
+											onMouseOver={interactive ? (e) => this.handleMouseOver(e, d, index) : null}
+											key={index + 1}
+											class={styles.node}
+											transform={`translate(${[d.x, d.y]})`}>
+											<circle
+												r={d.r}
+												fill={activeIdx === index ? hoverColor : backgroundColor}
+												stroke="#2f2f2f"
+											/>
+											<text
+												dy="4"
+												dx="-10"
+												fill={activeIdx === index ? "#fff" : "#000"}>
+												{d.children === undefined ? d.data.name : ''}
+											</text>
+										</g>
+									)
+								})}
+							</g>
+						</svg>
+					</div>
+				)
+			}
+			case 'sunburst': {
+				const {radius,angle} = this.props
+				let sunburstLayout = d3.partition()
+				sunburstLayout.size([2 * Math.PI*angle, radius])
+				// sunburstLayout.padding(2)
+
+				let arc = d3.arc()
+					.startAngle(d => d.x0)
+					.endAngle(d => d.x1)
+					.innerRadius(d => d.y0)
+					.outerRadius(d => d.y1)
+
+				root.sum(d => d.value)
+
+				sunburstLayout(root)
+
+				let sunburstData = root.descendants()
+				return (
+					<div class={styles.container}>
+						<Tooltip
+							content={content}
+							tooltipStyle={tooltipStyle}
+						/>
+						<svg ref={el => this.pack = el} width={width} height={height}>
+							<g transform="translate(200,150)">
+								{sunburstData && sunburstData.map((d, index) => {
+									return (
+										<g
+											onMouseOut={interactive ? this.handleMouseOut : null}
+											onMouseMove={interactive ? (e) => this.handleMouseOver(e, d, index) : null}
+											onMouseOver={interactive ? (e) => this.handleMouseOver(e, d, index) : null}
+											key={index + 1}
+											class={styles.node}>
+											<path
+												d={arc(d)}
+												fill={activeIdx === index ? "rgba(0,105,92,0.8)" : "rgba(38,166,154,0.2)"}
+												stroke="#2f2f2f"
+											/>
+											<text
+												transform={`translate(${arc.centroid(d)}) rotate(${this.computeTextRotation(d)})`}
+												dy=".5em"
+												dx="-8"
+												fill={activeIdx === index ? "#fff" : "#000"}>
+												{d.parent ? d.data.name : ''}
+											</text>
+										</g>
+									)
+								})}
 							</g>
 						</svg>
 					</div>

@@ -34,5 +34,12 @@ a lightweight visualization component library based preact and d3
 - [x] ScatterPlot组件（散点图）
 - [x] Histogram组件（直方图）
 
+- [x] SunburstLayout（辐射图）
+- [x] PackLayout (圆形填充）
+- [x] PartitionLayout（分区布局图）
+- [x] TreeMapLayout（树矩形图）
+- [x] ClusterLayout(簇状图)
+- [x] TreeLayout（树状图）
+
 ### License
 PinV is available under the [MIT license](https://opensource.org/licenses/MIT)

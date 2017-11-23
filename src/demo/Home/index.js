@@ -1,22 +1,26 @@
 import { h, Component } from 'preact'
 import style from './style.less'
-import { ScatterPlot,Button,Input,Histogram,LineChart,PieChart,TreeLayout,ClusterLayout,TreeMapLayout } from 'pinv'
+import {
+	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
+	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
+	SunburstLayout,PartitionLayout
+} from 'pinv'
 import * as d3 from 'd3'
 
-const randomData = ()=> d3.range(0, 100, 5)
+const randomData = () => d3.range(0, 100, 5)
 	.map(key => ({
 		key,
 		value: Math.round(Math.random() * 80)
 	}))
-const getRandomPhoneData = ()=>{
+const getRandomPhoneData = () => {
 	return [
 		{ name: 'apple', sales: 1000 + Math.floor(Math.random() * 1000) },
-		{ name: 'huawei', sales: 800 + Math.floor(Math.random() * 1000)},
-		{ name: 'sansung', sales: 1200 + Math.floor(Math.random() * 1000)},
-		{ name: 'xiaomi', sales: 700 + Math.floor(Math.random() * 1000)},
+		{ name: 'huawei', sales: 800 + Math.floor(Math.random() * 1000) },
+		{ name: 'sansung', sales: 1200 + Math.floor(Math.random() * 1000) },
+		{ name: 'xiaomi', sales: 700 + Math.floor(Math.random() * 1000) },
 		{ name: 'oppo', sales: 800 + Math.floor(Math.random() * 1000) },
-		{ name: 'vivo', sales:  500 + Math.floor(Math.random() * 1000)},
-		{ name: 'others', sales:  1300 + Math.floor(Math.random() * 1000)}
+		{ name: 'vivo', sales: 500 + Math.floor(Math.random() * 1000) },
+		{ name: 'others', sales: 1300 + Math.floor(Math.random() * 1000) }
 	]
 }
 const treeData = {
@@ -53,8 +57,8 @@ const treeData = {
 			]
 		},
 		{
-			"name":"B3",
-			"value":400
+			"name": "B3",
+			"value": 400
 		}
 	]
 }
@@ -63,43 +67,92 @@ export default class Home extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			data:randomData(),
-			phoneData:getRandomPhoneData()
+			data: randomData(),
+			phoneData: getRandomPhoneData()
 		}
 	}
-	randomizeData = ()=>{
+	randomizeData = () => {
 		this.setState({
-			data:randomData(),
-			phoneData:getRandomPhoneData()
+			data: randomData(),
+			phoneData: getRandomPhoneData()
 		})
 	}
-	render({},{data,phoneData}) {
+	render({ }, { data, phoneData }) {
 		return (
 			<div class={style.home}>
 				<h1>PinV组件展示页</h1>
+				<div class={style.control}>
+					<h3>辐射组件</h3>
+					<SunburstLayout
+						data={treeData}
+						width="400"
+						height="300"
+						padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
+						dataKey="value"
+						nameKey="name"
+						interactive={true}
+						backgroundColor="rgba(0,105,92,0.8)"
+						hoverColor="rgba(38,166,154,0.2)"
+						radius={140}
+						angle={1}
+					/>
+				</div>
+				<div class={style.control}>
+					<h3>分区布局组件</h3>
+					<PartitionLayout
+						data={treeData}
+						width="400"
+						height="300"
+						padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
+						dataKey="value"
+						nameKey="name"
+						interactive={true}
+						backgroundColor="rgba(186,104,200,0.2)"
+						hoverColor="rgba(103,58,183,0.8)"
+					/>
+				</div>
+				<div class={style.control}>
+					<h3>圆填充组件</h3>
+					<PackLayout
+						data={treeData}
+						width="400"
+						height="300"
+						padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
+						dataKey="value"
+						nameKey="name"
+						interactive={true}
+						backgroundColor="rgba(38,198,218,0.2)"
+						hoverColor="rgba(100,181,246,0.8)"
+					/>
+				</div>
 				<div class={style.control}>
 					<h3>树矩形组件</h3>
 					<TreeMapLayout
 						data={treeData}
 						width="400"
 						height="300"
-						padding={{top:0,bottom:0,left:10,right:10}}
+						padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
 						dataKey="value"
 						nameKey="name"
 						interactive={true}
 						ratio="2"
+						backgroundColor="rgba(186,104,200,0.2)"
+						hoverColor="rgba(103,58,183,0.8)"
 					/>
 				</div>
+
 				<div class={style.control}>
 					<h3>簇形组件</h3>
 					<ClusterLayout
 						data={treeData}
 						width="400"
 						height="300"
-						padding={{top:0,bottom:0,left:10,right:10}}
+						padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
 						dataKey="value"
 						nameKey="name"
 						interactive={true}
+						backgroundColor="#CDDC39"
+						hoverColor="rgba(139,195,74,0.8)"
 					/>
 				</div>
 				<div class={style.control}>
@@ -108,10 +161,12 @@ export default class Home extends Component {
 						data={treeData}
 						width="400"
 						height="300"
-						padding={{top:0,bottom:0,left:10,right:10}}
+						padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
 						dataKey="value"
 						nameKey="name"
 						interactive={true}
+						backgroundColor="#CDDC39"
+						hoverColor="rgba(139,195,74,0.8)"
 					/>
 				</div>
 				<div class={style.control}>
@@ -123,7 +178,7 @@ export default class Home extends Component {
 						data={data}
 						width={500}
 						height={300}
-						padding={{top:32,bottom:32,left:30,right:20}}
+						padding={{ top: 32, bottom: 32, left: 30, right: 20 }}
 					/>
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
@@ -136,7 +191,7 @@ export default class Home extends Component {
 						width={500}
 						height={300}
 						shape="curveCardinal"
-						padding={{top:32,bottom:32,left:30,right:20}} />
+						padding={{ top: 32, bottom: 32, left: 30, right: 20 }} />
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div class={style.control}>
@@ -167,7 +222,7 @@ export default class Home extends Component {
 						width={500}
 						height={300}
 						circleStroke="#000"
-						padding={{top:32,bottom:32,left:30,right:20}} />
+						padding={{ top: 32, bottom: 32, left: 30, right: 20 }} />
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
 				<div style={{ width: '500px', textAlign: 'center' }} class={style.control}>
