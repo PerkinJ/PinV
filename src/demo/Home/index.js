@@ -80,7 +80,6 @@ export default class Home extends Component {
 	render({ }, { data, phoneData }) {
 		return (
 			<div class={style.home}>
-				<h1>PinV组件展示页</h1>
 				<div class={style.control}>
 					<h3>辐射组件</h3>
 					<SunburstLayout

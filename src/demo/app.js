@@ -3,6 +3,7 @@ import { Router } from 'preact-router'
 
 import Header from './Header'
 import Home from './Home'
+import Examples from './Examples'
 import Profile from './Profile'
 
 export default class App extends Component {
@@ -20,6 +21,7 @@ export default class App extends Component {
 				<Header />
 				<Router onChange={this.handleRoute}>
 					<Home path="/" />
+					<Examples path="/examples" />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>

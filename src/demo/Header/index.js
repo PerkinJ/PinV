@@ -6,12 +6,14 @@ export default class Header extends Component {
 	render() {
 		return (
 			<header class={style.header}>
-				<h1>PinV</h1>
-				<nav>
-					<Link href="/">组件库</Link>
-					<Link href="/profile">Me</Link>
-					<Link href="/profile/john">John</Link>
-				</nav>
+				<div class={style.box}>
+					<h1>PinV</h1>
+					<nav>
+						<Link href="/">组件库</Link>
+						<Link href="/examples">Examples</Link>
+						<Link href="/profile/john">John</Link>
+					</nav>
+				</div>
 			</header>
 		)
 	}
