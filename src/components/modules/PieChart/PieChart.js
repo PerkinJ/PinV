@@ -25,27 +25,26 @@ class PieChart extends Component {
 		}
 	}
 	renderTooltip = () => {
-		const { height, data, dataKey, nameKey, startAngle, endAngle, unit = '' } = this.props
+		const { data, dataKey, nameKey, startAngle, endAngle, unit = '' } = this.props
 		const pieData = getPieData(data, dataKey, startAngle, endAngle)
 
 		let pieChart = d3.select(this.pieChart)
 		let arcs = pieChart.selectAll('g').data(pieData)
 		let _this = this
-		let mouseTop = height / 2 + 10
-		arcs.on('mouseover', function (d) {
+		arcs.on('mouseover', (d) =>{
 			_this.setState({
 				tooltip: `${d.data[nameKey]}:${d.data[dataKey]}${unit}`,
 				tooltipStyle: {
 					left: d3.event.pageX,
-					top: d3.mouse(this)[1] + mouseTop,
+					top: d3.event.clientY + 20,
 					opacity: 0.9
 				}
 			})
-		}).on('mousemove', function () {
+		}).on('mousemove', () =>{
 			_this.setState({
 				tooltipStyle: {
 					left: d3.event.pageX,
-					top: d3.mouse(this)[1] + mouseTop,
+					top: d3.event.clientY + 20,
 					opacity: 0.9
 				}
 			})

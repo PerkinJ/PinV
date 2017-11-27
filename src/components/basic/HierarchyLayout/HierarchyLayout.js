@@ -43,7 +43,7 @@ class HierarchyLayout extends Component {
 		this.setState({
 			activeIdx: index,
 			content: `${nameKey}: ${name}${valueStr}`,
-			tooltipStyle: { left: e.pageX, top: e.offsetY, opacity: 0.9 }
+			tooltipStyle: { left: e.screenX + 20, top: e.screenY - 120, opacity: 0.9 }
 		})
 	}
 	handleMouseOut = () => {

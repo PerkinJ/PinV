@@ -29,8 +29,8 @@ class Histogram extends Component {
 		this.setState({
 			content: `${XAxis}  ${value[XAxis]} : ${YAxis}  ${value[YAxis]}`,
 			tooltipStyle: {
-				left: e.pageX,
-				top: e.offsetY,
+				left: e.screenX + 10,
+				top: e.screenY - 140,
 				opacity: 0.9,
 				display:'block'
 			},

@@ -79,8 +79,8 @@ class LineChart extends Component {
 			_this.setState({
 				content: `${XAxis}  ${x1} : ${YAxis}  ${y1}`,
 				tooltipStyle: {
-					left: d3.mouse(this)[0],
-					top: d3.mouse(this)[1],
+					left: d3.event.pageX,
+					top: d3.event.clientY + 20,
 					opacity: 0.9
 				},
 				circleStyle:{
@@ -126,7 +126,7 @@ class LineChart extends Component {
 				content: `${XAxis}  ${x1} : ${YAxis}  ${y1}`,
 				tooltipStyle: {
 					left: d3.event.pageX,
-					top: d3.mouse(this)[1],
+					top: d3.event.clientY + 20,
 					opacity: 0.9
 				},
 				circleStyle:{
