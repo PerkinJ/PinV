@@ -1,0 +1,764 @@
+let sunburstData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:500,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 0, bottom: 0, left: 10, right: 10 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'nameKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项的名字，例如上述数据的name',
+	options:''
+},{
+	name:'dataKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项对应的值，例如上述数据的value',
+	options:''
+},{
+	name:'angle',
+	type:'number',
+	default:1,
+	detail:'表示Sunburst组件的弧度范围，默认是1，表示为360度',
+	options:'[0-1]'
+},{
+	name:'radius',
+	type:'number',
+	default:140,
+	detail:'表示Sunburst的半径',
+	options:''
+},{
+	name:'hoverColor',
+	type:'string',
+	default:'',
+	detail:'悬浮图形的颜色值',
+	options:''
+},{
+	name:'backgroundColor',
+	type:'string',
+	default:'',
+	detail:'图形默认的背景色',
+	options:''
+}]
+
+let partitionData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:500,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 0, bottom: 0, left: 10, right: 10 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'nameKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项的名字，例如上述数据的name',
+	options:''
+},{
+	name:'dataKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项对应的值，例如上述数据的value',
+	options:''
+},{
+	name:'partitionPadding',
+	type:'number',
+	default:10,
+	detail:'圆填充中每个圆之间的间隔',
+	options:''
+},{
+	name:'hoverColor',
+	type:'string',
+	default:'',
+	detail:'悬浮图形的颜色值',
+	options:''
+},{
+	name:'backgroundColor',
+	type:'string',
+	default:'',
+	detail:'图形默认的背景色',
+	options:''
+}]
+let packData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:500,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 0, bottom: 0, left: 10, right: 10 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'nameKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项的名字，例如上述数据的name',
+	options:''
+},{
+	name:'dataKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项对应的值，例如上述数据的value',
+	options:''
+},{
+	name:'packPadding',
+	type:'number',
+	default:10,
+	detail:'圆填充中每个圆之间的间隔',
+	options:''
+},{
+	name:'hoverColor',
+	type:'string',
+	default:'',
+	detail:'悬浮图形的颜色值',
+	options:''
+},{
+	name:'backgroundColor',
+	type:'string',
+	default:'',
+	detail:'图形默认的背景色',
+	options:''
+}]
+let treeMapData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:500,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 0, bottom: 0, left: 10, right: 10 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'nameKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项的名字，例如上述数据的name',
+	options:''
+},{
+	name:'dataKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项对应的值，例如上述数据的value',
+	options:''
+},{
+	name:'tile',
+	type:'string',
+	default:'treemapSquarify',
+	detail:'d3提供的几种内置的tilting methods',
+	options:`[treemapBinary,treemapDice,treemapSlice,treemapSquarify,treemapResquarify]`
+},{
+	name:'ratio',
+	type:'number',
+	default:'',
+	detail:'该属性只有当tile为treemapSquarify时，才使用。ratio>=1，表示生成矩形的长宽比。注意，指定比率仅仅是平铺算法的提示，不保证一定按照指定的宽高比生成矩形。如果不指定，默认为黄金比率,	φ = (1 + sqrt(5)) / 2',
+	options:``
+},{
+	name:'rectPadding',
+	type:'number',
+	default:'0',
+	detail:'将内部和外部填充设置为指定的数字，并返回此树形图布局。如果未指定填充，则返回当前的内部填充函数',
+	options:''
+},{
+	name:'paddingInner',
+	type:'number',
+	default:'0',
+	detail:'如果指定了填充，则将内部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前内部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。内部填充用于分隔节点的相邻子节点。',
+	options:''
+},{
+	name:'paddingOuter',
+	type:'number',
+	default:'0',
+	detail:'如果指定了填充，则将顶部，右侧，底部和左侧填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数。',
+	options:''
+},{
+	name:'paddingLeft',
+	type:'number',
+	default:'0',
+	detail:'如果指定了填充，则将顶部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。顶部填充用于将节点的顶部边缘与子节点分开。',
+	options:''
+},{
+	name:'paddingRight',
+	type:'number',
+	default:'0',
+	detail:'如果指定了填充，则将顶部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。顶部填充用于将节点的顶部边缘与子节点分开。',
+	options:''
+},{
+	name:'paddingTop',
+	type:'number',
+	default:'0',
+	detail:'如果指定了填充，则将顶部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。顶部填充用于将节点的顶部边缘与子节点分开。',
+	options:''
+},{
+	name:'paddingBottom',
+	type:'number',
+	default:'0',
+	detail:'如果指定了填充，则将顶部填充设置为指定的数字或函数，并返回此树形图布局。如果未指定填充，则返回当前顶部填充函数，该函数默认为常量零。如果padding是一个函数，那么对于有子节点的每个节点，都会调用它来传递当前节点。顶部填充用于将节点的顶部边缘与子节点分开。',
+	options:''
+},{
+	name:'hoverColor',
+	type:'string',
+	default:'',
+	detail:'悬浮图形的颜色值',
+	options:''
+},{
+	name:'backgroundColor',
+	type:'string',
+	default:'',
+	detail:'图形默认的背景色',
+	options:''
+}]
+
+let clusterData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:500,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 0, bottom: 0, left: 10, right: 10 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'nameKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项的名字，例如上述数据的name',
+	options:''
+},{
+	name:'dataKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项对应的值，例如上述数据的value',
+	options:''
+},{
+	name:'hoverColor',
+	type:'string',
+	default:'',
+	detail:'悬浮图形的颜色值',
+	options:''
+},{
+	name:'backgroundColor',
+	type:'string',
+	default:'',
+	detail:'图形默认的背景色',
+	options:''
+}]
+let treeData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:500,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 0, bottom: 0, left: 10, right: 10 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'nameKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项的名字，例如上述数据的name',
+	options:''
+},{
+	name:'dataKey',
+	type:'string',
+	default:'',
+	detail:'除children外，每一个选项对应的值，例如上述数据的value',
+	options:''
+},{
+	name:'hoverColor',
+	type:'string',
+	default:'',
+	detail:'悬浮图形的颜色值',
+	options:''
+},{
+	name:'backgroundColor',
+	type:'string',
+	default:'',
+	detail:'图形默认的背景色',
+	options:''
+}]
+
+let histogramData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'源数据，要求格式为对象数组，例如[{age:24,weight:140},{age:24,weight:140}]',
+	options:''
+},{
+	name:'XAxis',
+	type:'string',
+	default:'',
+	detail:'x轴的key值',
+	options:''
+},{
+	name:'YAxis',
+	type:'string',
+	default:'',
+	detail:'y轴的key值',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:600,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 32, bottom: 32, left: 20, right: 20 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'tickSize',
+	type:'number',
+	default:5,
+	detail:'y轴的tickSize',
+	options:''
+},{
+	name:'tickFormat',
+	type:'string',
+	default:'',
+	detail:`y轴value的format，例如'.0s'`,
+	options:''
+},{
+	name:'hidden',
+	type:'boolean',
+	default:'false',
+	detail:'是否隐藏x,y坐标轴',
+	options:''
+},{
+	name:'stroke',
+	type:'string',
+	default:'#673ab7',
+	detail:'轴线的颜色',
+	options:''
+}]
+
+let scatterPlotData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'源数据，要求格式为对象数组，例如[{age:24,weight:140},{age:24,weight:140}]',
+	options:''
+},{
+	name:'XAxis',
+	type:'string',
+	default:'',
+	detail:'x轴的key值',
+	options:''
+},{
+	name:'YAxis',
+	type:'string',
+	default:'',
+	detail:'y轴的key值',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:600,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 32, bottom: 32, left: 20, right: 20 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'tickSize',
+	type:'number',
+	default:5,
+	detail:'y轴的tickSize',
+	options:''
+},{
+	name:'tickFormat',
+	type:'string',
+	default:'',
+	detail:`y轴value的format，例如'.0s'`,
+	options:''
+},{
+	name:'hidden',
+	type:'boolean',
+	default:'false',
+	detail:'是否隐藏x,y坐标轴',
+	options:''
+},{
+	name:'stroke',
+	type:'string',
+	default:'#673ab7',
+	detail:'轴线的颜色',
+	options:''
+},{
+	name:'r',
+	type:'number',
+	default:4,
+	detail:'散点的半径',
+	options:''
+},{
+	name:'circleStroke',
+	type:'string',
+	default:'',
+	detail:'circle圆环的颜色',
+	options:''
+}]
+
+let pieChartData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'源数据，要求格式为对象数组，例如[{age:24,weight:140},{age:24,weight:140}]',
+	options:''
+},{
+	name:'nameKey',
+	type:'string',
+	default:'',
+	detail:'每一个选项的名字，例如上述数据的name',
+	options:''
+},{
+	name:'dataKey',
+	type:'string',
+	default:'',
+	detail:'每一个选项对应的值，例如上述数据的scales',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:500,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:500,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 32, bottom: 32, left: 20, right: 20 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'innerRadius',
+	type:'number',
+	default:'0',
+	detail:'饼状图的内半径',
+	options:''
+},{
+	name:'outerRadius',
+	type:'number',
+	default:'width / 3',
+	detail:`饼状图的外半径'`,
+	options:''
+},{
+	name:'textColor',
+	type:'string',
+	default:'#000',
+	detail:'text属性的颜色',
+	options:''
+},{
+	name:'cx',
+	type:'number',
+	default:'width /2',
+	detail:'饼状图的圆心x坐标',
+	options:''
+},{
+	name:'cy',
+	type:'number',
+	default:'height/2',
+	detail:'饼状图的圆心y坐标',
+	options:''
+},{
+	name:'cornerRadius',
+	type:'number',
+	default:'0',
+	detail:'每个弧两边角的弧度',
+	options:''
+},{
+	name:'padAngle',
+	type:'number',
+	default:'0',
+	detail:'每个弧的间隔',
+	options:''
+},{
+	name:'startAngle',
+	type:'number',
+	default:'0',
+	detail:'饼状图的起始范围（值只能取0-1）',
+	options:'[0-1]'
+},{
+	name:'endAngle',
+	type:'number',
+	default:'1',
+	detail:'endAngle',
+	options:'[0-1]'
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+}]
+let lineChartData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'源数据，要求格式为对象数组，例如[{age:24,weight:140},{age:24,weight:140}]',
+	options:''
+},{
+	name:'XAxis',
+	type:'string',
+	default:'',
+	detail:'x轴的key值',
+	options:''
+},{
+	name:'YAxis',
+	type:'string',
+	default:'',
+	detail:'y轴的key值',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:600,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'padding',
+	type:'object',
+	default:`{ top: 32, bottom: 32, left: 20, right: 20 }`,
+	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
+	options:''
+},{
+	name:'tickSize',
+	type:'number',
+	default:5,
+	detail:'y轴的tickSize',
+	options:''
+},{
+	name:'tickFormat',
+	type:'string',
+	default:'',
+	detail:`y轴value的format，例如'.0s'`,
+	options:''
+},{
+	name:'hidden',
+	type:'boolean',
+	default:'false',
+	detail:'是否隐藏x,y坐标轴',
+	options:''
+},{
+	name:'stroke',
+	type:'string',
+	default:'#673ab7',
+	detail:'轴线的颜色',
+	options:''
+},{
+	name:'r',
+	type:'number',
+	default:4,
+	detail:'散点的半径',
+	options:''
+},{
+	name:'circleStroke',
+	type:'string',
+	default:'',
+	detail:'circle圆环的颜色',
+	options:''
+},{
+	name:'circleProps',
+	type:'object',
+	default:`{r:5,fill:'#666'}`,
+	detail:'显示交互后，点击circle触发的样式',
+	options:''
+},{
+	name:'tipLineProps',
+	type:'object',
+	default:`{stroke:'#666',strokeWidth:1}`,
+	detail:'显示交互后，点击circle触发的虚线的样式',
+	options:''
+},{
+	name:'shape',
+	type:'string',
+	default:'curveCardinal',
+	detail:'曲线的插值模式。具体取值请参考d3-shape',
+	options:`[curveBasis,curveBasisClosed,curveBasisOpen,curveBundle,curveCardinal,...]`
+}]
+
+export {
+	sunburstData,partitionData,packData,treeMapData,clusterData,treeData,
+	histogramData,scatterPlotData,lineChartData,pieChartData
+}

@@ -6,9 +6,14 @@ import {
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout
 } from 'pinv'
+
+import {
+	sunburstData, partitionData, packData, treeMapData, clusterData, treeData,
+	histogramData, scatterPlotData, lineChartData, pieChartData
+} from '../api'
 import * as d3 from 'd3'
 
-const treeData = {
+const jsonData = {
 	"name": "A1",
 	"children": [
 		{
@@ -87,7 +92,7 @@ export default class Examples extends Component {
 					{search === 'sunburst' && <div class={style.control}>
 						<h3>辐射组件</h3>
 						<SunburstLayout
-							data={treeData}
+							data={jsonData}
 							width="400"
 							height="300"
 							padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
@@ -99,11 +104,35 @@ export default class Examples extends Component {
 							radius={140}
 							angle={1}
 						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								SunburstLayout
+							</h3>
+							<div class={style.description}>
+								辐射组件，一种层级结构的可视化组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{sunburstData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
 					</div>}
 					{search === 'partition' && <div class={style.control}>
 						<h3>分区布局组件</h3>
 						<PartitionLayout
-							data={treeData}
+							data={jsonData}
 							width="400"
 							height="300"
 							padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
@@ -113,11 +142,35 @@ export default class Examples extends Component {
 							backgroundColor="rgba(186,104,200,0.2)"
 							hoverColor="rgba(103,58,183,0.8)"
 						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								PartitionLayout
+							</h3>
+							<div class={style.description}>
+								分区布局组件，一种层级结构的可视化组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{partitionData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
 					</div>}
 					{search === 'pack' && <div class={style.control}>
 						<h3>圆填充组件</h3>
 						<PackLayout
-							data={treeData}
+							data={jsonData}
 							width="400"
 							height="300"
 							padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
@@ -127,11 +180,35 @@ export default class Examples extends Component {
 							backgroundColor="rgba(38,198,218,0.2)"
 							hoverColor="rgba(100,181,246,0.8)"
 						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								PackLayout
+							</h3>
+							<div class={style.description}>
+								圆填充组件，一种层级结构的可视化组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{packData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
 					</div>}
 					{search === 'treemap' && <div class={style.control}>
 						<h3>树矩形组件</h3>
 						<TreeMapLayout
-							data={treeData}
+							data={jsonData}
 							width="400"
 							height="300"
 							padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
@@ -142,11 +219,35 @@ export default class Examples extends Component {
 							backgroundColor="rgba(186,104,200,0.2)"
 							hoverColor="rgba(103,58,183,0.8)"
 						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								TreeMapLayout
+							</h3>
+							<div class={style.description}>
+								树矩形组件，一种层级结构的可视化组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{treeMapData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
 					</div>}
 					{search === 'cluster' && <div class={style.control}>
 						<h3>簇形组件</h3>
 						<ClusterLayout
-							data={treeData}
+							data={jsonData}
 							width="400"
 							height="300"
 							padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
@@ -156,11 +257,35 @@ export default class Examples extends Component {
 							backgroundColor="#CDDC39"
 							hoverColor="rgba(139,195,74,0.8)"
 						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								ClusterpLayout
+							</h3>
+							<div class={style.description}>
+								簇形组件，一种层级结构的可视化组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{clusterData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
 					</div>}
 					{search === 'tree' && <div class={style.control}>
 						<h3>树形组件</h3>
 						<TreeLayout
-							data={treeData}
+							data={jsonData}
 							width="400"
 							height="300"
 							padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
@@ -170,6 +295,30 @@ export default class Examples extends Component {
 							backgroundColor="#CDDC39"
 							hoverColor="rgba(139,195,74,0.8)"
 						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								TreeLayout
+							</h3>
+							<div class={style.description}>
+								树形组件，一种层级结构的可视化组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{treeData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
 					</div>}
 					{search === 'histogram' && <div class={style.control}>
 						<h3>直方图组件</h3>
@@ -183,7 +332,30 @@ export default class Examples extends Component {
 							padding={{ top: 32, bottom: 32, left: 30, right: 20 }}
 						/>
 						<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								Histogram
+							</h3>
+							<div class={style.description}>
+								直方图组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{histogramData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
 
+								</ul>
+							</div>
+						</div>
 					</div>}
 					{search === 'lineChart' && <div class={style.control}>
 						<h3>折线图组件</h3>
@@ -196,6 +368,30 @@ export default class Examples extends Component {
 							shape="curveCardinal"
 							padding={{ top: 32, bottom: 32, left: 30, right: 20 }} />
 						<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								LineChart
+							</h3>
+							<div class={style.description}>
+								折线图组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{lineChartData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
 					</div>}
 					{search === 'pieChart' && <div class={style.control}>
 						<h3>饼状图组件</h3>
@@ -215,6 +411,30 @@ export default class Examples extends Component {
 							unit="万台"
 						/>
 						<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								PieChart
+							</h3>
+							<div class={style.description}>
+								饼状图组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{pieChartData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
 					</div>}
 					{search === 'scatterPlot' && <div class={style.control}>
 						<h3>散点图组件</h3>
@@ -227,6 +447,30 @@ export default class Examples extends Component {
 							circleStroke="#000"
 							padding={{ top: 32, bottom: 32, left: 30, right: 20 }} />
 						<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+							ScatterPlot
+							</h3>
+							<div class={style.description}>
+							散点图组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{scatterPlotData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
 					</div>}
 				</div>
 			</div>
