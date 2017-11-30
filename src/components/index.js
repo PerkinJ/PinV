@@ -9,6 +9,8 @@ import TreeMapLayout from './modules/TreeMapLayout'
 import PackLayout from './modules/PackLayout'
 import SunburstLayout from './modules/SunburstLayout'
 import PartitionLayout from './modules/PartitionLayout'
+//GL 可视化组件
+import ForceGLLayout from './webgl/ForceGLLayout'
 // 可视化基础组件
 import Axis from './basic/Axis'
 import Circles from './basic/Axis'
@@ -31,6 +33,7 @@ export  {
 	PackLayout,
 	SunburstLayout,
 	PartitionLayout,
+	ForceGLLayout,
 	/**
 	 * 可视化基础组件 basic
 	 */

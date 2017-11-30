@@ -33,3 +33,14 @@ export function removeEvent(obj, type, fn) {
 	} else
 		obj.removeEventListener(type, fn, false)
 }
+
+
+
+/**
+ * Color scale generator
+ * @returns {function} color generator
+ */
+export const colour = (() => {
+	const scale = d3.scaleOrdinal(d3.schemeCategory20)
+	return (num) => parseInt(scale(num).slice(1), 16)
+})()
