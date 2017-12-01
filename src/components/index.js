@@ -9,8 +9,10 @@ import TreeMapLayout from './modules/TreeMapLayout'
 import PackLayout from './modules/PackLayout'
 import SunburstLayout from './modules/SunburstLayout'
 import PartitionLayout from './modules/PartitionLayout'
+import ForceDirectedGraph from './modules/ForceDirectedGraph'
+
 //GL 可视化组件
-import ForceGLLayout from './webgl/ForceGLLayout'
+import ForceDirectedGraphGL from './webgl/ForceDirectedGraphGL'
 // 可视化基础组件
 import Axis from './basic/Axis'
 import Circles from './basic/Axis'
@@ -33,7 +35,8 @@ export  {
 	PackLayout,
 	SunburstLayout,
 	PartitionLayout,
-	ForceGLLayout,
+	ForceDirectedGraph,
+	ForceDirectedGraphGL,
 	/**
 	 * 可视化基础组件 basic
 	 */

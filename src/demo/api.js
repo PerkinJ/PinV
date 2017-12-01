@@ -1,3 +1,35 @@
+let forceDirectedData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为如下对象，如{"nodes": [{"id": "Myriel", "group": 1},{"id": "Napoleon", "group": 1},{"id": "Mlle.Baptistine", "group": 1}],"links": [{"source":"Napoleon", "target": "Myriel", "value": 1},{"source": "Mlle.Baptistine", "target":"Myriel", "value": 8},]}',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:1000,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:500,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'tooltip',
+	type:'array',
+	default:'',
+	detail:`tooltip组件默认要显示的字段名，例如['id','group']`,
+	options:''
+}]
+
 let sunburstData = [{
 	name:'data',
 	type:'array',
@@ -760,5 +792,5 @@ let lineChartData = [{
 
 export {
 	sunburstData,partitionData,packData,treeMapData,clusterData,treeData,
-	histogramData,scatterPlotData,lineChartData,pieChartData
+	histogramData,scatterPlotData,lineChartData,pieChartData,forceDirectedData
 }

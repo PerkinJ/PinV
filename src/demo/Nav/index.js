@@ -5,6 +5,12 @@ import { Link } from 'preact-router'
 const componentData = [{
 	title: '层次组件',
 	children: [{
+		name: 'ForceDirectedGraph',
+		key: 'forceDirectedGraph'
+	}]
+},{
+	title: '层次组件',
+	children: [{
 		name: 'SunburstLayout',
 		key: 'sunburst'
 	},{

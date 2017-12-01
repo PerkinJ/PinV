@@ -3,7 +3,7 @@ import style from './style.less'
 import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
-	SunburstLayout,PartitionLayout,ForceGLLayout
+	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData'
@@ -82,11 +82,20 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<div class={style.control}>
-					<h3>力导向布局-WebGL</h3>
-					<ForceGLLayout
+					<h3>力导向布局</h3>
+					<ForceDirectedGraph
 						data={forceData}
 						width={1000}
-						height={400}
+						height={500}
+						tooltip={['id','group']}
+					/>
+				</div>
+				<div class={style.control}>
+					<h3>力导向布局-WebGL</h3>
+					<ForceDirectedGraphGL
+						data={forceData}
+						width={1000}
+						height={500}
 					/>
 				</div>
 				<div class={style.control}>

@@ -4,14 +4,15 @@ import Nav from '../Nav'
 import {
 	ScatterPlot, Button, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
-	SunburstLayout, PartitionLayout
+	SunburstLayout, PartitionLayout,ForceDirectedGraph
 } from 'pinv'
 
 import {
 	sunburstData, partitionData, packData, treeMapData, clusterData, treeData,
-	histogramData, scatterPlotData, lineChartData, pieChartData
+	histogramData, scatterPlotData, lineChartData, pieChartData,forceDirectedData
 } from '../api'
 import * as d3 from 'd3'
+import forceData from '../forceData'
 
 const jsonData = {
 	"name": "A1",
@@ -89,6 +90,39 @@ export default class Examples extends Component {
 			<div class={style.home}>
 				<Nav />
 				<div class={style.container}>
+					{search === 'forceDirectedGraph' && <div class={style.control}>
+						<h3>力导向布局</h3>
+						<ForceDirectedGraph
+							data={forceData}
+							width={1000}
+							height={500}
+							tooltip={['id', 'group']}
+						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+							ForceDirectedGraph
+							</h3>
+							<div class={style.description}>
+								力导向组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{forceDirectedData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
+					</div>}
 					{search === 'sunburst' && <div class={style.control}>
 						<h3>辐射组件</h3>
 						<SunburstLayout
@@ -449,10 +483,10 @@ export default class Examples extends Component {
 						<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 						<div class={style.apiContainer}>
 							<h3 class={style.title}>
-							ScatterPlot
+								ScatterPlot
 							</h3>
 							<div class={style.description}>
-							散点图组件
+								散点图组件
 							</div>
 							<div class={style.box}>
 								<h3>参数</h3>

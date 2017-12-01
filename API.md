@@ -2,13 +2,22 @@
 
 ## 可视化组件
 
+### ForceDirectedGraph（力导向布局）
+| Name | Type | Default | Description | 
+ | :---: | :---: | :---: | :---: | 
+ | data | array | | 数据，要求格式为如下对象，如{"nodes": [{"id": "Myriel", "group": 1},{"id": "Napoleon", "group": 1},{"id": "Mlle.Baptistine", "group": 1}],"links": [{"source":"Napoleon", "target": "Myriel", "value": 1},{"source": "Mlle.Baptistine", "target":"Myriel", "value": 8},]} | 
+ | width | number | 1000 | 图形的宽度 | 
+ | height | number | 600 | 图形的高度 | 
+ | interactive | boolean | true | 是否显示交互 | 
+ | tooltip | array | | tooltip组件默认要显示的字段名，例如['id','group']
+
 ### SunburstLayout (辐射组件)
 | Name | Type | Default | Description | 
  | :---: | :---: | :---: | :---: | 
  | data | array | | 数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象| 
  | width | number | 500 | 图形的宽度 | 
  | height | number | 300 | 图形的高度 | 
- | interactive | boolean | true | 是否显示交互
+ | interactive | boolean | true | 是否显示交互 | 
  | padding | object | { top: 0, bottom: 0, left: 10, right: 10 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } |
  | nameKey | string | | 除children外，每一个选项的名字，例如上述数据的name | 
  | dataKey | string | | 除children外，每一个选项对应的值，例如上述数据的value | 
