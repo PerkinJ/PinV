@@ -28,6 +28,12 @@ let forceDirectedData = [{
 	default:'',
 	detail:`tooltip组件默认要显示的字段名，例如['id','group']`,
 	options:''
+},{
+	name:'force',
+	type:'string',
+	default:'ManyBody',
+	detail:`模拟力的组合`,
+	options:`['ManyBody','Links','Collision','Centering','Position-radius','Position-y','Position-x']`
 }]
 
 let sunburstData = [{

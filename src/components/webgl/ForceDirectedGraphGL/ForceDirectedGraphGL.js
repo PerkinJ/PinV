@@ -35,16 +35,16 @@ class ForceGLLayout extends Component {
 			scene.add(link.line)
 		})
 
-		const simulation = d3.forceSimulation()
+		const simulationGl = d3.forceSimulation()
 			.force('link', d3.forceLink().id((d) => d.id))
 			.force('charge', d3.forceManyBody())
 			.force('center', d3.forceCenter(width / 2, height / 2))
 
-		simulation
+		simulationGl
 			.nodes(data.nodes)
 			.on('tick', ticked)
 
-		simulation.force('link')
+		simulationGl.force('link')
 			.links(data.links)
 
 		function ticked() {

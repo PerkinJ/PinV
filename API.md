@@ -10,7 +10,7 @@
  | height | number | 600 | 图形的高度 | 
  | interactive | boolean | true | 是否显示交互 | 
  | tooltip | array | | tooltip组件默认要显示的字段名，例如['id','group']
-
+ | force | string | 'ManyBody' | 模拟力的组合，可选['ManyBody','Links','Collision','Centering','Position-radius','Position-y','Position-x']
 ### SunburstLayout (辐射组件)
 | Name | Type | Default | Description | 
  | :---: | :---: | :---: | :---: | 

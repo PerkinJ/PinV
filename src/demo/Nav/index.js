@@ -3,7 +3,7 @@ import style from './style.less'
 import { Link } from 'preact-router'
 
 const componentData = [{
-	title: '层次组件',
+	title: '图形结构组件',
 	children: [{
 		name: 'ForceDirectedGraph',
 		key: 'forceDirectedGraph'
@@ -43,6 +43,12 @@ const componentData = [{
 	}, {
 		name: 'ScatterPlot',
 		key: 'scatterPlot'
+	}]
+},{
+	title: 'WebGL组件',
+	children: [{
+		name: 'ForceDirectedGraphGL',
+		key: 'forceDirectedGraphGL'
 	}]
 }]
 

@@ -84,6 +84,7 @@ export default class Home extends Component {
 				<div class={style.control}>
 					<h3>力导向布局</h3>
 					<ForceDirectedGraph
+						force="Position-x"
 						data={forceData}
 						width={1000}
 						height={500}
