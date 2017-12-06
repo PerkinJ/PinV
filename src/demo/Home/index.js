@@ -3,7 +3,8 @@ import style from './style.less'
 import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
-	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph
+	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
+	ChordDiagram
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData'
@@ -81,6 +82,10 @@ export default class Home extends Component {
 	render({ }, { data, phoneData }) {
 		return (
 			<div class={style.home}>
+				<div class={style.control}>
+					<h3>弦图组件</h3>
+					<ChordDiagram />
+				</div>
 				<div class={style.control}>
 					<h3>力导向布局</h3>
 					<ForceDirectedGraph

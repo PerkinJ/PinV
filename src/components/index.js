@@ -10,7 +10,7 @@ import PackLayout from './modules/PackLayout'
 import SunburstLayout from './modules/SunburstLayout'
 import PartitionLayout from './modules/PartitionLayout'
 import ForceDirectedGraph from './modules/ForceDirectedGraph'
-
+import ChordDiagram from './modules/ChordDiagram'
 //GL 可视化组件
 import ForceDirectedGraphGL from './webgl/ForceDirectedGraphGL'
 // 可视化基础组件
@@ -37,6 +37,7 @@ export  {
 	PartitionLayout,
 	ForceDirectedGraph,
 	ForceDirectedGraphGL,
+	ChordDiagram,
 	/**
 	 * 可视化基础组件 basic
 	 */
