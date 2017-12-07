@@ -60,6 +60,7 @@ class ForceDirecteddata extends Component {
 			.force("link", d3.forceLink().id(d => d.id))
 			.force("charge", d3.forceManyBody())
 			.force("center", d3.forceCenter(width / 2, height / 2))
+			.force('collide',d3.forceCollide(12))
 
 		let svg = d3.select(this.forceDirected)
 		let link = svg.append("g")
