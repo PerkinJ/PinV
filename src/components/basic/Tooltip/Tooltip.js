@@ -1,10 +1,16 @@
 import { h } from 'preact'
 import styles from './index.less'
 
-const Tooltip = ({content,tooltipStyle}) =>
-	<div class={styles.tooltip} style={tooltipStyle}>
-		{content}
-	</div>
+const Tooltip = ({content,tooltipStyle,contentArr}) =>{
+	return (
+		<div class={styles.tooltip} style={tooltipStyle}>
+			{contentArr?contentArr.map((d,index)=>
+				<div key={index}>{d.key}:{d.value}</div>
+			):content}
+		</div>
+	)
+}
+
 
 
 export default Tooltip

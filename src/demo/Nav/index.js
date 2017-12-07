@@ -5,6 +5,9 @@ import { Link } from 'preact-router'
 const componentData = [{
 	title: '图形结构组件',
 	children: [{
+		name: 'ChordDiagram',
+		key: 'chordDiagram'
+	},{
 		name: 'ForceDirectedGraph',
 		key: 'forceDirectedGraph'
 	}]

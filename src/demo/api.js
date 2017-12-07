@@ -1,3 +1,52 @@
+let chordDiagramData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为如下对象，如[[9000, 870, 3000, 1000, 5200],[3400, 8000, 2300, 4922, 374]]',
+	options:''
+},{
+	name:'category',
+	type:'array',
+	default:'',
+	detail:`用于展示数据的分类，顺序与data严格对齐，要求格式为如下对象，如['亚洲', '欧洲', '非洲', '美洲', '大洋洲']`,
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:500,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:500,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'padding',
+	type:'number',
+	default:`40`,
+	detail:'组件的内边距',
+	options:''
+},{
+	name:'arcWidth',
+	type:'number',
+	default:`10`,
+	detail:'弦图弧的宽度',
+	options:''
+},{
+	name:'padAngle',
+	type:'number',
+	default:`0.02`,
+	detail:'弦图每段弧的间隔',
+	options:'[0-0.1]'
+}]
 let forceDirectedData = [{
 	name:'data',
 	type:'array',
@@ -798,5 +847,6 @@ let lineChartData = [{
 
 export {
 	sunburstData,partitionData,packData,treeMapData,clusterData,treeData,
-	histogramData,scatterPlotData,lineChartData,pieChartData,forceDirectedData
+	histogramData,scatterPlotData,lineChartData,pieChartData,forceDirectedData,
+	chordDiagramData
 }

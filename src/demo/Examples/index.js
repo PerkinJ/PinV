@@ -5,16 +5,25 @@ import {
 	ScatterPlot, Button, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraph,
-	ForceDirectedGraphGL
+	ForceDirectedGraphGL,ChordDiagram
 } from 'pinv'
 
 import {
 	sunburstData, partitionData, packData, treeMapData, clusterData, treeData,
-	histogramData, scatterPlotData, lineChartData, pieChartData, forceDirectedData
+	histogramData, scatterPlotData, lineChartData, pieChartData, forceDirectedData,
+	chordDiagramData
 } from '../api'
 import * as d3 from 'd3'
 import forceData from '../forceData'
+let category = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲']
 
+let data1 = [
+	[9000, 870, 3000, 1000, 5200],
+	[3400, 8000, 2300, 4922, 374],
+	[2000, 2000, 7700, 4881, 1050],
+	[3000, 8012, 5531, 500, 400],
+	[3540, 4310, 1500, 1900, 300]
+]
 const jsonData = {
 	"name": "A1",
 	"children": [
@@ -91,6 +100,43 @@ export default class Examples extends Component {
 			<div class={style.home}>
 				<Nav />
 				<div class={style.container}>
+					{search === 'chordDiagram' && <div class={style.control}>
+						<h3>弦图组件</h3>
+						<ChordDiagram
+							data={data1}
+							category={category}
+							width="450"
+							height="450"
+							arcWidth="15"
+							padding="20"
+							padAngle="0.04"
+							interactive={true}
+						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+							ChordDiagram
+							</h3>
+							<div class={style.description}>
+								弦图组件,用于表示一组元素之间的联系。源数据是一个方块矩阵（行数跟列数相等,N X N）
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{chordDiagramData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
+					</div>}
 					{search === 'forceDirectedGraphGL' && <div class={style.control}>
 						<h3>力导向布局</h3>
 						<ForceDirectedGraphGL
