@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import * as THREE from 'three'
 import { h, Component } from 'preact'
 import { colour } from '../../../utils/utils'
-
+import Tooltip from '../../basic/Tooltip'
 class ForceGLLayout extends Component {
 	componentDidMount() {
 		const { data, width, height } = this.props
@@ -47,6 +47,42 @@ class ForceGLLayout extends Component {
 		simulationGl.force('link')
 			.links(data.links)
 
+		d3.select(this.container)
+			.call(d3.drag().container(this.container)
+				.subject(getClosestNode)
+				.on('start', dragstarted)
+				.on('drag',dragged)
+				.on('end',dragended))
+
+
+		function getClosestNode() {
+			return simulationGl.find(d3.event.x, d3.event.y)
+		}
+		const _this = this
+
+		function dragstarted() {
+			if (!d3.event.active) simulationGl.alphaTarget(0.3).restart()
+			d3.event.subject.fx = d3.event.subject.x
+			d3.event.subject.fy = d3.event.subject.y
+			_this.setState({
+				tooltipStyle:{
+					left:d3.event.subject.x,
+					top:d3.event.subject.y,
+					opacity:0.9
+				},
+				content:'111'
+			})
+		}
+		function dragged(){
+			d3.event.subject.fx = d3.event.x
+			d3.event.subject.fy = d3.event.y
+		}
+		function dragended(){
+			if (!d3.event.active)simulationGl.alphaTarget(0)
+			d3.event.subject.fx = null
+			d3.event.subject.fy = null
+		}
+
 		function ticked() {
 			data.nodes.forEach((node) => {
 				const { x, y, circle } = node
@@ -63,9 +99,14 @@ class ForceGLLayout extends Component {
 			renderer.render(scene, camera)
 		}
 	}
-	render() {
+	render({ }, { content, tooltipStyle }) {
 		return (
-			<div ref={el => this.container = el} />
+			<div ref={el => this.container = el} >
+				<Tooltip
+					content={content}
+					tooltipStyle={tooltipStyle}
+				/>
+			</div>
 		)
 	}
 }
