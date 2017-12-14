@@ -15,7 +15,7 @@ class ForceGLLayout extends Component {
 			precision: 'highp',
 			alpha: true
 		})
-		let container = this.container
+		let container = this.glGontainer
 		renderer.setSize(width, height)
 		renderer.setPixelRatio(window.devicePixelRatio)
 		container.appendChild(renderer.domElement)
@@ -47,8 +47,8 @@ class ForceGLLayout extends Component {
 		simulationGl.force('link')
 			.links(data.links)
 
-		d3.select(this.container)
-			.call(d3.drag().container(this.container)
+		d3.select(this.glGontainer)
+			.call(d3.drag().container(this.glGontainer)
 				.subject(getClosestNode)
 				.on('start', dragstarted)
 				.on('drag',dragged)
@@ -101,7 +101,7 @@ class ForceGLLayout extends Component {
 	}
 	render({ }, { content, tooltipStyle }) {
 		return (
-			<div ref={el => this.container = el} >
+			<div ref={el => this.glGontainer = el} >
 				<Tooltip
 					content={content}
 					tooltipStyle={tooltipStyle}
