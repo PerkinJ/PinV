@@ -11,6 +11,7 @@ import SunburstLayout from './modules/SunburstLayout'
 import PartitionLayout from './modules/PartitionLayout'
 import ForceDirectedGraph from './modules/ForceDirectedGraph'
 import ChordDiagram from './modules/ChordDiagram'
+import StackedAreaChart from './modules/StackedAreaChart'
 //GL 可视化组件
 import ForceDirectedGraphGL from './webgl/ForceDirectedGraphGL'
 // 可视化基础组件
@@ -38,6 +39,7 @@ export  {
 	ForceDirectedGraph,
 	ForceDirectedGraphGL,
 	ChordDiagram,
+	StackedAreaChart,
 	/**
 	 * 可视化基础组件 basic
 	 */

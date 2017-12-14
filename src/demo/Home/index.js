@@ -4,7 +4,7 @@ import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
-	ChordDiagram
+	ChordDiagram,StackedAreaChart
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData'
@@ -92,6 +92,12 @@ export default class Home extends Component {
 	render({ }, { data, phoneData }) {
 		return (
 			<div class={style.home}>
+				<div class={style.control}>
+					<h3>区域面积图</h3>
+					<StackedAreaChart
+						// data={stackedAreaData}
+					/>
+				</div>
 				<div class={style.control}>
 					<h3>弦图组件</h3>
 					<ChordDiagram
