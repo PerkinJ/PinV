@@ -78,11 +78,29 @@ let forceDirectedData = [{
 	detail:`tooltip组件默认要显示的字段名，例如['id','group']`,
 	options:''
 },{
-	name:'force',
-	type:'string',
-	default:'ManyBody',
-	detail:`模拟力的组合`,
-	options:`['ManyBody','Links','Collision','Centering','Position-radius','Position-y','Position-x']`
+	name:'velocityDecay',
+	type:'number',
+	default:'0.5',
+	detail:`摩擦力的参数，即速度的衰减系数，范围在[0-1]之间，越小表示阻力也低`,
+	options:`[0-1]`
+},{
+	name:'strenght',
+	type:'number',
+	default:'-50',
+	detail:`节点间力的作用，负数表示排斥力，正数表示吸引力`,
+	options:``
+},{
+	name:'collide',
+	type:'number',
+	default:'12.5',
+	detail:`碰撞作用力可以为节点指定一个radius区域来防止节点重叠`,
+	options:``
+},{
+	name:'distance',
+	type:'number',
+	default:'40',
+	detail:`link作用力可以根据期望的link distance(连接距离)将节点连接在一起。作用力的强度与节点之间的距离成正比，类似于弹簧作用力。`,
+	options:``
 }]
 
 let sunburstData = [{

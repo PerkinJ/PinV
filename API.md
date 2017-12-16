@@ -10,7 +10,10 @@
  | height | number | 600 | 图形的高度 | 
  | interactive | boolean | true | 是否显示交互 | 
  | tooltip | array | | tooltip组件默认要显示的字段名，例如['id','group']
- | force | string | 'ManyBody' | 模拟力的组合，可选['ManyBody','Links','Collision','Centering','Position-radius','Position-y','Position-x']
+ | velocityDecay | number | 0.5 | 摩擦力的参数，即速度的衰减系数，范围在[0-1]之间，越小表示阻力也低 |
+ | strenght | number | -50 | 节点间力的作用，负数表示排斥力，正数表示吸引力 |
+ | collide | number | 12.5 | 碰撞作用力可以为节点指定一个radius区域来防止节点重叠 | 
+ | distance | number | 40 | link作用力可以根据期望的link distance(连接距离)将节点连接在一起。作用力的强度与节点之间的距离成正比，类似于弹簧作用力。 |
 ### SunburstLayout (辐射组件)
 | Name | Type | Default | Description | 
  | :---: | :---: | :---: | :---: | 

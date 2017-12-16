@@ -8,7 +8,10 @@ class ForceDirecteddata extends Component {
 		height: 500,
 		interactive: true,
 		tooltip: [],
-		force: 'ManyBody'
+		velocityDecay:0.5,
+		strength:-50,
+		collide:12.5,
+		distance:40
 	}
 	constructor(props) {
 		super(props)
@@ -30,37 +33,14 @@ class ForceDirecteddata extends Component {
 	renderData = () => {
 		let color = d3.scaleOrdinal(d3.schemeCategory20)
 
-		const { data, width, height, interactive } = this.props
-		// let fn
-		// switch (force) {
-		// 	case 'Position-x':
-		// 		fn = d3.forceX()
-		// 		break
-		// 	case 'Position-y':
-		// 		fn = d3.forceY()
-		// 		break
-		// 	case 'Position-radius':
-		// 		fn = d3.forceRadial()
-		// 		break
-		// 	case 'Centering':
-		// 		fn = d3.forceCenter()
-		// 		break
-		// 	case 'Collision':
-		// 		fn = d3.forceCollide()
-		// 		break
-		// 	case 'Links':
-		// 		fn = d3.forceLink()
-		// 		break
-		// 	case 'ManyBody':
-		// 		fn = d3.forceManyBody()
-		// 		break
+		const { data, width, height, interactive,velocityDecay,strength,collide,distance } = this.props
 
-		// }
 		let simulation = d3.forceSimulation()
+			.velocityDecay(velocityDecay)
 			.force("link", d3.forceLink().id(d => d.id))
-			.force("charge", d3.forceManyBody())
+			.force("charge", d3.forceManyBody().strength(strength))
 			.force("center", d3.forceCenter(width / 2, height / 2))
-			.force('collide',d3.forceCollide(12))
+			.force('collide',d3.forceCollide(collide))
 
 		let svg = d3.select(this.forceDirected)
 		let link = svg.append("g")
@@ -95,6 +75,7 @@ class ForceDirecteddata extends Component {
 
 		simulation.force("link")
 			.links(data.links)
+			.distance(distance)
 
 		function ticked() {
 			link
