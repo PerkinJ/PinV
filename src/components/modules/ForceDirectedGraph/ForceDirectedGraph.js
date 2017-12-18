@@ -11,7 +11,7 @@ class ForceDirecteddata extends Component {
 		velocityDecay:0.5,
 		strength:-50,
 		collide:12.5,
-		distance:40
+		distance:20
 	}
 	constructor(props) {
 		super(props)
