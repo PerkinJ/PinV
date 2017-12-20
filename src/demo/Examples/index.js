@@ -6,7 +6,7 @@ import {
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraph,
 	ForceDirectedGraphGL,ChordDiagram
-} from 'pinv'
+} from '../../components'
 
 import {
 	sunburstData, partitionData, packData, treeMapData, clusterData, treeData,
@@ -14,7 +14,7 @@ import {
 	chordDiagramData
 } from '../api'
 import * as d3 from 'd3'
-import forceData from '../forceData'
+import forceData from '../forceData.json'
 let category = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲']
 
 let data1 = [
