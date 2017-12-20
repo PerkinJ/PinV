@@ -4,6 +4,7 @@
 
 a lightweight visualization component library based preact and d3
 
+![Build Status](https://travis-ci.org/PerkinJ/PinV.svg?branch=master)
 ### 一款基于preact+d3.js的轻量级组件库
 
 
@@ -33,13 +34,16 @@ a lightweight visualization component library based preact and d3
 - [x] LineChart组件（折线图）
 - [x] ScatterPlot组件（散点图）
 - [x] Histogram组件（直方图）
-
 - [x] SunburstLayout（辐射图）
 - [x] PackLayout (圆形填充）
 - [x] PartitionLayout（分区布局图）
 - [x] TreeMapLayout（树矩形图）
 - [x] ClusterLayout(簇状图)
 - [x] TreeLayout（树状图）
+- [x] ChordDiagram（弦图）
+- [x] ForceDirectedGraph（力导向图）
 
+WebGL可视化组件
+- [x] ForceDirectedGraphGL（力导向图）[参考](https://zhuanlan.zhihu.com/p/27784091)
 ### License
 PinV is available under the [MIT license](https://opensource.org/licenses/MIT)
