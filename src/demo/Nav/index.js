@@ -60,10 +60,9 @@ export default class Nav extends Component {
 		count: 0
 	}
 
-
 	// Note: `user` comes from the URL, courtesy of our router
 	render({ }, { }) {
-		let search = location.search.split('=')[1]
+		let search = location.search.split('=')[1] || ''
 		return (
 			<div class={style.nav}>
 				<h1>组件库</h1>
@@ -76,8 +75,8 @@ export default class Nav extends Component {
 						return (
 							<div key={index}>
 								<h3>{title}</h3>
-								{value.children.map((val, index) => (
-									<Link  style={{color:search=== val.key?'#da7071':'#673ab7'}} class={style.link} href={`/examples?component=${val.key}`} key={index}>{val.name}</Link>
+								{value.children.map((val, i) => (
+									<Link style={{color:search=== val.key || index === 0&&i ===0&&search===''?'#da7071':'#673ab7'}} class={style.link} href={`/?component=${val.key}`} key={i}>{val.name}</Link>
 								))}
 							</div>
 						)

@@ -11,7 +11,7 @@ export default class Header extends Component {
 					<nav>
 						<Link href="/">组件库</Link>
 						<Link href="/examples">Examples</Link>
-						<Link href="/profile/john">John</Link>
+						<Link href="" onClick={()=>window.open('https://github.com/PerkinJ/PinV')}>Github</Link>
 					</nav>
 				</div>
 			</header>
