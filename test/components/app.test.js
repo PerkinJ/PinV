@@ -30,22 +30,6 @@ describe('App', () => {
 			// expect(scratch.innerHTML).to.contain('组件')
 		})
 
-		it('should render /profile', async () => {
-			// render(<App />, scratch)
-			// route('/examples')
 
-			await sleep(1)
-
-			// expect(scratch.innerHTML).to.contain('组件')
-		})
-
-		it('should render /profile/:user', async () => {
-			// render(<App />, scratch)
-			// route('/profile/john')
-
-			await sleep(1)
-
-			// expect(scratch.innerHTML).to.contain('Profile: john')
-		})
 	})
 })

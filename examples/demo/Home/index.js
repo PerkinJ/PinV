@@ -6,7 +6,7 @@ import {
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraph,
 	ForceDirectedGraphGL,ChordDiagram
-} from '../../components'
+} from 'pinv'
 
 import {
 	sunburstData, partitionData, packData, treeMapData, clusterData, treeData,

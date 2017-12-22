@@ -10,7 +10,7 @@ const ENV = process.env.NODE_ENV || 'development'
 const CSS_MAPS = ENV!=='production'
 
 module.exports = {
-	context: path.resolve(__dirname, "src"),
+	context: path.resolve(__dirname, "examples"),
 	entry: './index.js',
 
 	output: {
@@ -22,13 +22,13 @@ module.exports = {
 	resolve: {
 		extensions: ['.jsx', '.js', '.json', '.less'],
 		modules: [
-			path.resolve(__dirname, "src/lib"),
+			path.resolve(__dirname, "examples/lib"),
 			path.resolve(__dirname, "node_modules"),
 			'node_modules'
 		],
 		alias: {
 			components: path.resolve(__dirname, "src/components"),    // used for tests
-			'pinv': path.resolve(__dirname, "src/components"),   // 暂时用'pinv'代替
+			'pinv': path.resolve(__dirname, "src"),   // 暂时用'pinv'代替
 			style: path.resolve(__dirname, "src/style"),
 			utils:path.resolve(__dirname,"src/utils"),
 			'react': 'preact-compat',
@@ -52,7 +52,7 @@ module.exports = {
 			{
 				// Transform our own .(less|css) files with PostCSS and CSS-modules
 				test: /\.(less|css)$/,
-				include: [path.resolve(__dirname, 'src/components'),path.resolve(__dirname, 'src/demo')],
+				include: [path.resolve(__dirname, 'src/components'),path.resolve(__dirname, 'examples/demo')],
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use: [
@@ -78,7 +78,7 @@ module.exports = {
 			},
 			{
 				test: /\.(less|css)$/,
-				exclude: [path.resolve(__dirname, 'src/components'),path.resolve(__dirname, 'src/demo')],
+				exclude: [path.resolve(__dirname, 'src/components'),path.resolve(__dirname, 'examples/demo')],
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use: [
@@ -200,7 +200,7 @@ module.exports = {
 		port: process.env.PORT || 8080,
 		host: 'localhost',
 		publicPath: '/',
-		contentBase: './src',
+		contentBase: './examples',
 		historyApiFallback: true,
 		open: true,
 		openPage: '',

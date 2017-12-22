@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { expect } from 'chai'
 
-import Header from '../../../src/demo/Header'
+import Header from '../../../examples/demo/Header'
 
 describe('mode/Header', () => {
 

@@ -5,7 +5,7 @@ import {
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
 	ChordDiagram,StackedAreaChart
-} from '../../components'
+} from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
 
