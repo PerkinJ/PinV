@@ -44,3 +44,22 @@ export const colour = (() => {
 	const scale = d3.scaleOrdinal(d3.schemeCategory20)
 	return (num) => parseInt(scale(num).slice(1), 16)
 })()
+
+
+// Inspired by Lee Byron’s test data generator.
+export const  bumps =(n, m) => {
+	let a = [], i
+	for (i = 0; i < n; ++i) a[i] = 0
+	for (i = 0; i < m; ++i) bump(a, n)
+	return a
+}
+
+function bump(a, n) {
+	let x = 1 / (0.1 + Math.random()),
+		y = 2 * Math.random() - 0.5,
+		z = 10 / (0.1 + Math.random())
+	for (let i = 0; i < n; i++) {
+	  let w = (i / n - y) * z
+	  a[i] += x * Math.exp(-w * w)
+	}
+}

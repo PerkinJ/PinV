@@ -4,7 +4,7 @@ import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
-	ChordDiagram,StackedAreaChart
+	ChordDiagram,StreamGraph
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
@@ -74,14 +74,47 @@ const treeData = {
 		}
 	]
 }
+// stream graph
+let n = 20, // number of layers
+	m = 200, // number of samples per layer
+	k = 10 // number of bumps per layer
+
+// 模拟stream数据
+const generateStreamData = ()=>{
+	return d3.transpose(d3.range(n).map(() => bumps(m, k)))
+}
+
+// Inspired by Lee Byron’s test data generator.
+function  bumps (n, m){
+	let a = [], i
+	for (i = 0; i < n; ++i) a[i] = 0
+	for (i = 0; i < m; ++i) bump(a, n)
+	return a
+}
+
+function bump(a, n) {
+	let x = 1 / (0.1 + Math.random()),
+		y = 2 * Math.random() - 0.5,
+		z = 10 / (0.1 + Math.random())
+	for (let i = 0; i < n; i++) {
+	  let w = (i / n - y) * z
+	  a[i] += x * Math.exp(-w * w)
+	}
+}
 
 export default class Home extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			data: randomData(),
-			phoneData: getRandomPhoneData()
+			phoneData: getRandomPhoneData(),
+			streamData:generateStreamData()
 		}
+	}
+	updateStreamData = ()=>{
+		this.setState({
+			streamData:generateStreamData()
+		})
 	}
 	randomizeData = () => {
 		this.setState({
@@ -89,15 +122,24 @@ export default class Home extends Component {
 			phoneData: getRandomPhoneData()
 		})
 	}
-	render({ }, { data, phoneData }) {
+	render({ }, { data, phoneData,streamData }) {
 		return (
 			<div class={style.home}>
 				<div class={style.control}>
+					<h3>流式布局组件</h3>
+					<StreamGraph
+						width="600"
+						height="400"
+						data={streamData}
+					/>
+					<Button onClick={this.updateStreamData} type="primary">变更数据</Button>
+				</div>
+				{/* <div class={style.control}>
 					<h3>区域面积图</h3>
 					<StackedAreaChart
 						// data={stackedAreaData}
 					/>
-				</div>
+				</div> */}
 				<div class={style.control}>
 					<h3>弦图组件</h3>
 					<ChordDiagram

@@ -12,6 +12,7 @@ import PartitionLayout from './components/modules/PartitionLayout'
 import ForceDirectedGraph from './components/modules/ForceDirectedGraph'
 import ChordDiagram from './components/modules/ChordDiagram'
 import StackedAreaChart from './components/modules/StackedAreaChart'
+import StreamGraph from './components/modules/StreamGraph'
 //GL 可视化组件
 import ForceDirectedGraphGL from './components/webgl/ForceDirectedGraphGL'
 // 可视化基础组件
@@ -40,6 +41,7 @@ export  {
 	ForceDirectedGraphGL,
 	ChordDiagram,
 	StackedAreaChart,
+	StreamGraph,
 	/**
 	 * 可视化基础组件 basic
 	 */
