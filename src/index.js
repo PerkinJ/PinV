@@ -13,6 +13,8 @@ import ForceDirectedGraph from './components/modules/ForceDirectedGraph'
 import ChordDiagram from './components/modules/ChordDiagram'
 import StackedAreaChart from './components/modules/StackedAreaChart'
 import StreamGraph from './components/modules/StreamGraph'
+import StreamGraph1 from './components/modules/StreamGraph1'
+
 //GL 可视化组件
 import ForceDirectedGraphGL from './components/webgl/ForceDirectedGraphGL'
 // 可视化基础组件
@@ -42,6 +44,7 @@ export  {
 	ChordDiagram,
 	StackedAreaChart,
 	StreamGraph,
+	StreamGraph1,
 	/**
 	 * 可视化基础组件 basic
 	 */

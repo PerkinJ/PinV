@@ -1,22 +1,48 @@
 import { h, Component } from 'preact'
 import * as d3 from 'd3'
-
-
+import styles from './index.less'
+import Tooltip from '../../basic/Tooltip'
 class StreamGraph extends Component {
 	constructor(props) {
 		super(props)
+		this.state={
+			activeIdx:-1,
+			content: '',
+			tooltipStyle:{}
+		}
 	}
 	static defaultProps = {
 		width: 660,
 		height: 600,
-		padding: { top: 20, right: 20, bottom: 30, left: 50 }
+		padding: { top: 20, right: 20, bottom: 30, left: 50 },
+		colorRange:[],
+		interactive:true,
+		labels : []
 	}
 	componentDidMount() {
 
 	}
-
-	render({width,height,data},{}) {
-		// 生成stack函数
+	handleMouseOver = (e,value,index) =>{
+		this.setState({
+			activeIdx:index,
+			content:this.props.labels[index],
+			tooltipStyle: {
+				left: e.clientX + 20,
+				top: e.clientY,
+				opacity: 0.9
+			}
+		})
+	}
+	handleMouseOut = ()=>{
+		this.setState({
+			activeIndex: -1,
+			tooltipStyle: {
+				opacity: 0
+			}
+		})
+	}
+	render({width,height,padding,data,colorRange,interactive,labels},{activeIdx,content,tooltipStyle}) {
+		// generate stack
 		let stack = d3.stack().keys(d3.range(data[0].length)).offset(d3.stackOffsetWiggle),
 			layers = stack(data)
 		let x = d3.scaleLinear()
@@ -26,8 +52,8 @@ class StreamGraph extends Component {
 		let y = d3.scaleLinear()
 			.domain([d3.min(layers, stackMin), d3.max(layers, stackMax)])
 			.range([height, 0])
-
-		let z = d3.interpolateCool
+		// color choice
+		let z = colorRange.length > 0 ?d3.scaleOrdinal().range(colorRange):d3.interpolateRainbow
 
 		let area = d3.area()
 			.x((d, i) => x(i))
@@ -43,10 +69,26 @@ class StreamGraph extends Component {
 		}
 		return (
 			<div>
+				{labels.length > 0&&<Tooltip
+					content={content}
+					tooltipStyle={tooltipStyle}
+				/>}
 				<svg width={width} height={height} ref={el => this.StreamGraph = el} >
-					{!!layers&&layers.map((value,index)=>(
-						<path key={index} d={area(value)} fill={z(Math.random())}/>
-					))}
+					<g class={styles.path} transform={`translate(${padding.left},${padding.top})`}>
+						{!!layers&&layers.map((d,index)=>(
+							<path
+								style={{opacity:activeIdx ===index ?1:0.85}}
+								key={index}
+								stroke-width="1px"
+								stroke={activeIdx ===index ?"#fff":''}
+								d={area(d)}
+								fill={z((index+1)/layers.length)}
+								onMouseOver={interactive ?(e) => this.handleMouseOver(e, layers,index):null}
+								onMouseMove={interactive?(e) => this.handleMouseOver(e, layers,index):null}
+								onMouseOut={interactive?this.handleMouseOut:null}
+							/>
+						))}
+					</g>
 				</svg>
 			</div>
 		)

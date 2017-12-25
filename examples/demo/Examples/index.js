@@ -4,7 +4,7 @@ import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
-	ChordDiagram,StreamGraph
+	ChordDiagram,StreamGraph,StreamGraph1,
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
@@ -122,15 +122,48 @@ export default class Home extends Component {
 			phoneData: getRandomPhoneData()
 		})
 	}
+	componentDidMount(){
+		// d3.csv("../mock/streamData.csv", null,(err,data) =>{
+		// 	console.log(data)
+		// })
+	}
 	render({ }, { data, phoneData,streamData }) {
 		return (
 			<div class={style.home}>
 				<div class={style.control}>
 					<h3>流式布局组件</h3>
+					{/* <StreamGraph1
+						padding={{ top: 0, right: 0, bottom: 30, left: 20 }}
+						width="600"
+						height="400"
+					/> */}
 					<StreamGraph
+						padding={{ top: 0, right: 0, bottom: 30, left: 20 }}
 						width="600"
 						height="400"
 						data={streamData}
+						labels ={[
+							'The Sea and Cake',
+							'Andrew Bird',
+							'Laura Veirs',
+							'Brian Eno',
+							'Christopher Willits',
+							'Wilco',
+							'Edgar Meyer',
+							'B\xc3\xa9la Fleck',
+							'Fleet Foxes',
+							'Kings of Convenience',
+							'Brett Dennen',
+							'Psapp',
+							'The Bad Plus',
+							'Feist',
+							'Battles',
+							'Avishai Cohen',
+							'Rachael Yamagata',
+							'Norah Jones',
+							'B\xc3\xa9la Fleck and the Flecktones',
+							'Joshua Redman'
+						]}
 					/>
 					<Button onClick={this.updateStreamData} type="primary">变更数据</Button>
 				</div>

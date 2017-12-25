@@ -1,3 +1,46 @@
+let streamGraphData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为二维数组，如[[9000, 870, 3000, 1000, 5200],[3400, 8000, 2300, 4922, 374]]',
+	options:''
+},{
+	name:'interactive',
+	type:'boolean',
+	default:true,
+	detail:'是否显示交互',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:600,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:600,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'tooltip',
+	type:'array',
+	default:'',
+	detail:`tooltip组件默认要显示的字段名，例如['id','group']`,
+	options:''
+},{
+	name:'lables',
+	type:'array',
+	default:'[]',
+	detail:`与data属性对于，表示每一行数据所对应的名称`,
+	options:''
+},{
+	name:'colorRange',
+	type:'array',
+	default:'[]',
+	detail:`array的长度应与流式图的层数一致，若设置该属性，则取消默认流式图的配色`,
+	options:''
+}]
 let chordDiagramData = [{
 	name:'data',
 	type:'array',
@@ -866,5 +909,5 @@ let lineChartData = [{
 export {
 	sunburstData,partitionData,packData,treeMapData,clusterData,treeData,
 	histogramData,scatterPlotData,lineChartData,pieChartData,forceDirectedData,
-	chordDiagramData
+	chordDiagramData,streamGraphData
 }

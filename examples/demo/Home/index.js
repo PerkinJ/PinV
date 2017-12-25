@@ -5,13 +5,13 @@ import {
 	ScatterPlot, Button, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraph,
-	ForceDirectedGraphGL,ChordDiagram
+	ForceDirectedGraphGL,ChordDiagram,StreamGraph
 } from 'pinv'
 
 import {
 	sunburstData, partitionData, packData, treeMapData, clusterData, treeData,
 	histogramData, scatterPlotData, lineChartData, pieChartData, forceDirectedData,
-	chordDiagramData
+	chordDiagramData,streamGraphData
 } from '../api'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
@@ -79,10 +79,37 @@ const getRandomPhoneData = () => {
 		{ name: 'others', sales: 1300 + Math.floor(Math.random() * 1000) }
 	]
 }
+// stream graph
+let n = 20, // number of layers
+	m = 200, // number of samples per layer
+	k = 10 // number of bumps per layer
+// 模拟stream数据
+const generateStreamData = ()=>{
+	return d3.transpose(d3.range(n).map(() => bumps(m, k)))
+}
+
+// Inspired by Lee Byron’s test data generator.
+function  bumps (n, m){
+	let a = [], i
+	for (i = 0; i < n; ++i) a[i] = 0
+	for (i = 0; i < m; ++i) bump(a, n)
+	return a
+}
+
+function bump(a, n) {
+	let x = 1 / (0.1 + Math.random()),
+		y = 2 * Math.random() - 0.5,
+		z = 10 / (0.1 + Math.random())
+	for (let i = 0; i < n; i++) {
+	  let w = (i / n - y) * z
+	  a[i] += x * Math.exp(-w * w)
+	}
+}
 export default class Examples extends Component {
 	state = {
 		data: randomData(),
-		phoneData: getRandomPhoneData()
+		phoneData: getRandomPhoneData(),
+		streamData:generateStreamData()
 	}
 
 
@@ -94,12 +121,67 @@ export default class Examples extends Component {
 	}
 
 	// Note: `user` comes from the URL, courtesy of our router
-	render({ }, { data, phoneData }) {
-		let search = location.search.split('=')[1] || 'chordDiagram'
+	render({ }, { data, phoneData,streamData }) {
+		let search = location.search.split('=')[1] || 'streamGraph'
 		return (
 			<div class={style.home}>
 				<Nav />
 				<div class={style.container}>
+					{search === 'streamGraph' && <div class={style.control}>
+						<h3>流式图组件</h3>
+						<StreamGraph
+							padding={{ top: 0, right: 0, bottom: 0, left: 0 }}
+							width="600"
+							height="400"
+							data={streamData}
+							labels ={[
+								'The Sea and Cake',
+								'Andrew Bird',
+								'Laura Veirs',
+								'Brian Eno',
+								'Christopher Willits',
+								'Wilco',
+								'Edgar Meyer',
+								'B\xc3\xa9la Fleck',
+								'Fleet Foxes',
+								'Kings of Convenience',
+								'Brett Dennen',
+								'Psapp',
+								'The Bad Plus',
+								'Feist',
+								'Battles',
+								'Avishai Cohen',
+								'Rachael Yamagata',
+								'Norah Jones',
+								'B\xc3\xa9la Fleck and the Flecktones',
+								'Joshua Redman'
+							]}
+						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+							StreamGraph
+							</h3>
+							<div class={style.description}>
+								流式图组件，一种强调各层数据之间情感联系的堆叠图形。
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{streamGraphData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+
+								</ul>
+							</div>
+						</div>
+					</div>}
 					{search === 'chordDiagram' && <div class={style.control}>
 						<h3>弦图组件</h3>
 						<ChordDiagram

@@ -27,9 +27,6 @@ class ForceDirecteddata extends Component {
 		this.renderData()
 		// addEvent(this.nodesContainer, 'mouseleave', this.handleMouseOut)
 	}
-	componentDidUpdate() {
-		this.renderData()
-	}
 	renderData = () => {
 		let color = d3.scaleOrdinal(d3.schemeCategory20)
 
@@ -121,7 +118,6 @@ class ForceDirecteddata extends Component {
 			.style('left', `${d3.event.pageX + 10}px`)
 			.style('top', `${d3.event.clientY}px`)
 			.style('opacity', 1)
-
 	}
 	handleMouseMove = () => {
 		let tool = d3.select(this.tooltip)
