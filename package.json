@@ -1,6 +1,6 @@
 {
-  "name": "PinV",
-  "version": "1.0.0",
+  "name": "pinv",
+  "version": "0.0.1-alpha.2",
   "description": "PinV project powered by webpack.",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
@@ -12,7 +12,8 @@
     "test:watch": "npm run -s test -- --watch",
     "lint": "eslint src test",
     "deploy": "pm2 deploy ecosystem.json production",
-    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
+    "publish": "./node_modules/.bin/babel src --copy-files --source-maps --extensions .js --out-dir lib && npm publish"
   },
   "pre-commit": [
     "precommit-msg",
@@ -50,6 +51,7 @@
   "devDependencies": {
     "autoprefixer": "^7.0.1",
     "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.2.2",
     "babel-jest": "^20.0.0",
@@ -110,7 +112,7 @@
     "serve": "^6.0.0",
     "three": "^0.88.0"
   },
-  "main": "webpack.config.babel.js",
+  "main": "lib/index.js",
   "directories": {
     "test": "test"
   }
