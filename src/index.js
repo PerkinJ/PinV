@@ -22,8 +22,8 @@ import Axis from './components/basic/Axis'
 import Circles from './components/basic/Axis'
 import Tooltip from './components/basic/Tooltip'
 // 基础组件
-import Button from './components/infrastructure/Button'
-import Input from './components/infrastructure/Input'
+// import Button from './components/infrastructure/Button'
+// import Input from './components/infrastructure/Input'
 
 export  {
 	/**
@@ -50,10 +50,10 @@ export  {
 	 */
 	Axis,
 	Circles,
-	Tooltip,
+	Tooltip
 	/**
 	 * 基础组件 infrastructure
 	 */
-	Button,
-	Input
+	// Button,
+	// Input
 }

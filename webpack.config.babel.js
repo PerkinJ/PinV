@@ -52,7 +52,7 @@ module.exports = {
 			{
 				// Transform our own .(less|css) files with PostCSS and CSS-modules
 				test: /\.(less|css)$/,
-				include: [path.resolve(__dirname, 'src'),path.resolve(__dirname, 'examples/demo')],
+				include: [path.resolve(__dirname, 'src/components'),path.resolve(__dirname, 'examples/demo')],
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use: [

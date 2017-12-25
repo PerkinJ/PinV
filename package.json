@@ -1,6 +1,6 @@
 {
   "name": "pinv",
-  "version": "0.0.3-alpha.2",
+  "version": "0.0.3-alpha.5",
   "description": "PinV project powered by webpack.",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
@@ -13,7 +13,9 @@
     "lint": "eslint src test",
     "deploy": "pm2 deploy ecosystem.json production",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
-    "prepublish": "./node_modules/.bin/babel src --copy-files --source-maps --extensions .js --out-dir lib"
+    "style": "node scripts/style.js",
+    "compile": "cross-env NODE_ENV=production ./node_modules/.bin/babel src --copy-files --source-maps --extensions .js --out-dir lib",
+    "prepublish": "npm run compile && npm run style"
   },
   "pre-commit": [
     "precommit-msg",
@@ -101,6 +103,7 @@
     "classnames": "^2.2.5",
     "d3": "^4.11.0",
     "express": "^4.16.2",
+    "fs-extra": "^5.0.0",
     "lodash": "^4.17.4",
     "morgan": "^1.9.0",
     "preact": "^8.1.0",
