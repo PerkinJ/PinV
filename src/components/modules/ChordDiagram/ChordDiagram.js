@@ -118,7 +118,7 @@ export default class ChordDiagram extends Component {
 		let arc = d3.arc()
 			.innerRadius(innerRadius)
 			.outerRadius(outerRadius)
-		let color = d3.scaleOrdinal().domain(d3.range(5)).range(["#000000", "#FFDD89", "#957244", "#F26223", "#dadada"])
+		let color = d3.scaleOrdinal().domain(d3.range(5)).range(["#2196F3", "#66BB6A", "#FF7043", "#FFEB3B", "#795548"])
 		interactive = category?interactive:false
 		return (
 			<div>

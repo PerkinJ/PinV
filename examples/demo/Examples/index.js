@@ -4,7 +4,7 @@ import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
-	ChordDiagram,StreamGraph,StreamGraph1,
+	ChordDiagram,StreamGraph,ChinaMap
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
@@ -123,20 +123,21 @@ export default class Home extends Component {
 		})
 	}
 	componentDidMount(){
-		// d3.csv("../mock/streamData.csv", null,(err,data) =>{
-		// 	console.log(data)
-		// })
+
+
 	}
 	render({ }, { data, phoneData,streamData }) {
 		return (
 			<div class={style.home}>
+				{/* <div class={style.control}>
+					<h3>地图组件</h3>
+					<ChinaMap/>
+				</div> */}
+				<div class={style.control}>
+					<h3>测试组件</h3>
+				</div>
 				<div class={style.control}>
 					<h3>流式布局组件</h3>
-					{/* <StreamGraph1
-						padding={{ top: 0, right: 0, bottom: 30, left: 20 }}
-						width="600"
-						height="400"
-					/> */}
 					<StreamGraph
 						padding={{ top: 0, right: 0, bottom: 30, left: 20 }}
 						width="600"

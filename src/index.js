@@ -21,6 +21,7 @@ import ForceDirectedGraphGL from './components/webgl/ForceDirectedGraphGL'
 import Axis from './components/basic/Axis'
 import Circles from './components/basic/Axis'
 import Tooltip from './components/basic/Tooltip'
+import ChinaMap from './components/geographic/ChinaMap'
 // 基础组件
 // import Button from './components/infrastructure/Button'
 // import Input from './components/infrastructure/Input'
@@ -45,6 +46,10 @@ export  {
 	StackedAreaChart,
 	StreamGraph,
 	StreamGraph1,
+	/*
+	* 地理信息组件
+	*/
+	ChinaMap,
 	/**
 	 * 可视化基础组件 basic
 	 */
