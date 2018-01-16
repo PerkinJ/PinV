@@ -4,10 +4,11 @@ import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
-	ChordDiagram,StreamGraph,ChinaMap
+	ChordDiagram,StreamGraph
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
+import flareData from '../flare.json'
 
 let category = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲']
 
@@ -134,9 +135,6 @@ export default class Home extends Component {
 					<ChinaMap/>
 				</div> */}
 				<div class={style.control}>
-					<h3>测试组件</h3>
-				</div>
-				<div class={style.control}>
 					<h3>流式布局组件</h3>
 					<StreamGraph
 						padding={{ top: 0, right: 0, bottom: 30, left: 20 }}
@@ -208,16 +206,15 @@ export default class Home extends Component {
 				<div class={style.control}>
 					<h3>辐射组件</h3>
 					<SunburstLayout
-						data={treeData}
-						width="400"
-						height="300"
+						data={flareData}
+						width="600"
+						height="660"
 						padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
-						dataKey="value"
+						dataKey="size"
 						nameKey="name"
 						interactive={true}
 						backgroundColor="rgba(0,105,92,0.8)"
 						hoverColor="rgba(38,166,154,0.2)"
-						radius={140}
 						angle={1}
 					/>
 				</div>

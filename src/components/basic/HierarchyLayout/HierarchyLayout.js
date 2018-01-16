@@ -2,13 +2,13 @@ import { h, Component } from 'preact'
 import * as d3 from 'd3'
 import styles from './index.less'
 import Tooltip from '../Tooltip'
-
 class HierarchyLayout extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			descendantsData: [],
-			linkData: []
+			linkData: [],
+			sunburstHighlight:false  //sunburst高亮的标志,悬浮某节点时为true，其他节点变暗
 		}
 	}
 	static defaultProps = {
@@ -27,12 +27,11 @@ class HierarchyLayout extends Component {
 		paddingRight: 0,
 		paddingTop: 0,
 		paddingBottom: 0,
-		partitionPadding:0,   //partition's padding
-		packPadding:10,      // pack's padding
-		radius:140,			// SunburstLayout 的半径
-		angle:1,			// SunburstLayout 的angle范围[0-1]
-		backgroundColor:'#CDDC39',	// 默认背景颜色
-		hoverColor:'rgba(139,195,74,0.8)'		// 悬浮颜色
+		partitionPadding: 0,   //partition's padding
+		packPadding: 10,      // pack's padding
+		angle: 1,			// SunburstLayout 的angle范围[0-1]
+		backgroundColor: '#CDDC39',	// 默认背景颜色
+		hoverColor: 'rgba(139,195,74,0.8)'		// 悬浮颜色
 
 	}
 	handleMouseOver = (e, d, index) => {
@@ -43,21 +42,23 @@ class HierarchyLayout extends Component {
 		this.setState({
 			activeIdx: index,
 			content: `${nameKey}: ${name}${valueStr}`,
-			tooltipStyle: { left: e.screenX + 20, top: e.screenY - 120, opacity: 0.9 }
+			tooltipStyle: { left: e.screenX + 20, top: e.screenY - 120, opacity: 0.9 },
+			sunburstHighlight:true
 		})
 	}
 	handleMouseOut = () => {
 		this.setState({
 			activeIdx: '0',
 			content: '',
-			tooltipStyle: { opacity: 0 }
+			tooltipStyle: { opacity: 0 },
+			sunburstHighlight:false
 		})
 	}
 	computeTextRotation = (d) => {
 		let angle = (d.x0 + d.x1) / Math.PI * 90
 		return (angle < 180) ? angle - 90 : angle + 90
 	}
-	render({ width, height, padding, data, interactive, type,backgroundColor,hoverColor }, { tooltipStyle, content, activeIdx }) {
+	render({ width, height, padding, data, interactive, type, backgroundColor, hoverColor }, { tooltipStyle, content, activeIdx,sunburstHighlight }) {
 		let root = d3.hierarchy(data)
 		switch (type) {
 			case 'tree':
@@ -121,7 +122,7 @@ class HierarchyLayout extends Component {
 				const { rectPadding, paddingOuter, paddingInner, paddingLeft, paddingRight, paddingTop, paddingBottom, tile, ratio } = this.props
 				let layout = type === 'treemap' ? d3.treemap() : d3.partition()
 				layout.size([width, height])
-				if (type === 'treemap'){
+				if (type === 'treemap') {
 					paddingOuter ? layout.paddingOuter(paddingOuter) : ''
 					paddingInner ? layout.paddingInner(paddingInner) : ''
 					paddingLeft ? layout.paddingLeft(paddingLeft) : ''
@@ -148,7 +149,7 @@ class HierarchyLayout extends Component {
 							layout.tile(d3.treemapSquarify.ratio(ratio))
 					}
 				}
-				if (type === 'partition'){
+				if (type === 'partition') {
 					layout.padding(this.props.partitionPadding)
 				}
 				root.sum(d => d.value)
@@ -235,30 +236,33 @@ class HierarchyLayout extends Component {
 				)
 			}
 			case 'sunburst': {
-				const {radius,angle} = this.props
-				let sunburstLayout = d3.partition()
-				sunburstLayout.size([2 * Math.PI*angle, radius])
-				// sunburstLayout.padding(2)
+				let { radius, angle,dataKey,padding } = this.props
 
+				let color = d3.scaleOrdinal(d3.schemeCategory20)
+				// 如果没有指定，则默认是长度或者宽度的一半
+				radius = radius?radius:Math.min(width, height) / 2
+
+				let sunburstLayout = d3.partition()
+				sunburstLayout.size([2 * Math.PI*angle, radius * radius])
 				let arc = d3.arc()
 					.startAngle(d => d.x0)
 					.endAngle(d => d.x1)
-					.innerRadius(d => d.y0)
-					.outerRadius(d => d.y1)
+					.innerRadius(d => Math.sqrt(d.y0))
+					.outerRadius(d => Math.sqrt(d.y1))
 
-				root.sum(d => d.value)
+				root.sum(d => d[dataKey])
 
 				sunburstLayout(root)
-
 				let sunburstData = root.descendants()
+				let {top,right,bottom,left} = padding
 				return (
-					<div class={styles.container}>
+					<div class={styles.container} style={{padding:`${top}px ${right}px ${bottom}px ${left}px`}}>
 						<Tooltip
 							content={content}
 							tooltipStyle={tooltipStyle}
 						/>
 						<svg ref={el => this.pack = el} width={width} height={height}>
-							<g transform="translate(200,150)">
+							<g transform={`translate(${width / 2}, ${height * .52} )`}>
 								{sunburstData && sunburstData.map((d, index) => {
 									return (
 										<g
@@ -268,17 +272,19 @@ class HierarchyLayout extends Component {
 											key={index + 1}
 											class={styles.node}>
 											<path
+												style={{display:d.depth ===0?'none':'block',opacity:sunburstHighlight && activeIdx !== index ?0.3:1}}
 												d={arc(d)}
-												fill={activeIdx === index ? "rgba(0,105,92,0.8)" : "rgba(38,166,154,0.2)"}
-												stroke="#2f2f2f"
+												fill={color((d.children ? d : d.parent).data.name)}
+												fill-rule="evenodd"
+												stroke="#fff"
 											/>
-											<text
+											{false &&<text
 												transform={`translate(${arc.centroid(d)}) rotate(${this.computeTextRotation(d)})`}
 												dy=".5em"
 												dx="-8"
 												fill={activeIdx === index ? "#fff" : "#000"}>
 												{d.parent ? d.data.name : ''}
-											</text>
+											</text>}
 										</g>
 									)
 								})}
