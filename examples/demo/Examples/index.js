@@ -204,7 +204,7 @@ export default class Home extends Component {
 					/>
 				</div>
 				<div class={style.control}>
-					<h3>辐射组件</h3>
+					<h3>旭日图组件</h3>
 					<SunburstLayout
 						data={flareData}
 						width="600"

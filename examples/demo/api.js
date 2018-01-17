@@ -200,18 +200,6 @@ let sunburstData = [{
 	default:140,
 	detail:'表示Sunburst的半径',
 	options:''
-},{
-	name:'hoverColor',
-	type:'string',
-	default:'',
-	detail:'悬浮图形的颜色值',
-	options:''
-},{
-	name:'backgroundColor',
-	type:'string',
-	default:'',
-	detail:'图形默认的背景色',
-	options:''
 }]
 
 let partitionData = [{

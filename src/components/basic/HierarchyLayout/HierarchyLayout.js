@@ -8,6 +8,7 @@ class HierarchyLayout extends Component {
 		this.state = {
 			descendantsData: [],
 			linkData: [],
+			content:'',
 			sunburstHighlight:false  //sunburst高亮的标志,悬浮某节点时为true，其他节点变暗
 		}
 	}
@@ -35,7 +36,7 @@ class HierarchyLayout extends Component {
 
 	}
 	handleMouseOver = (e, d, index) => {
-		const { dataKey, nameKey } = this.props
+		const { dataKey, nameKey,onMouseOver } = this.props
 		let isHasVal = Object.keys(d.data).indexOf(dataKey)
 		let name = d.data[nameKey]
 		let valueStr = isHasVal > -1 ? `,${dataKey}:${d.data[dataKey]}` : ''
@@ -45,14 +46,17 @@ class HierarchyLayout extends Component {
 			tooltipStyle: { left: e.screenX + 20, top: e.screenY - 120, opacity: 0.9 },
 			sunburstHighlight:true
 		})
+		onMouseOver && onMouseOver()
 	}
 	handleMouseOut = () => {
+		const {onMouseOut} = this.props
 		this.setState({
 			activeIdx: '0',
 			content: '',
 			tooltipStyle: { opacity: 0 },
 			sunburstHighlight:false
 		})
+		onMouseOut && onMouseOut()
 	}
 	computeTextRotation = (d) => {
 		let angle = (d.x0 + d.x1) / Math.PI * 90
@@ -255,12 +259,18 @@ class HierarchyLayout extends Component {
 				sunburstLayout(root)
 				let sunburstData = root.descendants()
 				let {top,right,bottom,left} = padding
+				let contentArr = content.indexOf(',') > -1?content.split(','):[]
 				return (
 					<div class={styles.container} style={{padding:`${top}px ${right}px ${bottom}px ${left}px`}}>
 						<Tooltip
 							content={content}
 							tooltipStyle={tooltipStyle}
 						/>
+						<ul class={styles.showText}>
+							{contentArr.length >0?contentArr.map((d,index)=>
+								<li key={index}>{d}</li>
+							):<li>{content}</li>}
+						</ul>
 						<svg ref={el => this.pack = el} width={width} height={height}>
 							<g transform={`translate(${width / 2}, ${height * .52} )`}>
 								{sunburstData && sunburstData.map((d, index) => {
