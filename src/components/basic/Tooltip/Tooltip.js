@@ -3,7 +3,7 @@ import styles from './index.less'
 
 const Tooltip = ({content,tooltipStyle,contentArr}) =>{
 	return (
-		<div class={styles.tooltip} style={tooltipStyle}>
+		<div id="tooltip" class={styles.tooltip} style={tooltipStyle}>
 			{contentArr?contentArr.map((d,index)=>
 				<div key={index}>{d.key}:{d.value}</div>
 			):content}

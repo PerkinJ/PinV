@@ -51,7 +51,8 @@ class PieChart extends Component {
 		}).on('mouseout', () => {
 			this.setState({
 				tooltipStyle: {
-					opacity: 0
+					opacity: 0,
+					tooltip:''
 				}
 			})
 		})

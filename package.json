@@ -109,6 +109,7 @@
     "morgan": "^1.9.0",
     "preact": "^8.1.0",
     "preact-compat": "^3.15.0",
+    "preact-render-spy": "^1.2.1",
     "preact-render-to-string": "^3.6.0",
     "preact-router": "^2.5.1",
     "promise-polyfill": "^6.0.2",

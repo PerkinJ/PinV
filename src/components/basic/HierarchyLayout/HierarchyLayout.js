@@ -272,15 +272,14 @@ class HierarchyLayout extends Component {
 							):<li>{content}</li>}
 						</ul>
 						<svg ref={el => this.pack = el} width={width} height={height}>
-							<g transform={`translate(${width / 2}, ${height * .52} )`}>
+							<g class={styles.node} transform={`translate(${width / 2}, ${height * .52} )`}>
 								{sunburstData && sunburstData.map((d, index) => {
 									return (
 										<g
 											onMouseOut={interactive ? this.handleMouseOut : null}
 											onMouseMove={interactive ? (e) => this.handleMouseOver(e, d, index) : null}
 											onMouseOver={interactive ? (e) => this.handleMouseOver(e, d, index) : null}
-											key={index + 1}
-											class={styles.node}>
+											key={index + 1}>
 											<path
 												style={{display:d.depth ===0?'none':'block',opacity:sunburstHighlight && activeIdx !== index ?0.3:1}}
 												d={arc(d)}
