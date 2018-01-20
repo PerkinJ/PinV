@@ -5,7 +5,7 @@ import {
 	ScatterPlot, Button, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraph,
-	ForceDirectedGraphGL,ChordDiagram,StreamGraph
+	ForceDirectedGraphGL,ChordDiagram,StreamGraph,ChinaMap
 } from 'pinv'
 
 import {
@@ -286,7 +286,7 @@ export default class Examples extends Component {
 						</div>
 					</div>}
 					{search === 'sunburst' && <div class={style.control}>
-						<h3>辐射组件</h3>
+						<h3>旭日图组件</h3>
 						<SunburstLayout
 							data={jsonData}
 							width="400"
@@ -305,7 +305,7 @@ export default class Examples extends Component {
 								SunburstLayout
 							</h3>
 							<div class={style.description}>
-								辐射组件，一种层级结构的可视化组件
+								旭日图组件，一种层级结构的可视化组件
 							</div>
 							<div class={style.box}>
 								<h3>参数</h3>

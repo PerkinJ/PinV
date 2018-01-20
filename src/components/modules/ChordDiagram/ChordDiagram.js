@@ -143,7 +143,7 @@ export default class ChordDiagram extends Component {
 					tooltipStyle={tooltipStyle}
 				/>
 				<svg ref={el => this.chordDiagram = el} width={width} height={height} >
-					<g class={styles.legend}>
+					{/* <g class={styles.legend}>
 						{category.map((d, index) => {
 							return (
 								<g key={index} class="legend" transform={`translate(${index * 70},0)`}>
@@ -152,8 +152,8 @@ export default class ChordDiagram extends Component {
 								</g>
 							)
 						})}
-					</g>
-					<g transform={`translate(${width / 2},${height / 2 + 30})`}>
+					</g> */}
+					<g transform={`translate(${width / 2},${height / 2 })`}>
 						<g class={styles.groups}>
 							{groups.map((d, index) =>
 								<g key={index} class="outerPath">

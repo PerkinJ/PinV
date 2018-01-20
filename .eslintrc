@@ -76,7 +76,7 @@
     "no-this-before-super": 2,
     "no-dupe-class-members": 2,
     "no-const-assign": 2,
-    "prefer-spread": 2,
+    "prefer-spread": 0,
     "no-useless-concat": 2,
     "no-var": 2,
     "object-shorthand": 2,

@@ -14,7 +14,7 @@
  | strenght | number | -50 | 节点间力的作用，负数表示排斥力，正数表示吸引力 |
  | collide | number | 12.5 | 碰撞作用力可以为节点指定一个radius区域来防止节点重叠 | 
  | distance | number | 40 | link作用力可以根据期望的link distance(连接距离)将节点连接在一起。作用力的强度与节点之间的距离成正比，类似于弹簧作用力。 |
-### SunburstLayout (辐射组件)
+### SunburstLayout (旭日图组件)
 | Name | Type | Default | Description | 
  | :---: | :---: | :---: | :---: | 
  | data | array | | 数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象| 

@@ -4,12 +4,28 @@ import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
-	ChordDiagram,StreamGraph
+	ChordDiagram, StreamGraph, LineChart1
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
 import flareData from '../flare.json'
 
+let lineData = [
+	{
+		name: 'series1',
+		values: [{ x: 0, y: 20 }, { x: 1, y: 30 }, { x: 2, y: 10 }, { x: 3, y: 5 }, { x: 4, y: 8 }, { x: 5, y: 15 }, { x: 6, y: 10 }],
+		strokeWidth: 3,
+		strokeDashArray: "5,5"
+	},
+	{
+		name: 'series2',
+		values: [{ x: 0, y: 8 }, { x: 1, y: 5 }, { x: 2, y: 20 }, { x: 3, y: 12 }, { x: 4, y: 4 }, { x: 5, y: 6 }, { x: 6, y: 2 }]
+	},
+	{
+		name: 'series3',
+		values: [{ x: 0, y: 0 }, { x: 1, y: 5 }, { x: 2, y: 8 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 }]
+	}
+]
 let category = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲']
 
 let data1 = [
@@ -81,12 +97,12 @@ let n = 20, // number of layers
 	k = 10 // number of bumps per layer
 
 // 模拟stream数据
-const generateStreamData = ()=>{
+const generateStreamData = () => {
 	return d3.transpose(d3.range(n).map(() => bumps(m, k)))
 }
 
 // Inspired by Lee Byron’s test data generator.
-function  bumps (n, m){
+function bumps(n, m) {
 	let a = [], i
 	for (i = 0; i < n; ++i) a[i] = 0
 	for (i = 0; i < m; ++i) bump(a, n)
@@ -98,8 +114,8 @@ function bump(a, n) {
 		y = 2 * Math.random() - 0.5,
 		z = 10 / (0.1 + Math.random())
 	for (let i = 0; i < n; i++) {
-	  let w = (i / n - y) * z
-	  a[i] += x * Math.exp(-w * w)
+		let w = (i / n - y) * z
+		a[i] += x * Math.exp(-w * w)
 	}
 }
 
@@ -109,12 +125,12 @@ export default class Home extends Component {
 		this.state = {
 			data: randomData(),
 			phoneData: getRandomPhoneData(),
-			streamData:generateStreamData()
+			streamData: generateStreamData()
 		}
 	}
-	updateStreamData = ()=>{
+	updateStreamData = () => {
 		this.setState({
-			streamData:generateStreamData()
+			streamData: generateStreamData()
 		})
 	}
 	randomizeData = () => {
@@ -123,17 +139,32 @@ export default class Home extends Component {
 			phoneData: getRandomPhoneData()
 		})
 	}
-	componentDidMount(){
+	componentDidMount() {
 
 
 	}
-	render({ }, { data, phoneData,streamData }) {
+	render({ }, { data, phoneData, streamData }) {
 		return (
 			<div class={style.home}>
-				{/* <div class={style.control}>
-					<h3>地图组件</h3>
-					<ChinaMap/>
-				</div> */}
+				<div class={style.control}>
+					<LineChart1
+						legend={true}
+						data={lineData}
+						width='80%'
+						height={400}
+						viewBoxObject={{
+							x: 0,
+							y: 0,
+							width: 550,
+							height: 400
+						}}
+						title="折线图"
+						yAxisLabel="Altitude"
+						xAxisLabel="横坐标"
+						domain={{ x: [, 6], y: [-10,] }}
+						gridHorizontal={true}
+					/>
+				</div>
 				<div class={style.control}>
 					<h3>流式布局组件</h3>
 					<StreamGraph
@@ -141,7 +172,7 @@ export default class Home extends Component {
 						width="600"
 						height="400"
 						data={streamData}
-						labels ={[
+						labels={[
 							'The Sea and Cake',
 							'Andrew Bird',
 							'Laura Veirs',
@@ -191,7 +222,7 @@ export default class Home extends Component {
 						data={forceData}
 						width={1000}
 						height={500}
-						tooltip={['id','group']}
+						tooltip={['id', 'group']}
 						velocityDecay="0.5"
 					/>
 				</div>
