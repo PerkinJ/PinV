@@ -1,233 +1,262 @@
 import { h, Component } from 'preact'
+import { Chart, XAxis, YAxis, Tooltip } from '../../common'
+import DataSeries from './DataSeries'
 import * as d3 from 'd3'
-import Axis from '../../basic/Axis'
-import styles from './index.less'
-import Circles from '../../basic/Circles'
-import Tooltip from '../../basic/Tooltip'
+import { calculateScales,flattenData } from '../../../utils/utils'
+
 class LineChart extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props)
 		this.state = {
-			circleStyle:{
-				style:{display:'none'}
+			tooltip: {
+				x: 0,
+				y: 0,
+				child: '',
+				show: false
 			},
-			vLineStyle:{
-				style:{display:'none'}
-			},
-			hLineStyle:{
-				style:{display:'none'}
-			}
+			changeState: false
 		}
 	}
 	static defaultProps = {
-		width: 600,
-		height: 400,
-		padding: { top: 32, bottom: 32, left: 20, right: 20 },
-		// left: 40,
-		tickSize: 5,
-		tickFormat: '',
-		stroke: '#673ab7',
-		shape: 'curveCardinal',
-		r: 3,
-		interactive:true, // 是否显示交互的效果
-		color: 'rgb(255,0,0)',
-		circleProps:{    //circle的style属性
-			r:5,
-			fill:'#666'
-		},
-		tipLineProps:{   //两条虚线的公共样式
-			stroke:'#666'
-		},
-		circleStroke:null
+		circleRadius: 3,
+		className: 'rd3-linechart',
+		hoverAnimation: true,
+		margins: { top: 10, right: 20, bottom: 50, left: 45 },
+		xAxisClassName: 'rd3-linechart-xaxis',
+		yAxisClassName: 'rd3-linechart-yaxis',
+		// default asccessor
+		xAccessor: (d) => d.x,
+		yAccessor: (d) => d.y,
+		// default cartesian
+		axesColor: '#000',
+		colors: d3.scaleOrdinal(d3.schemeCategory20),
+		colorAccessor: (d, idx) => idx,
+		height: 200,
+		horizontal: false,
+		legend: false,
+		legendOffset: 120,
+		title: '',
+		width: 400,
+		xAxisLabel: '',
+		xAxisLabelOffset: 38,
+		xAxisOffset: 0,
+		xOrient: 'bottom',
+		yAxisLabel: '',
+		yAxisLabelOffset: 35,
+		yAxisOffset: 0,
+		yOrient: 'default',
+		// default tooltip
+		showTooltip: true,
+		tooltipFormat: (d) => String(d.yValue)
+
 	}
-	componentDidMount() {
-		this.renderData()
-	}
-	componentDidUpdate(){
-		this.renderData()
-	}
-	// 主要处理不同数据下，focusLine以及focusCircle的位置以及样式
-	renderData = ()=>{
-		let { width, height, padding, data, XAxis, YAxis } = this.props
-		let dWidth = width - padding.left - padding.right - data.length / 2,  // 这里要减去每个circle的半径
-			dHeight = height - padding.top - padding.bottom
-
-		let xDomain = d3.max(data, (d) => d[XAxis]),
-			yDomain = d3.max(data, (d) => d[YAxis])
-		let scaleX = d3.scaleLinear()
-			.domain([0, xDomain])
-			.range([0, dWidth])
-		let scaleY = d3.scaleLinear()
-			.domain([0, yDomain])
-			.range([dHeight, padding.bottom])
-		let lineChart = d3.select(this.lineChart)
-		let rect = lineChart.selectAll('rect')
-
-		let _this = this
-
-		rect.on('mouseover', function () {
-			let mouseX = d3.mouse(this)[0] - padding.left
-			// 通过比例尺的反函数计算原数据中的值
-			let x0 = scaleX.invert(mouseX)
-			// x0取值应该在[0,xDomain]之间
-			x0 = x0 < 0 ? 0 : x0 >= xDomain ? xDomain : Number(Math.round(x0))
-			// 查找元素组中x0的值，并返回索引
-			let bisect = d3.bisector((d) => d[XAxis]).left
-			let index = bisect(data, x0)
-
-			let x1 = data[index][XAxis], y1 = data[index][YAxis]
-			_this.setState({
-				content: `${XAxis}  ${x1} : ${YAxis}  ${y1}`,
-				tooltipStyle: {
-					left: d3.event.pageX,
-					top: d3.event.clientY + 20,
-					opacity: 0.9
-				},
-				circleStyle:{
-					style:{display:'none'}
-				},
-				vLineStyle:{
-					style:{display:'none'}
-				},
-				hLineStyle:{
-					style:{display:'none'}
-				}
-			})
-		}).on('mouseout', () => {
-			this.setState({
-				tooltipStyle: {
-					opacity: 0
-				},
-				circleStyle:{
-					style:{display:'none'}
-				},
-				vLineStyle:{
-					style:{display:'none'}
-				},
-				hLineStyle:{
-					style:{display:'none'}
-				}
-			})
-		}).on('mousemove', function () {
-			let mouseX = d3.mouse(this)[0] - padding.left
-
-			// 通过比例尺的反函数计算原数据中的值
-			let x0 = scaleX.invert(mouseX)
-			// x0取值应该在[0,xDomain]之间
-			x0 = x0 < 0 ? 0 : x0 >= xDomain ? xDomain : Number(Math.round(x0))
-			// 查找元素组中x0的值，并返回索引
-			let bisect = d3.bisector((d) => d[XAxis]).left
-			let index = bisect(data, x0)
-
-			let x1 = data[index][XAxis], y1 = data[index][YAxis]
-			let focusX = scaleX(x1) + padding.left + 11, focusY = scaleY(y1) + padding.top
-
-			_this.setState({
-				content: `${XAxis}  ${x1} : ${YAxis}  ${y1}`,
-				tooltipStyle: {
-					left: d3.event.pageX,
-					top: d3.event.clientY + 20,
-					opacity: 0.9
-				},
-				circleStyle:{
-					style:{display:'block'},
-					transform:`translate(${focusX},${focusY})`
-				},
-				vLineStyle:{
-					style:{display:'block'},
-					x1:focusX,
-					y1:focusY,
-					x2:focusX,
-					y2:height - padding.bottom
-				},
-				hLineStyle:{
-					x1:focusX,
-					y1:focusY,
-					x2:padding.left,
-					y2:focusY
-				}
-			})
+	componentWillReceiveProps() {
+		this.setState({
+			changeState: false
 		})
 	}
-	render(props, { content, tooltipStyle,circleStyle,vLineStyle,hLineStyle }) {
-		let { interactive,width, height, padding, data, XAxis, YAxis, tickSize = 5, tickFormat, stroke, shape,circleProps,tipLineProps,circleStroke } = props
-		let dWidth = width - padding.left - padding.right - data.length / 2,  // 这里要减去每个circle的半径
-			dHeight = height - padding.top - padding.bottom
+	// tooltip mouseover
+	onMouseOver = (x, y, dataPoint) =>{
+		if (!this.props.showTooltip)
+			return
+		this.setState({
+			tooltip: {
+				x,
+				y,
+				child: this.props.tooltipFormat.call(this, dataPoint),
+				show: true
+			},
+			changeState: true
+		})
+	}
+	onMouseLeave = () => {
+		if (!this.props.showTooltip)
+			return
+		this.setState({
+			tooltip: {
+				x: 0,
+				y: 0,
+				child: '',
+				show: false
+			},
+			changeState: true
+		})
+	}
+	_calculateScales(...props) {
+		return calculateScales(...props)
+	}
+	// certetisian
+	getYOrient = () =>{
+		let yOrient = this.props.yOrient
 
-		let xDomain = d3.max(data, (d) => d[XAxis]),
-			yDomain = d3.max(data, (d) => d[YAxis])
-		let scaleX = d3.scaleLinear()
-			.domain([0, xDomain])
-			.range([0, dWidth])
-		let scaleY = d3.scaleLinear()
-			.domain([0, yDomain])
-			.range([dHeight, padding.bottom])
-		let linePath = d3.line()
-			.x((d) => scaleX(d[XAxis]))
-			.y((d) => scaleY(d[YAxis]))
-			.curve(d3[shape])
-		const lineProps = {
-			stroke,
-			fill: 'none',
-			d: linePath(data),
-			transform: `translate(${padding.left + 10},${padding.top})`
+		if (yOrient === 'default') {
+			return this.props.horizontal ? 'right' : 'left'
 		}
-		const rectProps = {
-			width:width - padding.left,
-			height: height - padding.top - padding.bottom,
-			transform: `translate(${padding.left},${padding.top})`
+
+		return yOrient
+	}
+	getViewBox = () =>{
+		if (this.props.viewBoxObject) {
+			let v = this.props.viewBoxObject
+			return [v.x, v.y, v.width, v.height].join(' ')
+		} else if (this.props.viewBox) {
+			return this.props.viewBox
 		}
-		// v4与v3的区别 v3的interpolate不再使用  https://github.com/d3/d3-shape/blob/master/README.md#curves
-		return <div class={styles.container}>
-			<Tooltip
-				content={content}
-				tooltipStyle={tooltipStyle}
-			/>
-			<svg ref={el => this.lineChart = el} width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
-				<Axis
-					hidden={false}
-					type="x"
-					dataKey="key"
-					data={data}
-					length={dWidth}
-					orient="bottom"
-					stroke={stroke}
-					textAnchor="middle"
-					class={styles.axis}
-					transform={`translate(${padding.left},${height - padding.top} )`} />
-				<Axis
-					hidden={false}
-					type="y"
-					dataKey="value"
-					data={data}
-					length={dHeight}
-					orient="left"
-					tickSize={tickSize}
-					tickFormat={tickFormat}
-					textAnchor="end"
-					stroke={stroke}
-					class={styles.axis}
-					transform={`translate(${padding.left},${padding.top})`} />
-				<path class={styles.line} {...lineProps} />
-				<g transform={`translate(${padding.left - props.r},0)`} >
-					<Circles
-						xScale={scaleX}
-						yScale={scaleY}
-						{...props}
-						fill='#fff'
-						circleStroke={circleStroke}
-					/>
-				</g>
-				{interactive&&<rect class={styles.overlay} {...rectProps} />}
-				<g class="focusCircle" {...circleStyle}>
-					<circle {...circleProps}/>
-				</g>
-				<g class="focusLine" >
-					<line stroke-dasharray="3" {...tipLineProps} {...vLineStyle}/>
-					<line stroke-dasharray="3" {...tipLineProps} {...hLineStyle}/>
-				</g>
-			</svg>
-		</div>
+	}
+	getDimensions = () =>{
+		let props = this.props
+		let { horizontal, margins, viewBoxObject, xOrient, xAxisOffset, yAxisOffset } = props
+		let yOrient = this.getYOrient()
+
+		let width, height
+		if (viewBoxObject) {
+			width = viewBoxObject.width,
+			height = viewBoxObject.height
+		} else {
+			width = props.width,
+			height = props.height
+		}
+
+		let svgWidth, svgHeight
+		let xOffset, yOffset
+		let svgMargins
+		let trans
+		if (horizontal) {
+			let center = width / 2
+			trans = `rotate(90 ${center} ${center}) `
+			svgWidth = height
+			svgHeight = width
+			svgMargins = {
+				left: margins.top,
+				top: margins.right,
+				right: margins.bottom,
+				bottom: margins.left
+			}
+		} else {
+			trans = ''
+			svgWidth = width
+			svgHeight = height
+			svgMargins = margins
+		}
+
+		xAxisOffset = Math.abs(props.xAxisOffset || 0)
+		yAxisOffset = Math.abs(props.yAxisOffset || 0)
+
+		xOffset = svgMargins.left + (yOrient === 'left' ? yAxisOffset : 0)
+		yOffset = svgMargins.top + (xOrient === 'top' ? xAxisOffset : 0)
+		trans += `translate(${xOffset}, ${yOffset})`
+
+		return {
+			innerHeight: svgHeight - svgMargins.top - svgMargins.bottom - xAxisOffset,
+			innerWidth: svgWidth - svgMargins.left - svgMargins.right - yAxisOffset,
+			trans,
+			svgMargins
+		}
+	}
+	render() {
+		let props = this.props
+		if (this.props.data && this.props.data.length < 1) {
+			return null
+		}
+
+		let { innerWidth, innerHeight, trans, svgMargins } = this.getDimensions()
+		let yOrient = this.getYOrient()
+		let domain = props.domain || {}
+
+		if (!Array.isArray(props.data)) {
+			props.data = [props.data]
+		}
+
+		// Returns an object of flattened allValues, xValues, and yValues
+		let flattenedData = flattenData(props.data, props.xAccessor, props.yAccessor)
+
+		let allValues = flattenedData.allValues,
+			xValues = flattenedData.xValues,
+			yValues = flattenedData.yValues
+		let scales = this._calculateScales(innerWidth, innerHeight, xValues, yValues, domain.x, domain.y)
+		return (
+			<span onMouseLeave={this.onMouseLeave}>
+				<Chart
+					viewBox={this.getViewBox()}
+					legend={props.legend}
+					sideOffset={props.sideOffset}
+					legendPosition={props.legendPosition}
+					data={props.data}
+					margins={props.margins}
+					colors={props.colors}
+					colorAccessor={props.colorAccessor}
+					width={props.width}
+					height={props.height}
+					title={props.title}
+					shouldUpdate={!this.state.changeState}
+				>
+					<g transform={trans} className={props.className}>
+						<XAxis
+							xAxisClassName={props.xAxisClassName}
+							strokeWidth={props.xAxisStrokeWidth}
+							xAxisTickValues={props.xAxisTickValues}
+							xAxisTickInterval={props.xAxisTickInterval}
+							xAxisOffset={props.xAxisOffset}
+							xScale={scales.xScale}
+							xAxisLabel={props.xAxisLabel}
+							xAxisLabelOffset={props.xAxisLabelOffset}
+							tickFormatting={props.xAxisFormatter}
+							xOrient={props.xOrient}
+							yOrient={yOrient}
+							data={props.data}
+							margins={svgMargins}
+							width={innerWidth}
+							height={innerHeight}
+							horizontalChart={props.horizontal}
+							stroke={props.axesColor}
+							gridVertical={props.gridVertical}
+							gridVerticalStroke={props.gridVerticalStroke}
+							gridVerticalStrokeWidth={props.gridVerticalStrokeWidth}
+							gridVerticalStrokeDash={props.gridVerticalStrokeDash}
+						/>
+						<YAxis
+							yAxisClassName={props.yAxisClassName}
+							strokeWidth={props.yAxisStrokeWidth}
+							yScale={scales.yScale}
+							yAxisTickValues={props.yAxisTickValues}
+							yAxisTickCount={props.yAxisTickCount}
+							yAxisOffset={props.yAxisOffset}
+							yAxisLabel={props.yAxisLabel}
+							yAxisLabelOffset={props.yAxisLabelOffset}
+							tickFormatting={props.yAxisFormatter}
+							xOrient={props.xOrient}
+							yOrient={yOrient}
+							margins={svgMargins}
+							width={innerWidth}
+							height={innerHeight}
+							horizontalChart={props.horizontal}
+							stroke={props.axesColor}
+							gridHorizontal={props.gridHorizontal}
+							gridHorizontalStroke={props.gridHorizontalStroke}
+							gridHorizontalStrokeWidth={props.gridHorizontalStrokeWidth}
+							gridHorizontalStrokeDash={props.gridHorizontalStrokeDash}
+						/>
+						<DataSeries
+							xScale={scales.xScale}
+							yScale={scales.yScale}
+							xAccessor={props.xAccessor}
+							yAccessor={props.yAccessor}
+							hoverAnimation={props.hoverAnimation}
+							circleRadius={props.circleRadius}
+							data={props.data}
+							value={allValues}
+							interpolationType={props.interpolationType}
+							colors={props.colors}
+							colorAccessor={props.colorAccessor}
+							width={innerWidth}
+							height={innerHeight}
+							onMouseOver={this.onMouseOver}
+						/>
+					</g>
+				</Chart>
+				{(props.showTooltip ? <Tooltip {...this.state.tooltip} /> : null)}
+			</span>
+		)
 	}
 }
 export default LineChart

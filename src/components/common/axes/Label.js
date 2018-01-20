@@ -13,7 +13,6 @@ class Label extends Component {
 		if (!props.label) {
 			return <text />
 		}
-
 		let transform, x, y
 		if (props.orient === 'top' || props.orient === 'bottom') {
 			transform = props.verticalTransform

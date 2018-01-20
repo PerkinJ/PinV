@@ -1,8 +1,6 @@
 // 可视化视图组件
 import Histogram from './components/modules/Histogram'
 import LineChart from './components/modules/LineChart'
-import LineChart1 from './components/modules/LineChart1'
-
 import PieChart from './components/modules/PieChart'
 import ScatterPlot from './components/modules/ScatterPlot'
 import TreeLayout from './components/modules/TreeLayout'
@@ -33,7 +31,6 @@ export  {
 	 */
 	Histogram,
 	LineChart,
-	LineChart1,
 	PieChart,
 	ScatterPlot,
 	TreeLayout,

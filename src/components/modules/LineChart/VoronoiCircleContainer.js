@@ -45,12 +45,13 @@ class VoronoiCircleContainer extends Component {
 		} else {
 			handleMouseOver = handleMouseLeave = null
 		}
+		console.log('vnode',vnode)
 		return (
 			<g>
 				<path
 					onMouseOver={handleMouseOver}
 					onMouseLeave={handleMouseLeave}
-					fill='transparent'
+					fill='#f00'
 					d={this.drawPath(vnode)}
 				/>
 				<circle

@@ -5,7 +5,7 @@ import * as d3 from 'd3'
 class Legend extends Component {
 	static defaultProps = {
 		className: 'rd3-Tooltip',
-		colors: d3.scaleOrdinal(d3.schmeCategory20c),
+		colors: d3.scaleOrdinal(d3.schemeCategory20c),
 		colorAccessor: (d, idx) => idx,
 		itemClassName: 'rd3-Tooltip-item',
 		text: '#000'

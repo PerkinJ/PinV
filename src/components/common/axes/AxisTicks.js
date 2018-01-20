@@ -39,7 +39,6 @@ class AxisTicks extends Component {
 
 		let sign = props.orient === 'top' || props.orient === 'right' ? -1 : 1
 		let tickSpacing = Math.max(props.innerTickSize, 0) + props.tickPadding
-
 		scale = props.scale
 
 		if (props.tickValues) {
@@ -59,8 +58,6 @@ class AxisTicks extends Component {
 		}
 
 		adjustedScale = scale.rangeBand ? (d) => { return scale(d) + scale.rangeBand() / 2 } : scale
-
-
 		// Still working on this
 		// Ticks and lines are not fully aligned
 		// in some orientations
@@ -79,6 +76,7 @@ class AxisTicks extends Component {
 				textAnchor = "middle"
 				y2 = props.innerTickSize * sign
 				y1 = tickSpacing * sign
+				x1= -10 // 手动添加偏移
 				dy = sign < 0 ? "0em" : ".71em"
 				x2grid = 0
 				y2grid = -props.height
@@ -87,7 +85,7 @@ class AxisTicks extends Component {
 				tr = (tick) => `translate(0,${adjustedScale(tick)})`
 				textAnchor = "end"
 				x2 = props.innerTickSize * -sign
-				x1 = tickSpacing * -sign
+				x1 = tickSpacing * -sign - 15   // 手动添加偏移
 				dy = ".32em"
 				x2grid = props.width
 				y2grid = 0

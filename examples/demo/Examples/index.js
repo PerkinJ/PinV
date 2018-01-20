@@ -4,7 +4,7 @@ import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
-	ChordDiagram, StreamGraph, LineChart1
+	ChordDiagram, StreamGraph
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
@@ -147,11 +147,13 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<div class={style.control}>
-					<LineChart1
+					<LineChart
 						legend={true}
 						data={lineData}
 						width='80%'
 						height={400}
+						sideOffset={100}
+						legendPosition="top"
 						viewBoxObject={{
 							x: 0,
 							y: 0,
@@ -334,7 +336,7 @@ export default class Home extends Component {
 					/>
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>
-				<div class={style.control}>
+				{/* <div class={style.control}>
 					<h3>折线图组件</h3>
 					<LineChart
 						XAxis="key"
@@ -345,7 +347,7 @@ export default class Home extends Component {
 						shape="curveCardinal"
 						padding={{ top: 32, bottom: 32, left: 30, right: 20 }} />
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
-				</div>
+				</div> */}
 				<div class={style.control}>
 					<h3>饼状图组件</h3>
 					<PieChart

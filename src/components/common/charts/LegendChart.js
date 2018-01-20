@@ -4,16 +4,16 @@ import Legend from '../Legend'
 class LegendChart extends Component {
 	static defaultProps = {
 		className: 'rd3-legend-chart',
-		colors: d3.scaleOrdinal(d3.schmeCategory20c),
+		colors: d3.scaleOrdinal(d3.schemeCategory20),
 		colorAccessor: (d, idx) => idx,
 		data: [],
 		legend: false,
 		legendPosition: 'right',
-		sideOffset: 90,
+		sideOffset: 100,     // legend的长度
 		svgClassName: 'rd3-chart',
 		titleClassName: 'rd3-chart-title'
 	}
-	_renderLegend() {
+	_renderLegend =()=> {
 		let props = this.props
 
 		if (props.legend) {
@@ -29,7 +29,7 @@ class LegendChart extends Component {
 			)
 		}
 	}
-	_renderTitle() {
+	_renderTitle = () => {
 		let props = this.props
 
 		if (props.title !== '' && props.title !== null) {
@@ -43,7 +43,7 @@ class LegendChart extends Component {
 		}
 		return null
 	}
-	_renderChart() {
+	_renderChart = () => {
 		let props = this.props
 
 		return (

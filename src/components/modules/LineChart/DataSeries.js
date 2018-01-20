@@ -58,7 +58,7 @@ class DataSeries extends Component {
 				cy = yScale(yAccessor(point))
 			}
 			circleFill = colors(colorAccessor(vnode, vnode.site.data.seriesIndex))
-			console.log('circleFill',circleFill)
+
 			return (
 				<VoronoiCircleContainer
 					key={idx}
