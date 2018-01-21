@@ -800,19 +800,19 @@ let lineChartData = [{
 	name:'data',
 	type:'array',
 	default:'',
-	detail:'源数据，要求格式为对象数组，例如[{age:24,weight:140},{age:24,weight:140}]',
+	detail:'源数据，要求格式为对象数组，例如[{name: "series1",values: [ { x: 0, y:20 }, ..., { x: 24, y: 10 } ]},....{name: "series2",values: [ { x: 70, y: 82 },..., { x: 76, y: 82 } ]}]',
 	options:''
 },{
-	name:'XAxis',
+	name:'xAxisLabel',
 	type:'string',
 	default:'',
-	detail:'x轴的key值',
+	detail:'X轴显示的title',
 	options:''
 },{
-	name:'YAxis',
+	name:'yAxisLabel',
 	type:'string',
 	default:'',
-	detail:'y轴的key值',
+	detail:'Y轴显示的title',
 	options:''
 },{
 	name:'width',
@@ -827,71 +827,95 @@ let lineChartData = [{
 	detail:'图形的高度',
 	options:''
 },{
-	name:'interactive',
+	name:'showTooltip',
 	type:'boolean',
 	default:true,
-	detail:'是否显示交互',
+	detail:'是否显示toltip组件',
 	options:''
 },{
-	name:'padding',
-	type:'object',
-	default:`{ top: 32, bottom: 32, left: 20, right: 20 }`,
-	detail:'例如：{ top: 32, bottom: 32, left: 20, right: 20 }',
-	options:''
-},{
-	name:'tickSize',
-	type:'number',
-	default:5,
-	detail:'y轴的tickSize',
-	options:''
-},{
-	name:'tickFormat',
-	type:'string',
-	default:'',
-	detail:`y轴value的format，例如'.0s'`,
-	options:''
-},{
-	name:'hidden',
+	name:'legend',
 	type:'boolean',
-	default:'false',
-	detail:'是否隐藏x,y坐标轴',
+	default:true,
+	detail:'legend提示',
 	options:''
 },{
-	name:'stroke',
+	name:'legendPosition',
 	type:'string',
-	default:'#673ab7',
-	detail:'轴线的颜色',
-	options:''
+	default:'right',
+	detail:'Legend组件的位置',
+	options:'[right,left]'
 },{
-	name:'r',
+	name:'sideOffset',
 	type:'number',
-	default:4,
-	detail:'散点的半径',
+	default:'100',
+	detail:`legend提示的宽度`,
 	options:''
 },{
-	name:'circleStroke',
+	name:'title',
 	type:'string',
 	default:'',
-	detail:'circle圆环的颜色',
+	detail:'折线图的标题',
 	options:''
 },{
-	name:'circleProps',
+	name:'domain',
 	type:'object',
-	default:`{r:5,fill:'#666'}`,
-	detail:'显示交互后，点击circle触发的样式',
+	default:'{}',
+	detail:'坐标轴的区间值，例如{ x: [, 6], y: [-10,] }，表示x轴，最多不超过6，y轴不小于-10',
 	options:''
 },{
-	name:'tipLineProps',
+	name:'gridHorizontal',
+	type:'boolean',
+	default:false,
+	detail:'水平间隔虚线',
+	options:''
+},{
+	name:'viewBoxObject',
 	type:'object',
-	default:`{stroke:'#666',strokeWidth:1}`,
-	detail:'显示交互后，点击circle触发的虚线的样式',
+	default:'{}',
+	detail:'表示固定区间内，图形的起始点，已经可视化的长宽比',
 	options:''
 },{
-	name:'shape',
+	name:'circleRadius',
+	type:'number',
+	default:`3`,
+	detail:'表示折线图焦点的半径',
+	options:''
+},{
+	name:'axesColor',
 	type:'string',
-	default:'curveCardinal',
-	detail:'曲线的插值模式。具体取值请参考d3-shape',
-	options:`[curveBasis,curveBasisClosed,curveBasisOpen,curveBundle,curveCardinal,...]`
+	default:`#000`,
+	detail:'表示轴线的颜色',
+	options:''
+},{
+	name:'xOrient',
+	type:'string',
+	default:'bottom',
+	detail:`x轴坐标ticks的所朝的方向，有'top'跟'bottom'选项`,
+	options:`[top,bottom]`
+},{
+	name:'yOrient',
+	type:'string',
+	default:'bottom',
+	detail:`y轴坐标在图形的左边还是右边，有'left'跟'right'选项`,
+	options:`[left,right]`
+},{
+	name:'xAxisOffset',
+	type:'number',
+	default:'0',
+	detail:`坐标轴说明与坐标轴的间隔`,
+	options:``
+},{
+	name:'yAxisOffset',
+	type:'number',
+	default:'0',
+	detail:`坐标轴说明与坐标轴的间隔`,
+	options:``
+},{
+	name:'showTooltip',
+	type:'boolean',
+	default:'true',
+	detail:`是否显示toltip组件`,
+	options:``
 }]
 
 export {

@@ -126,21 +126,26 @@
 #### Properties
  | Name | Type | Default | Description | 
  | :---: | :---: | :---: | :---: |  
- | data | array | | 源数据，要求格式为对象数组，例如[{age:24,weight:140},{age:24,weight:140}] | 
+ | data | array | | 源数据，要求格式为对象数组，例如[{name: "series1",values: [ { x: 0, y:20 }, ..., { x: 24, y: 10 } ]},....{name: "series2",values: [ { x: 70, y: 82 },..., { x: 76, y: 82 } ]}] | 
  | width | number | 600 | 图形的宽度 | 
  | height | number | 300 | 图形的高度 | 
  | padding | object | { top: 32, bottom: 32, left: 20, right: 20 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } | 
- | padding | object | { top: 32, bottom: 32, left: 20, right: 20 } | 例如：{ top: 32, bottom: 32, left: 20, right: 20 } | 
- | tickSize | number | 5 | y轴的tickSize
-tickFormat | string | '' | y轴value的format，例如'.0s' | 
- | hidden | boolean | false | 是否隐藏x,y坐标轴 | 
- | stroke | string | '#673ab7' | 轴线的颜色 | 
- | r | number | 3 | 散点的半径 | 
- | shape | string | 'curveCardinal' | 曲线的插值模式。具体取值请参考[d3-shape](https://github.com/d3/d3-shape/blob/master/README.md#curves) | 
-| interactive | boolean | true | 是否显示交互
-| circleProps | object | {r:5,fill:'#666'} | 显示交互后，点击circle触发的样式 |
-| tipLineProps | object | {stroke:'#666',strokeWidth:1} | 显示交互后，点击circle触发的虚线的样式 | 
- | circleStroke | string | '' | circle圆环的颜色 | 
+ | legend | boolean | true | legend提示 |
+ | legendPosition | string | 'right' | Legend组件的位置，可选项，有'top','right' |
+ | sideOffset | number | 100 | legend提示的宽度 | 
+ | title | string | '' | 折线图的标题 | 
+ | xAxisLabel | string | '' | X轴显示的title |
+ | yAxisLabel | string | '' | Y轴显示的title |
+| domain | object | {} | 坐标轴的区间值，例如{ x: [, 6], y: [-10,] }，表示x轴，最多不超过6，y轴不小于-10 | 
+ | gridHorizontal | boolean | false | 水平间隔虚线 | 
+| viewBoxObject | object | {} | 表示固定区间内，图形的起始点，已经可视化的长宽比 | 
+| circleRadius | number | 3 | 表示折线图焦点的半径 | 
+| axesColor | string | '#000' | 表示轴线的颜色 | 
+ | xOrient | string | 'bottom' | x轴坐标ticks的所朝的方向，有'top'跟'bottom'选项 | 
+ | yOrient | string | 'left' | y轴坐标在图形的左边还是右边，有'left'跟'right'选项 | 
+ | yAxisOffset | number | 0 | 坐标轴说明与坐标轴的间隔 | 
+| xAxisOffset | number | 0 | 坐标轴说明与坐标轴的间隔 | 
+| showTooltip | boolean | true | 是否显示toltip组件 | 
 
 ### ScatterPlot（散点图）
 #### Properties
@@ -158,7 +163,7 @@ tickFormat | string | '' | y轴value的format，例如'.0s' |
  | stroke | string | '#673ab7' | 轴线的颜色
  | r | number | 4 | 散点的半径 |
  | circleStroke | string | '' | circle圆环的颜色 |
- | interactive | boolean | true | 是否显示交互
+ | interactive | boolean | true | 是否显示交互 |  
 
 
 ### Histogram（直方图）
@@ -175,7 +180,7 @@ tickFormat | string | '' | y轴value的format，例如'.0s' |
 tickFormat | string | '' | y轴value的format，例如'.0s' | 
  | hidden | boolean | false | 是否隐藏x,y坐标轴 | 
  | stroke | string | '#673ab7' | 轴线的颜色 | 
-| interactive | boolean | true | 是否显示交互
+| interactive | boolean | true | 是否显示交互 | 
 
 ## 可视化基础组件
 ### Axix
