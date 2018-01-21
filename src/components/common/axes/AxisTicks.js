@@ -85,7 +85,7 @@ class AxisTicks extends Component {
 				tr = (tick) => `translate(0,${adjustedScale(tick)})`
 				textAnchor = "end"
 				x2 = props.innerTickSize * -sign
-				x1 = tickSpacing * -sign - 15   // 手动添加偏移
+				x1 = tickSpacing * -sign - 20   // 手动添加偏移
 				dy = ".32em"
 				x2grid = props.width
 				y2grid = 0

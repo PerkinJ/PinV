@@ -14,7 +14,7 @@ class DataSeries extends Component {
 	_isDate(d, accessor) {
 		return Object.prototype.toString.call(accessor(d)) === '[object Date]'
 	}
-	render({ value, width, height, data, xScale, yScale, xAccessor, yAccessor, colors, colorAccessor,hoverAnimation,circleRadius,onMouseOver }) {
+	render({ value, width, height, data, xScale, yScale, xAccessor, yAccessor, colors, colorAccessor,hoverAnimation,circleRadius,onMouseOver,onMouseLeave }) {
 		let interpolatePath = d3.line()
 			.y((d) => yScale(yAccessor(d)))
 			// .interpolate(interpolationType)
@@ -68,6 +68,7 @@ class DataSeries extends Component {
 					cx={cx} cy={cy}
 					circleRadius={circleRadius}
 					onMouseOver={onMouseOver}
+					onMouseLeave={onMouseLeave}
 					dataPoint={{ xValue: xAccessor(point), yValue: yAccessor(point), seriesName: vnode.site.data.series.name }}
 				/>
 			)

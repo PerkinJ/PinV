@@ -251,6 +251,7 @@ class LineChart extends Component {
 							width={innerWidth}
 							height={innerHeight}
 							onMouseOver={this.onMouseOver}
+							onMouseLeave={this.onMouseLeave}
 						/>
 					</g>
 				</Chart>
