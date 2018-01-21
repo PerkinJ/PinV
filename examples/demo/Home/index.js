@@ -5,13 +5,13 @@ import {
 	ScatterPlot, Button, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraph,
-	ForceDirectedGraphGL,ChordDiagram,StreamGraph,ChinaMap
+	ForceDirectedGraphGL, ChordDiagram, StreamGraph, ChinaMap
 } from 'pinv'
 
 import {
 	sunburstData, partitionData, packData, treeMapData, clusterData, treeData,
 	histogramData, scatterPlotData, lineChartData, pieChartData, forceDirectedData,
-	chordDiagramData,streamGraphData
+	chordDiagramData, streamGraphData
 } from '../api'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
@@ -23,6 +23,22 @@ let data1 = [
 	[2000, 2000, 7700, 4881, 1050],
 	[3000, 8012, 5531, 500, 400],
 	[3540, 4310, 1500, 1900, 300]
+]
+let lineData = [
+	{
+		name: 'series1',
+		values: [{ x: 0, y: 20 }, { x: 1, y: 30 }, { x: 2, y: 10 }, { x: 3, y: 5 }, { x: 4, y: 8 }, { x: 5, y: 15 }, { x: 6, y: 10 }],
+		strokeWidth: 3,
+		strokeDashArray: "5,5"
+	},
+	{
+		name: 'series2',
+		values: [{ x: 0, y: 8 }, { x: 1, y: 5 }, { x: 2, y: 20 }, { x: 3, y: 12 }, { x: 4, y: 4 }, { x: 5, y: 6 }, { x: 6, y: 2 }]
+	},
+	{
+		name: 'series3',
+		values: [{ x: 0, y: 0 }, { x: 1, y: 5 }, { x: 2, y: 8 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 }]
+	}
 ]
 const jsonData = {
 	"name": "A1",
@@ -84,12 +100,12 @@ let n = 20, // number of layers
 	m = 200, // number of samples per layer
 	k = 10 // number of bumps per layer
 // 模拟stream数据
-const generateStreamData = ()=>{
+const generateStreamData = () => {
 	return d3.transpose(d3.range(n).map(() => bumps(m, k)))
 }
 
 // Inspired by Lee Byron’s test data generator.
-function  bumps (n, m){
+function bumps(n, m) {
 	let a = [], i
 	for (i = 0; i < n; ++i) a[i] = 0
 	for (i = 0; i < m; ++i) bump(a, n)
@@ -101,15 +117,15 @@ function bump(a, n) {
 		y = 2 * Math.random() - 0.5,
 		z = 10 / (0.1 + Math.random())
 	for (let i = 0; i < n; i++) {
-	  let w = (i / n - y) * z
-	  a[i] += x * Math.exp(-w * w)
+		let w = (i / n - y) * z
+		a[i] += x * Math.exp(-w * w)
 	}
 }
 export default class Examples extends Component {
 	state = {
 		data: randomData(),
 		phoneData: getRandomPhoneData(),
-		streamData:generateStreamData()
+		streamData: generateStreamData()
 	}
 
 
@@ -121,7 +137,7 @@ export default class Examples extends Component {
 	}
 
 	// Note: `user` comes from the URL, courtesy of our router
-	render({ }, { data, phoneData,streamData }) {
+	render({ }, { data, phoneData, streamData }) {
 		let search = location.search.split('=')[1] || 'streamGraph'
 		return (
 			<div class={style.home}>
@@ -134,7 +150,7 @@ export default class Examples extends Component {
 							width="600"
 							height="400"
 							data={streamData}
-							labels ={[
+							labels={[
 								'The Sea and Cake',
 								'Andrew Bird',
 								'Laura Veirs',
@@ -159,7 +175,7 @@ export default class Examples extends Component {
 						/>
 						<div class={style.apiContainer}>
 							<h3 class={style.title}>
-							StreamGraph
+								StreamGraph
 							</h3>
 							<div class={style.description}>
 								流式图组件，一种强调各层数据之间情感联系的堆叠图形。
@@ -196,7 +212,7 @@ export default class Examples extends Component {
 						/>
 						<div class={style.apiContainer}>
 							<h3 class={style.title}>
-							ChordDiagram
+								ChordDiagram
 							</h3>
 							<div class={style.description}>
 								弦图组件,用于表示一组元素之间的联系。源数据是一个方块矩阵（行数跟列数相等,N X N）
@@ -556,14 +572,24 @@ export default class Examples extends Component {
 					{search === 'lineChart' && <div class={style.control}>
 						<h3>折线图组件</h3>
 						<LineChart
-							XAxis="key"
-							YAxis="value"
-							data={data}
-							width={500}
-							height={300}
-							shape="curveCardinal"
-							padding={{ top: 32, bottom: 32, left: 30, right: 20 }} />
-						<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
+							legend={true}
+							data={lineData}
+							width='80%'
+							height={400}
+							sideOffset={100}
+							legendPosition="top"
+							viewBoxObject={{
+								x: 0,
+								y: 0,
+								width: 550,
+								height: 400
+							}}
+							title="折线图"
+							yAxisLabel="Altitude"
+							xAxisLabel="横坐标"
+							domain={{ x: [, 6], y: [-10,] }}
+							gridHorizontal={true}
+						/>
 						<div class={style.apiContainer}>
 							<h3 class={style.title}>
 								LineChart

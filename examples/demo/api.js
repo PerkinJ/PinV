@@ -7,7 +7,7 @@ let streamGraphData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -56,7 +56,7 @@ let chordDiagramData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -111,7 +111,7 @@ let forceDirectedData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -167,7 +167,7 @@ let sunburstData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -223,7 +223,7 @@ let partitionData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -284,7 +284,7 @@ let packData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -345,7 +345,7 @@ let treeMapData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -455,7 +455,7 @@ let clusterData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -510,7 +510,7 @@ let treeData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -578,7 +578,7 @@ let histogramData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -646,7 +646,7 @@ let scatterPlotData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -726,7 +726,7 @@ let pieChartData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 },{
@@ -792,7 +792,7 @@ let pieChartData = [{
 },{
 	name:'interactive',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示交互',
 	options:''
 }]
@@ -829,13 +829,13 @@ let lineChartData = [{
 },{
 	name:'showTooltip',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'是否显示toltip组件',
 	options:''
 },{
 	name:'legend',
 	type:'boolean',
-	default:true,
+	default:'true',
 	detail:'legend提示',
 	options:''
 },{
@@ -865,7 +865,7 @@ let lineChartData = [{
 },{
 	name:'gridHorizontal',
 	type:'boolean',
-	default:false,
+	default:'false',
 	detail:'水平间隔虚线',
 	options:''
 },{
