@@ -26,6 +26,7 @@ let lineData = [
 		values: [{ x: 0, y: 0 }, { x: 1, y: 5 }, { x: 2, y: 8 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 }]
 	}
 ]
+
 let category = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲']
 
 let data1 = [
@@ -146,6 +147,15 @@ export default class Home extends Component {
 	render({ }, { data, phoneData, streamData }) {
 		return (
 			<div class={style.home}>
+				{/* <div class={style.control}>
+					<BarChart
+						data={barData}
+						width={500}
+						height={300}
+						title="Bar Chart"
+						yAxisLabel="Label"
+						xAxisLabel="Value" />
+				</div> */}
 				<div class={style.control}>
 					<LineChart
 						legend={true}
@@ -153,6 +163,10 @@ export default class Home extends Component {
 						width='80%'
 						height={400}
 						sideOffset={100}
+						// axesColor="#00BCD4"
+						// tickStroke="#00BCD4"
+						// tickTextStroke="#00BCD4"
+						// textColor="#00BCD4"
 						legendPosition="top"
 						viewBoxObject={{
 							x: 0,

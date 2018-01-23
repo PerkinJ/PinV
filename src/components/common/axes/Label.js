@@ -5,6 +5,7 @@ class Label extends Component {
 		horizontalTransform: 'rotate(270)',
 		strokeWidth: 0.01,
 		textAnchor: 'middle',
+		textColor:'#000',
 		verticalTransform: 'rotate(0)'
 	}
 	render() {
@@ -40,6 +41,7 @@ class Label extends Component {
 				transform={transform}
 				y={y}
 				x={x}
+				stroke={props.textColor}
 			>
 				{props.label}
 			</text>

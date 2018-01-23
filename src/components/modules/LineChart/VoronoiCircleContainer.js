@@ -4,7 +4,7 @@ import VoronoiCircle from './VoronoiCircle'
 class VoronoiCircleContainer extends Component {
 	static defaultProps = {
 		circleRadius: 3,
-		circleFill: '#673ab7',
+		circleFill: '#00BCD4',
 		hoverAnimation: true
 	}
 	constructor(props) {

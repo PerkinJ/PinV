@@ -10,12 +10,14 @@ class XAxis extends Component {
 		stroke: 'none',
 		strokeWidth: '1',
 		tickStroke: '#000',
+		tickTextStroke:'#000',
 		xAxisClassName: 'rd3-x-axis',
 		xAxisLabel: '',
 		xAxisLabelOffset: 10,
 		xAxisOffset: 0,
 		xOrient: 'bottom',
-		yOrient: 'left'
+		yOrient: 'left',
+		textColor:'#000'
 	}
 	render() {
 		let props = this.props
@@ -68,6 +70,7 @@ class XAxis extends Component {
 					orient={props.xOrient}
 					margins={props.margins}
 					width={props.width}
+					textColor={props.textColor}
 				/>
 			</g>
 		)

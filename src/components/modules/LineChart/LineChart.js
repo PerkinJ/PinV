@@ -28,7 +28,10 @@ class LineChart extends Component {
 		xAccessor: (d) => d.x,
 		yAccessor: (d) => d.y,
 		// default cartesian
-		axesColor: '#000',
+		axesColor: '#673ab7',
+		tickTextStroke:'#673ab7',
+		tickStroke:'#673ab7',
+		textColor:'#673ab7',
 		colors: d3.scaleOrdinal(d3.schemeCategory20),
 		colorAccessor: (d, idx) => idx,
 		height: 200,
@@ -209,6 +212,9 @@ class LineChart extends Component {
 							height={innerHeight}
 							horizontalChart={props.horizontal}
 							stroke={props.axesColor}
+							tickStroke={props.tickStroke}
+							tickTextStroke={props.tickTextStroke}
+							textColor={props.textColor}
 							gridVertical={props.gridVertical}
 							gridVerticalStroke={props.gridVerticalStroke}
 							gridVerticalStrokeWidth={props.gridVerticalStrokeWidth}
@@ -231,6 +237,9 @@ class LineChart extends Component {
 							height={innerHeight}
 							horizontalChart={props.horizontal}
 							stroke={props.axesColor}
+							tickStroke={props.tickStroke}
+							textColor={props.textColor}
+							tickTextStroke={props.tickTextStroke}
 							gridHorizontal={props.gridHorizontal}
 							gridHorizontalStroke={props.gridHorizontalStroke}
 							gridHorizontalStrokeWidth={props.gridHorizontalStrokeWidth}

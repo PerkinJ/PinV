@@ -10,11 +10,13 @@ class YAxis extends Component {
 		stroke: '#000',
 		strokeWidth: '1',
 		tickStroke: '#000',
+		tickTextStroke:'#000',
 		yAxisClassName: 'rd3-y-axis',
 		yAxisLabel: '',
 		yAxisOffset: 0,
 		xOrient: 'bottom',
-		yOrient: 'left'
+		yOrient: 'left',
+		textColor:'#000'
 	}
 	render() {
 
@@ -72,6 +74,7 @@ class YAxis extends Component {
 					margins={props.margins}
 					offset={props.yAxisLabelOffset}
 					orient={props.yOrient}
+					textColor={props.textColor}
 				/>
 			</g>
 		)

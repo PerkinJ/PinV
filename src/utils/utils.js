@@ -142,7 +142,7 @@ exports.flattenData = (data, xAccessor, yAccessor) => {
 			// iterate over the keys and push all the values to yValues array
 			let yNode
 			if (typeof y === 'object' && Object.keys(y).length > 0) {
-				Object.keys(y).forEach(function (key) {
+				Object.keys(y).forEach( (key)=> {
 					// Check for NaN since d3's Voronoi cannot handle NaN values
 					// Go ahead and Proceed to next iteration since we don't want NaN
 					// in allValues or in xValues or yValues
