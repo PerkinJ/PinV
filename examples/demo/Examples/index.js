@@ -134,6 +134,9 @@ export default class Home extends Component {
 			streamData: generateStreamData()
 		})
 	}
+	handleClick = (e,node) =>{
+		confirm(`您点击的值为${node.value}，是否要跳转`)?window.open('http://csu.edu.cn'):''
+	}
 	randomizeData = () => {
 		this.setState({
 			data: randomData(),
@@ -254,6 +257,7 @@ export default class Home extends Component {
 					<h3>旭日图组件</h3>
 					<SunburstLayout
 						data={flareData}
+						onClick={this.handleClick}
 						width="600"
 						height="660"
 						padding={{ top: 0, bottom: 0, left: 10, right: 10 }}

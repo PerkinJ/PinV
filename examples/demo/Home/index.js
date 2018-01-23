@@ -5,7 +5,7 @@ import {
 	ScatterPlot, Button, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraph,
-	ForceDirectedGraphGL, ChordDiagram, StreamGraph, ChinaMap
+	ForceDirectedGraphGL, ChordDiagram, StreamGraph
 } from 'pinv'
 
 import {
@@ -127,7 +127,6 @@ export default class Examples extends Component {
 		phoneData: getRandomPhoneData(),
 		streamData: generateStreamData()
 	}
-
 
 	randomizeData = () => {
 		this.setState({

@@ -32,8 +32,12 @@ class HierarchyLayout extends Component {
 		packPadding: 10,      // pack's padding
 		angle: 1,			// SunburstLayout 的angle范围[0-1]
 		backgroundColor: '#CDDC39',	// 默认背景颜色
-		hoverColor: 'rgba(139,195,74,0.8)'		// 悬浮颜色
-
+		hoverColor: 'rgba(139,195,74,0.8)',		// 悬浮颜色
+		onClick:null
+	}
+	handleClick = (e, d, index)=>{
+		const {onClick} = this.props
+		onClick && onClick(e, d, index)
 	}
 	handleMouseOver = (e, d, index) => {
 		const { dataKey, nameKey,onMouseOver } = this.props
@@ -279,6 +283,7 @@ class HierarchyLayout extends Component {
 											onMouseOut={interactive ? this.handleMouseOut : null}
 											onMouseMove={interactive ? (e) => this.handleMouseOver(e, d, index) : null}
 											onMouseOver={interactive ? (e) => this.handleMouseOver(e, d, index) : null}
+											onClick={interactive ? (e) => this.handleClick(e, d, index) : null}
 											key={index + 1}>
 											<path
 												style={{display:d.depth ===0?'none':'block',opacity:sunburstHighlight && activeIdx !== index ?0.3:1}}
