@@ -3,26 +3,29 @@ import { shade } from '../../../utils/utils'
 import VoronoiCircle from './VoronoiCircle'
 class VoronoiCircleContainer extends Component {
 	static defaultProps = {
+		circleFill: '#1f77b4',
 		circleRadius: 3,
-		circleFill: '#673ab7',
-		hoverAnimation: true,
 		circleRadiusMultiplier: 1.5,
+		className: 'scatterchart-voronoi-circle-container',
+		hoverAnimation: true,
 		shadeMultiplier: 0.2
 	}
 	constructor(props) {
 		super(props)
 		this.state = {
-			circleRadius: this.props.circleRadius,
-			circleFill: this.props.circleFill
+			circleFill: this.props.circleFill,
+			circleRadius: this.props.circleRadius
 		}
-		this.voronoiCircle = null
 	}
 
 	animateCircle = (event) => {
 		let props = this.props
+		// let index = props.vnode.index,
+		// 	rect = document.getElementsByTagName('circle')[index].getBoundingClientRect()
 		if (props.hoverAnimation) {
 			let e = event || window.event
 			this.props.onMouseOver.call(this, e.x, e.y, this.props.dataPoint)
+			// this.props.onMouseOver.call(this, rect.right, rect.top, this.props.dataPoint)
 			this.setState({
 			  circleFill:   shade(props.circleFill, props.shadeMultiplier),
 			  circleRadius: props.circleRadius * props.circleRadiusMultiplier
@@ -42,25 +45,20 @@ class VoronoiCircleContainer extends Component {
 		}
 		return 'M' + d.join("L") + 'Z'
 	}
-	render({ hoverAnimation, cx, cy, vnode }, { circleRadius, circleFill }) {
-		// 处理动画
-		let handleMouseOver, handleMouseLeave
-		if (hoverAnimation) {
-			handleMouseOver = this.animateCircle
-			handleMouseLeave = this.restoreCircle
-		} else {
-			handleMouseOver = handleMouseLeave = null
-		}
+	render({ className, cx, cy, vnode }, { circleRadius, circleFill }) {
 		return (
-			<g>
+			<g
+				className={className}
+			>
 				<VoronoiCircle
-					handleMouseOver={handleMouseOver}
-					handleMouseLeave={handleMouseLeave}
-					voronoiPath={this.drawPath(vnode)}
+					id="VoronoiCircle"
+					circleFill={circleFill}
+					circleRadius={circleRadius}
 					cx={cx}
 					cy={cy}
-					circleRadius={circleRadius}
-					circleFill={circleFill}
+					handleMouseLeave={this.restoreCircle}
+					handleMouseOver={this.animateCircle}
+					voronoiPath={this.drawPath(vnode)}
 				/>
 			</g>
 		)

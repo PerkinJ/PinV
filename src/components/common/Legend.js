@@ -27,7 +27,6 @@ class Legend extends Component {
 				'lineHeight': '60%',
 				'fontSize': '200%'
 			}
-
 			legendItems.push(
 				<li
 					key={idx}

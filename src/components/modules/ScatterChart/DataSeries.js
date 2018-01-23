@@ -1,7 +1,6 @@
 import { h, Component } from 'preact'
 import * as d3 from 'd3'
 import VoronoiCircleContainer from './VoronoiCircleContainer'
-import Line from './Line'
 
 class DataSeries extends Component {
 	static defaultProps = {
@@ -28,23 +27,13 @@ class DataSeries extends Component {
 				xScale(xAccessor(d))
 			)
 		}
-		let lines = data.map((series, idx) => {
-			return (
-				<Line
-					path={interpolatePath(series.values)}
-					stroke={colors(colorAccessor(series, idx))}
-					strokeWidth={series.strokeWidth}
-					strokeDashArray={series.strokeDashArray}
-					seriesName={series.name}
-					key={idx}
-				/>
-			)
-		})
+
 		let voronoi = d3.voronoi()
 			.x(d => xScale(d.coord.x))
 			.y(d => yScale(d.coord.y))
 			.extent([[0, 0], [width, height]])
 		let cx, cy, circleFill
+		// 为每个circle添加一个多边形交互区域，即VoronoiCircle
 		let regions = voronoi(value).polygons().map((vnode, idx) => {
 			let point = vnode.data.coord
 			if (Object.prototype.toString.call(xAccessor(point)) === '[object Date]') {
@@ -76,7 +65,6 @@ class DataSeries extends Component {
 		return (
 			<g>
 				<g>{regions}</g>
-				<g>{lines}</g>
 			</g>
 		)
 	}

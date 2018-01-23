@@ -3,6 +3,8 @@ import Histogram from './components/modules/Histogram'
 import LineChart from './components/modules/LineChart'
 import PieChart from './components/modules/PieChart'
 import ScatterPlot from './components/modules/ScatterPlot'
+import ScatterChart from './components/modules/ScatterChart'
+
 import TreeLayout from './components/modules/TreeLayout'
 import ClusterLayout from './components/modules/ClusterLayout'
 import TreeMapLayout from './components/modules/TreeMapLayout'
@@ -33,6 +35,7 @@ export  {
 	LineChart,
 	PieChart,
 	ScatterPlot,
+	ScatterChart,
 	TreeLayout,
 	ClusterLayout,
 	TreeMapLayout,

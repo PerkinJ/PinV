@@ -50,7 +50,10 @@ class LineChart extends Component {
 		yOrient: 'default',
 		// default tooltip
 		showTooltip: true,
-		tooltipFormat: (d,x,y) => `${x}:${String(d.xValue)},${y}:${String(d.yValue)}`
+		tooltipFormat: (d,x,y) => `${x}:${String(d.xValue)},${y}:${String(d.yValue)}`,
+		circleRadiusMultiplier: 1.5,
+		shadeMultiplier: 0.2
+
 	}
 	componentWillReceiveProps() {
 		this.setState({

@@ -13,12 +13,12 @@ class VoronoiCircle extends Component {
 	render() {
 		return (
 			<g>
-				{/* <path
+				<path
 					onMouseOver={this.props.handleMouseOver}
 					onMouseLeave={this.props.handleMouseLeave}
-					fill='#f00'
+					fill='transparent'
 					d={this.props.voronoiPath}
-				/> */}
+				/>
 				<circle
 					onMouseOver={this.props.handleMouseOver}
 					onMouseLeave={this.props.handleMouseLeave}
