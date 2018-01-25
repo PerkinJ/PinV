@@ -25,7 +25,7 @@ class PieChart extends Component {
 		hoverAnimation: true,
 		// default tooltip
 		showTooltip: true,
-		tooltipFormat: (d, x, y) => `${x}:${String(d.xValue)},${y}:${String(d.yValue)}`
+		tooltipFormat: (d) =>`${d.seriesName}:${d.yValue}`
 	}
 	componentWillReceiveProps() {
 		this.setState({
@@ -40,7 +40,7 @@ class PieChart extends Component {
 			tooltip: {
 				x,
 				y,
-				child: this.props.tooltipFormat.call(this, dataPoint, this.props.xAxisLabel ? this.props.xAxisLabel : 'x', this.props.yAxisLabel ? this.props.yAxisLabel : 'y'),
+				child: this.props.tooltipFormat.call(this, dataPoint,  this.props.unit ? this.props.unit : ''),
 				show: true
 			},
 			changeState: true
@@ -66,7 +66,6 @@ class PieChart extends Component {
 
 		let values = props.data.map((item) => item.value)
 		let labels = props.data.map((item) => item.label)
-		console.log('props',props)
 		return (
 			<span>
 				<Chart

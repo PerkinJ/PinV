@@ -10,7 +10,7 @@ class Arc extends Component {
 	}
 	renderInnerLabel = (props, arc) =>{
 		// make value text can be formatted
-		let formattedValue = props.valueTextFormatter(props.value)
+		let formattedValue = props.valueTextFormatter(Math.round(props.value/props.sum *100).toFixed(1))
 		return (
 			<text
 				className='piechart-value'
@@ -48,7 +48,7 @@ class Arc extends Component {
 					transform={rotate}
 					style={{
 						'fill': props.labelTextFill,
-						'strokeWidth': 2
+						'strokeWidth': 1
 					}}
 				/>
 				<text

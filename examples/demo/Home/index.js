@@ -100,13 +100,13 @@ const randomData = () => d3.range(0, 100, 5)
 	}))
 const getRandomPhoneData = () => {
 	return [
-		{ name: 'apple', sales: 1000 + Math.floor(Math.random() * 1000) },
-		{ name: 'huawei', sales: 800 + Math.floor(Math.random() * 1000) },
-		{ name: 'sansung', sales: 1200 + Math.floor(Math.random() * 1000) },
-		{ name: 'xiaomi', sales: 700 + Math.floor(Math.random() * 1000) },
-		{ name: 'oppo', sales: 800 + Math.floor(Math.random() * 1000) },
-		{ name: 'vivo', sales: 500 + Math.floor(Math.random() * 1000) },
-		{ name: 'others', sales: 1300 + Math.floor(Math.random() * 1000) }
+		{ label: 'apple', value: 1000 + Math.floor(Math.random() * 1000) },
+		{ label: 'huawei', value: 800 + Math.floor(Math.random() * 1000) },
+		{ label: 'sansung', value: 1200 + Math.floor(Math.random() * 1000) },
+		{ label: 'xiaomi', value: 700 + Math.floor(Math.random() * 1000) },
+		{ label: 'oppo', value: 800 + Math.floor(Math.random() * 1000) },
+		{ label: 'vivo', value: 500 + Math.floor(Math.random() * 1000) },
+		{ label: 'others', value: 1300 + Math.floor(Math.random() * 1000) }
 	]
 }
 // stream graph
@@ -630,20 +630,29 @@ export default class Examples extends Component {
 					</div>}
 					{search === 'pieChart' && <div class={style.control}>
 						<h3>饼状图组件</h3>
-						<PieChart
+						{/* <PieChart
 							data={phoneData}
 							width="500"
 							height="500"
 							innerRadius={0}
 							outerRadius={180}
 							textColor="#000"
-							dataKey="sales"
+							dataKey="value"
 							nameKey="name"
 							padAngle={0}
 							cornerRadius={0}
 							startAngle={0}
 							endAngle={1}
 							unit="万台"
+						/> */}
+						<PieChart
+							data={phoneData}
+							width={600}
+							height={400}
+							radius={150}
+							innerRadius={20}
+							title="Pie Chart"
+							unit="台"
 						/>
 						<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 						<div class={style.apiContainer}>

@@ -23,7 +23,7 @@ class DataSeries extends Component {
 		let pie = d3.pie().sort(null)
 
 		let arcData = pie(props.values)
-
+		let sum = props.values.reduce((total,num)=> total+num)
 		let arcs = arcData.map((arc, idx) => {
 			return (
 				<ArcContainer
@@ -38,6 +38,7 @@ class DataSeries extends Component {
 					fill={props.colors(props.colorAccessor(props.data[idx], idx))}
 					value={props.values[idx]}
 					label={props.labels[idx]}
+					sum={sum}
 					width={props.width}
 					showInnerLabels={props.showInnerLabels}
 					showOuterLabels={props.showOuterLabels}

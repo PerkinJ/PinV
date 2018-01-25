@@ -169,7 +169,7 @@ export default class Home extends Component {
 	randomizeData = () => {
 		this.setState({
 			data: randomData(),
-			phoneData: getRandomPhoneData()
+			areData: getRandomPhoneData()
 		})
 	}
 	componentWillMount() {
@@ -424,7 +424,6 @@ export default class Home extends Component {
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div> */}
 				<div class={style.control}>
-					<h3>饼状图组件</h3>
 					{/* <PieChart
 						data={phoneData}
 						width="500"
@@ -442,9 +441,9 @@ export default class Home extends Component {
 					/> */}
 					<PieChart
 						data={areData}
-						width={400}
+						width={600}
 						height={400}
-						radius={100}
+						radius={150}
 						innerRadius={20}
 						title="Pie Chart"
 					/>
