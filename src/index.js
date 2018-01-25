@@ -4,7 +4,7 @@ import LineChart from './components/modules/LineChart'
 import PieChart from './components/modules/PieChart'
 import ScatterPlot from './components/modules/ScatterPlot'
 import ScatterChart from './components/modules/ScatterChart'
-
+import AreaChart from './components/modules/AreaChart'
 import TreeLayout from './components/modules/TreeLayout'
 import ClusterLayout from './components/modules/ClusterLayout'
 import TreeMapLayout from './components/modules/TreeMapLayout'
@@ -48,6 +48,7 @@ export  {
 	StackedAreaChart,
 	StreamGraph,
 	StreamGraph1,
+	AreaChart,
 	/*
 	* 地理信息组件
 	*/

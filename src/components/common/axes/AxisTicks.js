@@ -1,5 +1,4 @@
 import { h, Component } from 'preact'
-
 class AxisTicks extends Component {
 	static defaultProps = {
 		innerTickSize: 6,
