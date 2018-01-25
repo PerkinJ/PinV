@@ -1,126 +1,107 @@
 import { h, Component } from 'preact'
+import { Chart, Tooltip } from '../../common'
+import DataSeries from './DataSeries'
 import * as d3 from 'd3'
-import styles from './index.less'
-import { colorGenerator } from '../../../utils/utils'
-import { getPieData } from '../../../utils/model'
-import Tooltip from '../../basic/Tooltip'
-
-const calculateArc = (value, arcProps) => (
-	d3.arc()
-		.cornerRadius(arcProps.cornerRadius)
-		.innerRadius(arcProps.innerRadius)
-		.outerRadius(arcProps.outerRadius)
-		.startAngle(value.startAngle)
-		.endAngle(value.endAngle)
-		.padAngle(arcProps.padAngle)
-)
 
 class PieChart extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			tooltip: '',
-			left: 0,
-			top: 0
+			tooltip: {
+				x: 0,
+				y: 0,
+				child: '',
+				show: false
+			},
+			changeState: false
 		}
 	}
-	renderTooltip = () => {
-		const { data, dataKey, nameKey, startAngle, endAngle, unit = '' } = this.props
-		const pieData = getPieData(data, dataKey, startAngle, endAngle)
-
-		let pieChart = d3.select(this.pieChart)
-		let arcs = pieChart.selectAll('g').data(pieData)
-		let _this = this
-		arcs.on('mouseover', (d) =>{
-			_this.setState({
-				tooltip: `${d.data[nameKey]}:${d.data[dataKey]}${unit}`,
-				tooltipStyle: {
-					left: d3.event.pageX,
-					top: d3.event.clientY + 20,
-					opacity: 0.9
-				}
-			})
-		}).on('mousemove', () =>{
-			_this.setState({
-				tooltipStyle: {
-					left: d3.event.pageX,
-					top: d3.event.clientY + 20,
-					opacity: 0.9
-				}
-			})
-		}).on('mouseout', () => {
-			this.setState({
-				tooltipStyle: {
-					opacity: 0,
-					tooltip:''
-				}
-			})
+	static defaultProps = {
+		data: [],
+		title: '',
+		colors: d3.scaleOrdinal(d3.schemeCategory10),
+		colorAccessor: (d, idx) => idx,
+		valueTextFormatter: (val) => `${val}%`,
+		hoverAnimation: true,
+		// default tooltip
+		showTooltip: true,
+		tooltipFormat: (d, x, y) => `${x}:${String(d.xValue)},${y}:${String(d.yValue)}`
+	}
+	componentWillReceiveProps() {
+		this.setState({
+			changeState: false
 		})
 	}
-	componentDidUpdate() {
-		this.renderTooltip()
+	// tooltip mouseover
+	onMouseOver = (x, y, dataPoint) => {
+		if (!this.props.showTooltip)
+			return
+		this.setState({
+			tooltip: {
+				x,
+				y,
+				child: this.props.tooltipFormat.call(this, dataPoint, this.props.xAxisLabel ? this.props.xAxisLabel : 'x', this.props.yAxisLabel ? this.props.yAxisLabel : 'y'),
+				show: true
+			},
+			changeState: true
+		})
 	}
-	componentDidMount() {
-		this.renderTooltip()
+	onMouseLeave = () => {
+		if (!this.props.showTooltip)
+			return
+		this.setState({
+			tooltip: {
+				x: 0,
+				y: 0,
+				child: '',
+				show: false
+			},
+			changeState: true
+		})
 	}
-	render({ width = 500, height = 500, startAngle = 0, endAngle = 1, cx, cy, innerRadius, outerRadius, cornerRadius, padAngle, textColor, data, dataKey, nameKey }, { tooltip, tooltipStyle }) {
-		const pieData = getPieData(data, dataKey, startAngle, endAngle)
-		let arcProps = {
-			innerRadius: innerRadius && innerRadius < outerRadius ? innerRadius : 0,
-			outerRadius: outerRadius || width / 3,
-			textColor: textColor || '#000',
-			cx: cx || width / 2,
-			cy: cy || height / 2,
-			cornerRadius: cornerRadius || 0,
-			padAngle: padAngle || 0
-		}
+
+	render() {
+		let props = this.props
+		let transform = `translate(${props.cx || props.width / 2},${props.cy || props.height / 2})`
+
+		let values = props.data.map((item) => item.value)
+		let labels = props.data.map((item) => item.label)
+		console.log('props',props)
 		return (
-			<div class={styles.container}>
-				<Tooltip tooltipStyle={tooltipStyle} content={tooltip} />
-				<svg ref={el => this.pieChart = el} width={width} height={height} class={styles.chart}>
-					{pieData.map((value, index, arr) =>
-						<Segment
-							{...arcProps}
-							index={index}
-							arc={calculateArc(value, arcProps)}
-							label={data}
-							length={arr.length}
-							nameKey={nameKey}
-							dataKey={dataKey}
+			<span>
+				<Chart
+					width={props.width}
+					height={props.height}
+					title={props.title}
+					shouldUpdate={!this.state.changeState}
+				>
+					<g className='piechart'>
+						<DataSeries
+							labelTextFill={props.labelTextFill}
+							valueTextFill={props.valueTextFill}
+							valueTextFormatter={props.valueTextFormatter}
+							data={props.data}
+							values={values}
+							labels={labels}
+							colors={props.colors}
+							colorAccessor={props.colorAccessor}
+							transform={transform}
+							width={props.width}
+							height={props.height}
+							radius={props.radius}
+							innerRadius={props.innerRadius}
+							showInnerLabels={props.showInnerLabels}
+							showOuterLabels={props.showOuterLabels}
+							sectorBorderColor={props.sectorBorderColor}
+							hoverAnimation={props.hoverAnimation}
+							onMouseOver={this.onMouseOver}
+							onMouseLeave={this.onMouseLeave}
 						/>
-					)}
-				</svg>
-			</div>
+					</g>
+				</Chart>
+				{(props.showTooltip ? <Tooltip {...this.state.tooltip} /> : null)}
+			</span>
 		)
 	}
 }
-
-const Segment = ({ cx, cy, arc, index, label, innerRadius, outerRadius, textColor, length, nameKey, dataKey }) => {
-	const colors = colorGenerator(length)
-	let percent = Number(label[index][dataKey]) / d3.sum(label, (d) => d[dataKey]) * 100
-	let text = label[index][nameKey]
-	return (
-		<g class={styles.segment} transform={`translate(${cx}, ${cy})`}>
-			<path class={styles.path} d={arc()} fill={colors(index).toString()} />
-			<Label textColor={textColor} arc={arc.innerRadius(innerRadius).outerRadius(outerRadius)}>{`${percent.toFixed(2)}%`}</Label>
-			<line
-				stroke="black"
-				x1={arc.centroid()[0] * 2}
-				y1={arc.centroid()[1] * 2}
-				x2={arc.centroid()[0] * 2.2}
-				y2={arc.centroid()[1] * 2.2}
-			/>
-			<text
-				fill={textColor}
-				transform={`translate(${arc.centroid()[0] * 2.5},${arc.centroid()[1] * 2.5})`}
-				text-anchor="middle">
-				{text}
-			</text>
-		</g>
-	)
-}
-
-const Label = ({ children, arc, textColor }) =>
-	<text fill={textColor} transform={`translate(${arc.centroid()})`} text-anchor="middle">{children}</text>
-
 export default PieChart

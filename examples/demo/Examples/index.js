@@ -41,7 +41,11 @@ let scatterData = [
 	}
 ]
 let category = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲']
-
+let pieData = [
+	{label: 'Margarita', value: 20.0},
+	{label: 'John', value: 55.0},
+	{label: 'Tim', value: 25.0 }
+]
 let data1 = [
 	[9000, 870, 3000, 1000, 5200],
 	[3400, 8000, 2300, 4922, 374],
@@ -57,13 +61,13 @@ const randomData = () => d3.range(0, 100, 5)
 	}))
 const getRandomPhoneData = () => {
 	return [
-		{ name: 'apple', sales: 1000 + Math.floor(Math.random() * 1000) },
-		{ name: 'huawei', sales: 800 + Math.floor(Math.random() * 1000) },
-		{ name: 'sansung', sales: 1200 + Math.floor(Math.random() * 1000) },
-		{ name: 'xiaomi', sales: 700 + Math.floor(Math.random() * 1000) },
-		{ name: 'oppo', sales: 800 + Math.floor(Math.random() * 1000) },
-		{ name: 'vivo', sales: 500 + Math.floor(Math.random() * 1000) },
-		{ name: 'others', sales: 1300 + Math.floor(Math.random() * 1000) }
+		{ label: 'apple', value: 1000 + Math.floor(Math.random() * 1000) },
+		{ label: 'huawei', value: 800 + Math.floor(Math.random() * 1000) },
+		{ label: 'sansung', value: 1200 + Math.floor(Math.random() * 1000) },
+		{ label: 'xiaomi', value: 700 + Math.floor(Math.random() * 1000) },
+		{ label: 'oppo', value: 800 + Math.floor(Math.random() * 1000) },
+		{ label: 'vivo', value: 500 + Math.floor(Math.random() * 1000) },
+		{ label: 'others', value: 1300 + Math.floor(Math.random() * 1000) }
 	]
 }
 const treeData = {
@@ -149,7 +153,7 @@ export default class Home extends Component {
 		super(props)
 		this.state = {
 			data: randomData(),
-			phoneData: getRandomPhoneData(),
+			areData: getRandomPhoneData(),
 			streamData: generateStreamData(),
 			areaData:[]
 		}
@@ -174,11 +178,11 @@ export default class Home extends Component {
 		// 	this.setState({areaData: data})
 		//   }.bind(this))
 	}
-	render({ }, { data, phoneData, streamData }) {
+	render({ }, { data, areData, streamData }) {
 		return (
 			<div class={style.home}>
 				<div class={style.control}>
-					<AreaChart
+					{/* <AreaChart
 						data={areaData}
 						width="100%"
 						viewBoxObject={{
@@ -200,7 +204,7 @@ export default class Home extends Component {
 							return d[1]
 						}}
 						domain={{ y: [, 60] }}
-					/>
+					/> */}
 				</div>
 				<div class={style.control}>
 					<ScatterChart
@@ -421,7 +425,7 @@ export default class Home extends Component {
 				</div> */}
 				<div class={style.control}>
 					<h3>饼状图组件</h3>
-					<PieChart
+					{/* <PieChart
 						data={phoneData}
 						width="500"
 						height="500"
@@ -435,6 +439,14 @@ export default class Home extends Component {
 						startAngle={0}
 						endAngle={1}
 						unit="万台"
+					/> */}
+					<PieChart
+						data={areData}
+						width={400}
+						height={400}
+						radius={100}
+						innerRadius={20}
+						title="Pie Chart"
 					/>
 					<Button onClick={this.randomizeData} type="primary">Randomize Data</Button>
 				</div>

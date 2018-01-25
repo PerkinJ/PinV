@@ -1,9 +1,8 @@
 import { h, Component } from 'preact'
-import AreaContainer from './AreaContainer'
-import * as d3 from 'd3'
+import { shade } from '../../../utils/utils'
+import Area from './Area'
 
-
-class DataSeries extends Component {
+class AreaContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -11,27 +10,41 @@ class DataSeries extends Component {
 		}
 	}
 	static defaultProps = {
-		interpolationType: 'linear'
+		fill: '#3182bd'
+	}
+	_animateArea = () => {
+		this.setState({
+			fill: shade(this.props.fill, 0.02)
+		})
 	}
 
+	_restoreArea = () => {
+		this.setState({
+			fill: this.props.fill
+		})
+	}
 	render() {
 		let props = this.props
-		let area = d3.area()
-			.x((d) => { return props.xScale(props.xAccessor(d)) })
-			.y0((d) => { return props.yScale(d.y0) })
-			.y1((d) => { return props.yScale(d.y0 + props.yAccessor(d)) })
-			// .interpolate(props.interpolationType)
 
-		let path = area(props.data)
+		// animation controller
+		let handleMouseOver, handleMouseLeave
+		if (props.hoverAnimation) {
+			handleMouseOver = this._animateArea
+			handleMouseLeave = this._restoreArea
+		} else {
+			handleMouseOver = handleMouseLeave = null
+		}
+
 		return (
-			<AreaContainer
-				fill={props.fill}
-				hoverAnimation={props.hoverAnimation}
-				path={path}
+			<Area
+				handleMouseOver={handleMouseOver}
+				handleMouseLeave={handleMouseLeave}
+				{...props}
+				fill={this.state.fill}
 			/>
 		)
 	}
 }
 
 
-export default DataSeries
+export default AreaContainer

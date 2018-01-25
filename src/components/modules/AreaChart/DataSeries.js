@@ -24,7 +24,6 @@ class DataSeries extends Component {
 			// .interpolate(props.interpolationType)
 
 		let path = area(props.data)
-
 		return (
 			<AreaContainer
 				fill={props.fill}
