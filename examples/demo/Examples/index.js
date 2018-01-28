@@ -42,9 +42,9 @@ let scatterData = [
 ]
 let category = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲']
 let pieData = [
-	{label: 'Margarita', value: 20.0},
-	{label: 'John', value: 55.0},
-	{label: 'Tim', value: 25.0 }
+	{label: 'xiaomi', value: 20.0},
+	{label: 'sumsung', value: 55.0},
+	{label: 'huawei', value: 25.0 }
 ]
 let data1 = [
 	[9000, 870, 3000, 1000, 5200],
@@ -70,6 +70,7 @@ const getRandomPhoneData = () => {
 		{ label: 'others', value: 1300 + Math.floor(Math.random() * 1000) }
 	]
 }
+
 const treeData = {
 	"name": "A1",
 	"children": [
@@ -155,7 +156,6 @@ export default class Home extends Component {
 			data: randomData(),
 			areData: getRandomPhoneData(),
 			streamData: generateStreamData(),
-			areaData:[]
 		}
 	}
 	updateStreamData = () => {
@@ -440,7 +440,7 @@ export default class Home extends Component {
 						unit="万台"
 					/> */}
 					<PieChart
-						data={areData}
+						data={pieData}
 						width={600}
 						height={400}
 						radius={150}
