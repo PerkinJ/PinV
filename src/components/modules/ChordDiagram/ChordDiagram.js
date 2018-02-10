@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 // import { legendColor } from 'd3-svg-legend'
 import * as d3 from 'd3'
 import styles from './index.less'
-// import Tooltip from '../../basic/Tooltip'
+import Tooltip from '../../basic/Tooltip'
 export default class ChordDiagram extends Component {
 	static defaultProps = {
 		width: 700,
@@ -15,28 +15,16 @@ export default class ChordDiagram extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-
+			activeIndex: -1,  // 默认为-1，表示全部显示
+			content:''
 		}
 	}
 	// 处理鼠标移到弧上
 	handleArcMouseOver = (e, d) => {
-		const { category, data } = this.props
-		let obj = {}
-		obj.key = `${category[d.index]}总量`
-		obj.value = d.value
-		let contentArr = []
-		contentArr.push(obj)
-
-		data[d.index].forEach((d, index) => {
-			let obj = {}
-			obj.key = category[index]
-			obj.value = d
-			contentArr.push(obj)
-		})
-
 		this.setState({
 			activeIndex: d.index,
-			contentArr,
+			content:d.value,
+			contentArr:[],
 			tooltipStyle: {
 				left: e.clientX + 20,
 				top: e.clientY,
@@ -47,24 +35,24 @@ export default class ChordDiagram extends Component {
 
 	// 处理鼠标移到任意弦上
 	handleChordMouseOver = (e, d) => {
-		const { category } = this.props
 		e = e || window.event
-		// 比较source跟target的value值大小，从而设置activeIndex
+		// // 比较source跟target的value值大小，从而设置activeIndex
 		let activeIndex = -1, contentArr = []
 		if (d.source.value >= d.target.value) {
 			activeIndex = d.source.index
 		} else {
 			activeIndex = d.target.index
 		}
-		let key1 = `${category[d.source.index]}-${category[d.source.subindex]}`,
+		let key1 = this.state.nameByIndex.get(d.target.index),
 			value1 = ` ${d.target.value}`,
-			key2 = `${category[d.target.index]}-${category[d.target.subindex]}`,
+			key2 = this.state.nameByIndex.get(d.source.index),
 			value2 = ` ${d.source.value}`
 
 		contentArr.push({ key: key1, value: value1 }, { key: key2, value: value2 })
 		this.setState({
 			activeIndex,
 			contentArr,
+			content:'',
 			tooltipStyle: {
 				left: e.clientX + 20,
 				top: e.clientY,
@@ -75,13 +63,32 @@ export default class ChordDiagram extends Component {
 
 	handleMouseOut = () => {
 		this.setState({
+			contentArr:[],
+			content:'',
 			activeIndex: -1,
 			tooltipStyle: {
 				opacity: 0
 			}
 		})
 	}
-	render({ width, height,padAngle }, {  }) {
+	componentDidMount(){
+		let indexByName = new Map(),
+			nameByIndex = new Map(),
+			n = 0
+		// Returns the Flare package name for the given class name.
+		function name(name) {
+			return name.substring(0, name.lastIndexOf(".")).substring(6)
+		}
+		// Compute a unique index for each package name.
+		this.props.data.forEach(d => {
+			if (!indexByName.has(d = name(d.name))) {
+				nameByIndex.set(n, d)
+				indexByName.set(d, n++)
+			}
+		})
+		this.setState({nameByIndex})
+	}
+	render({ width, height,padAngle,interactive }, { activeIndex,content,contentArr,tooltipStyle }) {
 		let outerRadius = width / 2,
 			innerRadius = outerRadius - 150
 
@@ -115,7 +122,6 @@ export default class ChordDiagram extends Component {
 				indexByName.set(d, n++)
 			}
 		})
-
 		// Construct a square matrix counting package imports.
 		imports.forEach(d => {
 			let source = indexByName.get(name(d.name)),
@@ -129,6 +135,11 @@ export default class ChordDiagram extends Component {
 		let chordData = chord(matrix)
 		return (
 			<div ref={el => this.chordDiagram = el}>
+				<Tooltip
+					contentArr={contentArr}
+					content={content}
+					tooltipStyle={tooltipStyle}
+				/>
 				<svg ref={el => this.chordDiagram = el} width={width} height={height} >
 					<g transform={`translate(${outerRadius},${outerRadius})`}>
 						<g class={styles.groups}>
@@ -137,9 +148,9 @@ export default class ChordDiagram extends Component {
 								return (
 									<g key={index}>
 										<path d={arc(d)}
-											// onMouseOver={interactive ? (e) => this.handleArcMouseOver(e, d) : null}
-											// onMouseMove={interactive ? (e) => this.handleArcMouseOver(e, d) : null}
-											// onMouseOut={interactive ? this.handleMouseOut : null}
+											onMouseOver={interactive ? (e) => this.handleArcMouseOver(e, d) : null}
+											onMouseMove={interactive ? (e) => this.handleArcMouseOver(e, d) : null}
+											onMouseOut={interactive ? this.handleMouseOut : null}
 											fill={color(d.index)}
 											stroke={d3.rgb(color(d.index)).darker()}
 										/>
@@ -161,11 +172,11 @@ export default class ChordDiagram extends Component {
 							{chordData.map((d, index) =>
 								<g key={index}>
 									<path
-										// onMouseOver={interactive ? (e) => this.handleChordMouseOver(e, d) : null}
-										// onMouseMove={interactive ? (e) => this.handleChordMouseOver(e, d) : null}
-										// onMouseOut={interactive ? this.handleMouseOut : null}
+										onMouseOver={interactive ? (e) => this.handleChordMouseOver(e, d) : null}
+										onMouseMove={interactive ? (e) => this.handleChordMouseOver(e, d) : null}
+										onMouseOut={interactive ? this.handleMouseOut : null}
 										d={ribbon(d)}
-										// style={{ opacity: activeIndex !== -1 && d.source.index !== activeIndex && d.target.index !== activeIndex ? 0 : 1 }}
+										style={{ opacity: activeIndex !== -1 && d.source.index !== activeIndex && d.target.index !== activeIndex ? 0 : 1 }}
 										fill={color(d.target.index)}
 										stroke={d3.rgb(color(d.target.index)).darker()}
 									/>
