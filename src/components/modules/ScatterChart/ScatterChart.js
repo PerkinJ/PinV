@@ -18,7 +18,7 @@ class LineChart extends Component {
 		}
 	}
 	static defaultProps = {
-		circleRadius: 10,
+		circleRadius: 3,
 		className: 'rd3-linechart',
 		hoverAnimation: true,
 		margins: { top: 10, right: 20, bottom: 50, left: 45 },

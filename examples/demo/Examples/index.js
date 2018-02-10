@@ -9,7 +9,7 @@ import {
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
 import flareData from '../flare.json'
-
+import readmeData from '../readme.json'
 let lineData = [
 	{
 		name: 'series1',
@@ -282,14 +282,7 @@ export default class Home extends Component {
 				<div class={style.control}>
 					<h3>弦图组件</h3>
 					<ChordDiagram
-						data={data1}
-						category={category}
-						width="500"
-						height="500"
-						arcWidth="15"
-						padding="20"
-						padAngle="0.04"
-						interactive={true}
+						data={readmeData}
 					/>
 				</div>
 				<div class={style.control}>

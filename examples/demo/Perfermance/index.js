@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
-import { SunburstLayout } from 'pinv'
-
+import { ChordDiagram } from 'pinv'
+import readmeData from '../readme.json'
 // let scatterData = [
 // 	{
 // 		name: 'series1',
@@ -101,6 +101,9 @@ export default class Perfermance extends Component {
 			// 	title="Scatter Chart"
 			// />
 			<div style={{ marginTop: 50 }}>
+			<ChordDiagram
+				data={readmeData}
+			/>
 				{/* <StreamGraph
 					padding={{ top: 0, right: 0, bottom: 30, left: 20 }}
 					width="600"
@@ -129,7 +132,7 @@ export default class Perfermance extends Component {
 						'Joshua Redman'
 					]}
 				/> */}
-				<SunburstLayout
+				{/* <SunburstLayout
 					data={sunburstData}
 					onClick={this.handleClick}
 					width="400"
@@ -141,7 +144,7 @@ export default class Perfermance extends Component {
 					backgroundColor="rgba(0,105,92,0.8)"
 					hoverColor="rgba(38,166,154,0.2)"
 					angle={1}
-				/>
+				/> */}
 			</div>
 
 		)

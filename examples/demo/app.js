@@ -18,7 +18,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<div id="app">
-				{/* <Header /> */}
+				<Header />
 				<Router onChange={this.handleRoute}>
 					<Home path="/" />
 					<Examples path="/examples" />
