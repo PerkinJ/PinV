@@ -1,7 +1,7 @@
 import { h, Component } from 'preact'
 import * as d3 from 'd3'
 import styles from './index.less'
-import Tooltip from '../Tooltip'
+import Tooltip from '../../common/Tooltip'
 class HierarchyLayout extends Component {
 	constructor(props) {
 		super(props)
@@ -9,6 +9,7 @@ class HierarchyLayout extends Component {
 			descendantsData: [],
 			linkData: [],
 			content:'',
+			tooltip:{},
 			sunburstHighlight:false  //sunburst高亮的标志,悬浮某节点时为true，其他节点变暗
 		}
 	}
@@ -46,8 +47,13 @@ class HierarchyLayout extends Component {
 		let valueStr = isHasVal > -1 ? `,${dataKey}:${d.data[dataKey]}` : ''
 		this.setState({
 			activeIdx: index,
-			content: `${nameKey}: ${name}${valueStr}`,
-			tooltipStyle: { left: e.screenX + 20, top: e.screenY - 120, opacity: 0.9 },
+			content:`${nameKey}: ${name}${valueStr}`,
+			tooltip: {
+				x: e.screenX + 20,
+				y: e.screenY - 120,
+				child:  `${nameKey}: ${name}${valueStr}`,
+				show: true
+			},
 			sunburstHighlight:true
 		})
 		onMouseOver && onMouseOver()
@@ -56,8 +62,13 @@ class HierarchyLayout extends Component {
 		const {onMouseOut} = this.props
 		this.setState({
 			activeIdx: '0',
-			content: '',
-			tooltipStyle: { opacity: 0 },
+			content:'',
+			tooltip: {
+				x: 0,
+				y: 0,
+				child: '',
+				show: false
+			},
 			sunburstHighlight:false
 		})
 		onMouseOut && onMouseOut()
@@ -66,7 +77,7 @@ class HierarchyLayout extends Component {
 		let angle = (d.x0 + d.x1) / Math.PI * 90
 		return (angle < 180) ? angle - 90 : angle + 90
 	}
-	render({ width, height, padding, data, interactive, type, backgroundColor, hoverColor }, { tooltipStyle, content, activeIdx,sunburstHighlight }) {
+	render({ width, height, padding, data, interactive, type, backgroundColor, hoverColor }, { tooltip,content, activeIdx,sunburstHighlight }) {
 		let root = d3.hierarchy(data)
 		switch (type) {
 			case 'tree':
@@ -77,10 +88,7 @@ class HierarchyLayout extends Component {
 				let descendantsData = root.descendants(), linkData = root.links()
 				return (
 					<div class={styles.container}>
-						<Tooltip
-							content={content}
-							tooltipStyle={tooltipStyle}
-						/>
+						<Tooltip {...tooltip} />
 						<svg
 							transform={`translate(${padding.left},${padding.top})`}
 							ref={el => this.tree = el}
@@ -165,10 +173,7 @@ class HierarchyLayout extends Component {
 				let data = root.descendants()
 				return (
 					<div class={styles.container}>
-						<Tooltip
-							content={content}
-							tooltipStyle={tooltipStyle}
-						/>
+						<Tooltip {...tooltip} />
 						<svg viewBox="0 0 405 310" ref={el => this.treemap = el} width={width - padding.left - padding.right} height={height - padding.top - padding.bottom}>
 							<g transform="translate(1,0)">
 								{data && data.map((d, index) => {
@@ -209,10 +214,7 @@ class HierarchyLayout extends Component {
 
 				return (
 					<div class={styles.container}>
-						<Tooltip
-							content={content}
-							tooltipStyle={tooltipStyle}
-						/>
+						<Tooltip {...tooltip} />
 						<svg ref={el => this.pack = el} width={width} height={height}>
 							<g transform="translate(0,10)">
 								{packData && packData.map((d, index) => {
@@ -266,10 +268,7 @@ class HierarchyLayout extends Component {
 				let contentArr = content.indexOf(',') > -1?content.split(','):[]
 				return (
 					<div class={styles.container} style={{padding:`${top}px ${right}px ${bottom}px ${left}px`}}>
-						<Tooltip
-							content={content}
-							tooltipStyle={tooltipStyle}
-						/>
+						<Tooltip {...tooltip} />
 						<ul class={styles.showText}>
 							{contentArr.length >0?contentArr.map((d,index)=>
 								<li key={index}>{d}</li>

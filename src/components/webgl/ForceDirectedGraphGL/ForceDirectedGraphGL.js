@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import * as THREE from 'three'
 import { h, Component } from 'preact'
 import { colour } from '../../../utils/utils'
-import Tooltip from '../../basic/Tooltip'
+import Tooltip from '../../common/Tooltip'
 class ForceGLLayout extends Component {
 	componentDidMount() {
 		const { data, width, height } = this.props
@@ -65,12 +65,12 @@ class ForceGLLayout extends Component {
 			d3.event.subject.fx = d3.event.subject.x
 			d3.event.subject.fy = d3.event.subject.y
 			_this.setState({
-				tooltipStyle:{
-					left:d3.event.subject.x,
-					top:d3.event.subject.y,
-					opacity:0.9
-				},
-				content:'111'
+				tooltip:{
+					x:d3.event.subject.x,
+					y:d3.event.subject.y,
+					child:'test',
+					show:true
+				}
 			})
 		}
 		function dragged(){
@@ -99,13 +99,10 @@ class ForceGLLayout extends Component {
 			renderer.render(scene, camera)
 		}
 	}
-	render({ }, { content, tooltipStyle }) {
+	render({ }, { tooltip }) {
 		return (
 			<div ref={el => this.glGontainer = el} >
-				<Tooltip
-					content={content}
-					tooltipStyle={tooltipStyle}
-				/>
+				<Tooltip {...tooltip} />
 			</div>
 		)
 	}

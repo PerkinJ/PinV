@@ -1,8 +1,8 @@
 import { h, Component } from 'preact'
 // import { legendColor } from 'd3-svg-legend'
 import * as d3 from 'd3'
-import styles from './index.less'
-import Tooltip from '../../basic/Tooltip'
+import styles from './index.css'
+import Tooltip from '../../common/Tooltip'
 export default class ChordDiagram extends Component {
 	static defaultProps = {
 		width: 700,
@@ -16,19 +16,19 @@ export default class ChordDiagram extends Component {
 		super(props)
 		this.state = {
 			activeIndex: -1,  // 默认为-1，表示全部显示
-			content:''
+			content:'',
+			tooltip:{}
 		}
 	}
 	// 处理鼠标移到弧上
 	handleArcMouseOver = (e, d) => {
 		this.setState({
 			activeIndex: d.index,
-			content:d.value,
-			contentArr:[],
-			tooltipStyle: {
-				left: e.clientX + 20,
-				top: e.clientY,
-				opacity: 0.9
+			tooltip: {
+				x: e.clientX + 20,
+				y: e.clientY,
+				child: d.value,
+				show: true
 			}
 		})
 	}
@@ -49,25 +49,30 @@ export default class ChordDiagram extends Component {
 			value2 = ` ${d.source.value}`
 
 		contentArr.push({ key: key1, value: value1 }, { key: key2, value: value2 })
+		let child = `source:${key1},value:${value1}\ntarget:${key2},value:${value2}`
 		this.setState({
 			activeIndex,
 			contentArr,
 			content:'',
-			tooltipStyle: {
-				left: e.clientX + 20,
-				top: e.clientY,
-				opacity: 0.9
+			tooltip: {
+				x: e.clientX + 20,
+				y: e.clientY,
+				child,
+				show: true
 			}
 		})
 	}
 
 	handleMouseOut = () => {
 		this.setState({
-			contentArr:[],
-			content:'',
+			// contentArr:[],
+			// content:'',
 			activeIndex: -1,
-			tooltipStyle: {
-				opacity: 0
+			tooltip: {
+				x: 0,
+				y: 0,
+				child: '',
+				show: false
 			}
 		})
 	}
@@ -88,7 +93,7 @@ export default class ChordDiagram extends Component {
 		})
 		this.setState({nameByIndex})
 	}
-	render({ width, height,padAngle,interactive }, { activeIndex,content,contentArr,tooltipStyle }) {
+	render({ width, height,padAngle,interactive }, { activeIndex,tooltip }) {
 		let outerRadius = width / 2,
 			innerRadius = outerRadius - 150
 
@@ -135,11 +140,7 @@ export default class ChordDiagram extends Component {
 		let chordData = chord(matrix)
 		return (
 			<div ref={el => this.chordDiagram = el}>
-				<Tooltip
-					contentArr={contentArr}
-					content={content}
-					tooltipStyle={tooltipStyle}
-				/>
+				<Tooltip {...tooltip} />
 				<svg ref={el => this.chordDiagram = el} width={width} height={height} >
 					<g transform={`translate(${outerRadius},${outerRadius})`}>
 						<g class={styles.groups}>

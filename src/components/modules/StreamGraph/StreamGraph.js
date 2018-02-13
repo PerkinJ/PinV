@@ -1,14 +1,13 @@
 import { h, Component } from 'preact'
 import * as d3 from 'd3'
-import styles from './index.less'
-import Tooltip from '../../basic/Tooltip'
+import styles from './index.css'
+import Tooltip from '../../common/Tooltip'
 class StreamGraph extends Component {
 	constructor(props) {
 		super(props)
 		this.state={
 			activeIdx:-1,
-			content: '',
-			tooltipStyle:{}
+			tooltip:{}
 		}
 	}
 	static defaultProps = {
@@ -25,23 +24,26 @@ class StreamGraph extends Component {
 	handleMouseOver = (e,value,index) =>{
 		this.setState({
 			activeIdx:index,
-			content:this.props.labels[index],
-			tooltipStyle: {
-				left: e.clientX + 20,
-				top: e.clientY,
-				opacity: 0.9
+			tooltip: {
+				x: e.clientX + 20,
+				y: e.clientY,
+				child: this.props.labels[index],
+				show: true
 			}
 		})
 	}
 	handleMouseOut = ()=>{
 		this.setState({
 			activeIndex: -1,
-			tooltipStyle: {
-				opacity: 0
+			tooltip: {
+				x: 0,
+				y: 0,
+				child: '',
+				show: false
 			}
 		})
 	}
-	render({width,height,padding,data,colorRange,interactive,labels},{activeIdx,content,tooltipStyle}) {
+	render({width,height,padding,data,colorRange,interactive,labels},{activeIdx,tooltip}) {
 		// generate stack
 		let stack = d3.stack().keys(d3.range(data[0].length)).offset(d3.stackOffsetWiggle),
 			layers = stack(data)
@@ -69,10 +71,7 @@ class StreamGraph extends Component {
 		}
 		return (
 			<div>
-				{labels.length > 0&&<Tooltip
-					content={content}
-					tooltipStyle={tooltipStyle}
-				/>}
+				{labels.length > 0&& <Tooltip {...tooltip} />}
 				<svg width={width} height={height} ref={el => this.StreamGraph = el} >
 					<g class={styles.path} transform={`translate(${padding.left},${padding.top})`}>
 						{!!layers&&layers.map((d,index)=>(

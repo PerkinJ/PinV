@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/components/common/axes/index.js"],"names":["XAxis","YAxis"],"mappings":";;;;;AAAA;;;;AACA;;;;;;QAGCA,K;QAAMC,K","file":"index.js","sourcesContent":["import XAxis from './XAxis'\nimport YAxis from './YAxis'\n\nexport {\n\tXAxis,YAxis\n}\n"]}

@@ -15,15 +15,8 @@ import {
 } from '../api'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
-let category = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲']
+import readmeData from '../readme.json'
 
-let data1 = [
-	[9000, 870, 3000, 1000, 5200],
-	[3400, 8000, 2300, 4922, 374],
-	[2000, 2000, 7700, 4881, 1050],
-	[3000, 8012, 5531, 500, 400],
-	[3540, 4310, 1500, 1900, 300]
-]
 let lineData = [
 	{
 		name: 'series1',
@@ -213,7 +206,7 @@ export default class Examples extends Component {
 					</div>}
 					{search === 'chordDiagram' && <div class={style.control}>
 						<h3>弦图组件</h3>
-						<ChordDiagram
+						{/* <ChordDiagram
 							data={data1}
 							category={category}
 							width="450"
@@ -222,6 +215,9 @@ export default class Examples extends Component {
 							padding="20"
 							padAngle="0.04"
 							interactive={true}
+						/> */}
+						<ChordDiagram
+							data={readmeData}
 						/>
 						<div class={style.apiContainer}>
 							<h3 class={style.title}>

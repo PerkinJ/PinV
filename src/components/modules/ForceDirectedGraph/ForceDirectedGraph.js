@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import * as d3 from 'd3'
-import styles from './index.less'
+import styles from './index.css'
 
 class ForceDirecteddata extends Component {
 	static defaultProps = {

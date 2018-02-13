@@ -1,8 +1,7 @@
 import { h, Component } from 'preact'
 import * as d3 from 'd3'
 import Axis from '../../basic/Axis'
-import styles from './index.less'
-import Tooltip from '../../basic/Tooltip'
+import Tooltip from '../../common/Tooltip'
 import {addEvent,removeEvent} from '../../../utils/utils'
 class Histogram extends Component {
 	static defaultProps = {
@@ -27,20 +26,22 @@ class Histogram extends Component {
 		const { XAxis, YAxis } = this.props
 		e = e || window.event
 		this.setState({
-			content: `${XAxis}  ${value[XAxis]} : ${YAxis}  ${value[YAxis]}`,
-			tooltipStyle: {
-				left: e.screenX + 10,
-				top: e.screenY - 140,
-				opacity: 0.9,
-				display:'block'
+			tooltip: {
+				x: e.screenX + 10,
+				y: e.screenY - 140,
+				child:`${XAxis}  ${value[XAxis]} : ${YAxis}  ${value[YAxis]}`,
+				show:true
 			},
 			activeIdx:index
 		})
 	}
 	handleMouseOut = () => {
 		this.setState({
-			tooltipStyle: {
-				opacity: 0
+			tooltip: {
+				x: 0,
+				y:0,
+				child:'',
+				show:false
 			},
 			activeIdx:'0'
 		})
@@ -51,7 +52,7 @@ class Histogram extends Component {
 	componentWillUnmount(){
 		removeEvent(this.rectContainer,'mouseleave',this.handleMouseOut)
 	}
-	render({ data, padding, width, height, XAxis, YAxis, tickSize, tickFormat, stroke, interactive }, { content, tooltipStyle,activeIdx }) {
+	render({ data, padding, width, height, XAxis, YAxis, tickSize, tickFormat, stroke, interactive }, { tooltip,activeIdx }) {
 		let dWidth = width - padding.left - padding.right - data.length / 2,
 			dHeight = height - padding.top - padding.bottom
 		let xDomain = d3.max(data, (d) => d[XAxis]),
@@ -64,10 +65,9 @@ class Histogram extends Component {
 			.range([dHeight, padding.bottom])
 		let color = d3.scaleOrdinal(d3.schemeCategory10)
 
-		return <div class={styles.container}>
+		return <div>
 			<Tooltip
-				content={content}
-				tooltipStyle={tooltipStyle}
+				{...tooltip}
 			/>
 			<svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
 				<Axis
@@ -77,7 +77,6 @@ class Histogram extends Component {
 					length={dWidth}
 					stroke={stroke}
 					orient="bottom"
-					class={styles.axis}
 					textAnchor="middle"
 					transform={`translate(${padding.left},${dHeight + padding.top})`} />
 				<Axis
@@ -87,12 +86,11 @@ class Histogram extends Component {
 					data={data}
 					stroke={stroke}
 					orient="left"
-					class={styles.axis}
 					tickSize={tickSize}
 					tickFormat={tickFormat}
 					textAnchor="end"
 					transform={`translate(${padding.left} ,${padding.top})`} />
-				<g class={styles.graph} ref={el => this.rectContainer = el} >
+				<g  ref={el => this.rectContainer = el} >
 					{data.map((d, index) => {
 						let width = dWidth / data.length
 						// 	这里为了交互效果，增加了一个蒙层rect
@@ -101,7 +99,6 @@ class Histogram extends Component {
 								<rect
 									key={index + 1}
 									ref={el => this.rect = el}
-									class={styles.rect}
 									width={width}
 									height={dHeight - scaleY(d.value)}
 									transform={`translate(${scaleX(d.key) + padding.left},${scaleY(d.value) + padding.top})`}

@@ -2,7 +2,6 @@
 import Histogram from './components/modules/Histogram'
 import LineChart from './components/modules/LineChart'
 import PieChart from './components/modules/PieChart'
-import ScatterPlot from './components/modules/ScatterPlot'
 import ScatterChart from './components/modules/ScatterChart'
 import AreaChart from './components/modules/AreaChart'
 import TreeLayout from './components/modules/TreeLayout'
@@ -13,19 +12,18 @@ import SunburstLayout from './components/modules/SunburstLayout'
 import PartitionLayout from './components/modules/PartitionLayout'
 import ForceDirectedGraph from './components/modules/ForceDirectedGraph'
 import ChordDiagram from './components/modules/ChordDiagram'
-import StackedAreaChart from './components/modules/StackedAreaChart'
+// import StackedAreaChart from './components/modules/StackedAreaChart'
 import StreamGraph from './components/modules/StreamGraph'
-import StreamGraph1 from './components/modules/StreamGraph1'
+// import StreamGraph1 from './components/modules/StreamGraph1'
 //GL 可视化组件
 import ForceDirectedGraphGL from './components/webgl/ForceDirectedGraphGL'
 // 可视化基础组件
-import Axis from './components/basic/Axis'
-import Circles from './components/basic/Axis'
-import Tooltip from './components/basic/Tooltip'
-import ChinaMap from './components/geographic/ChinaMap'
+// import Axis from './components/basic/Axis'
+// import Circles from './components/basic/Axis'
+import Tooltip from './components/common/Tooltip'
 // 基础组件
-import Button from './components/infrastructure/Button'
-import Input from './components/infrastructure/Input'
+// import Button from './components/infrastructure/Button'
+// import Input from './components/infrastructure/Input'
 
 export  {
 	/**
@@ -34,7 +32,6 @@ export  {
 	Histogram,
 	LineChart,
 	PieChart,
-	ScatterPlot,
 	ScatterChart,
 	TreeLayout,
 	ClusterLayout,
@@ -45,23 +42,17 @@ export  {
 	ForceDirectedGraph,
 	ForceDirectedGraphGL,
 	ChordDiagram,
-	StackedAreaChart,
 	StreamGraph,
-	StreamGraph1,
 	AreaChart,
-	/*
-	* 地理信息组件
-	*/
-	ChinaMap,
+	Tooltip
 	/**
 	 * 可视化基础组件 basic
 	 */
-	Axis,
-	Circles,
-	Tooltip,
+	// Axis,
+	// Circles,
 	/**
 	 * 基础组件 infrastructure
 	 */
-	Button,
-	Input
+	// Button,
+	// Input
 }

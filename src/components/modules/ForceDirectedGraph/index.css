@@ -1,0 +1,27 @@
+.links line{
+	stroke: #999;
+	stroke-opacity: 0.6;
+}
+
+.nodes circle{
+	stroke: #fff;
+	stroke-width: 1.5px;
+  }
+.container{
+	position: relative;
+	width:100%;
+	height:auto;
+}
+.tooltip{
+	position: fixed;
+	width:auto;
+	height:auto;
+	opacity: 0;
+	font-size: 14px;
+	text-align: center;
+	border-radius: 3px;
+	background:#fff;
+	padding:10px 20px;
+	border:1px solid #ccc;
+	z-index: 999;
+}
