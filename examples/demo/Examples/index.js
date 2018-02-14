@@ -4,7 +4,7 @@ import {
 	ScatterPlot, Button, Input, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraphGL, ForceDirectedGraph,
-	ChordDiagram, StreamGraph, ScatterChart, AreaChart
+	ChordDiagram, StreamGraph, ScatterChart
 } from 'pinv'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
