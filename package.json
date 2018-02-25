@@ -1,6 +1,6 @@
 {
   "name": "pinv",
-  "version": "0.0.3-alpha.7",
+  "version": "0.0.4",
   "description": "PinV project powered by webpack.",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",

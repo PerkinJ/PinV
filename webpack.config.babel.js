@@ -29,7 +29,7 @@ module.exports = {
 		alias: {
 			components: path.resolve(__dirname, "src/components"),    // used for tests
 			'pinv': path.resolve(__dirname, "src"),   // 暂时用'pinv'代替
-			style: path.resolve(__dirname, "src/style"),
+			style: path.resolve(__dirname, "examples/style"),
 			utils:path.resolve(__dirname,"src/utils"),
 			'react': 'preact-compat',
 			'react-dom': 'preact-compat'

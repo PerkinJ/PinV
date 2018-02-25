@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import * as d3 from 'd3'
 import { handleD3Color } from '../../../utils/utils'
-import styles from './index.less'
+import styles from './index.css'
 
 const renderCircles = (props) => {
 	let max = 1.2 * d3.max(props.data, (d) => d.value)

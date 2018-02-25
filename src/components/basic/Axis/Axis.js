@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import * as d3 from 'd3'
-import styles from './index.less'
+import styles from './index.css'
 // 计算x轴的长度
 const getScaleX = (props) => {
 	let { length, domain = '', data, dataKey } = props
