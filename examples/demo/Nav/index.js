@@ -27,6 +27,9 @@ const componentData = [{
 		key: 'partition'
 	},{
 		name: 'TreeMapLayout',
+		key: 'treemaplayout'
+	},{
+		name: 'TreeMap',
 		key: 'treemap'
 	},{
 		name: 'TreeLayout',

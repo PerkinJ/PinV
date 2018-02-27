@@ -324,7 +324,33 @@ let packData = [{
 	detail:'图形默认的背景色',
 	options:''
 }]
+
 let treeMapData = [{
+	name:'data',
+	type:'array',
+	default:'',
+	detail:'数据，要求格式为对象数组，例如{"name": "A1","children": [{"name": "B1","children":[{"name": "C1","value": 100}]这类树形对象',
+	options:''
+},{
+	name:'width',
+	type:'number',
+	default:500,
+	detail:'图形的宽度',
+	options:''
+},{
+	name:'height',
+	type:'number',
+	default:300,
+	detail:'图形的高度',
+	options:''
+},{
+	name:'value',
+	type:'string',
+	default:'value',
+	detail:'数据集中表示图形权重的属性'
+}]
+
+let treeMapLayoutData = [{
 	name:'data',
 	type:'array',
 	default:'',
@@ -919,7 +945,7 @@ let lineChartData = [{
 }]
 
 export {
-	sunburstData,partitionData,packData,treeMapData,clusterData,treeData,
+	sunburstData,partitionData,packData,treeMapLayoutData,treeMapData,clusterData,treeData,
 	histogramData,scatterPlotData,lineChartData,pieChartData,forceDirectedData,
 	chordDiagramData,streamGraphData
 }

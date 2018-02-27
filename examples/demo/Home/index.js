@@ -5,16 +5,17 @@ import {
 	ScatterChart, Button, Histogram, LineChart, PieChart,
 	TreeLayout, ClusterLayout, TreeMapLayout, PackLayout,
 	SunburstLayout, PartitionLayout, ForceDirectedGraph,
-	ForceDirectedGraphGL, ChordDiagram, StreamGraph
+	ForceDirectedGraphGL, ChordDiagram, StreamGraph,TreeMap
 } from 'pinv'
 
 import {
-	sunburstData, partitionData, packData, treeMapData, clusterData, treeData,
+	sunburstData, partitionData, packData, treeMapData,treeMapLayoutData, clusterData, treeData,
 	histogramData, scatterPlotData, lineChartData, pieChartData, forceDirectedData,
 	chordDiagramData, streamGraphData
 } from '../api'
 import * as d3 from 'd3'
 import forceData from '../forceData.json'
+import flareData from '../flare.json'
 import readmeData from '../readme.json'
 
 let lineData = [
@@ -426,8 +427,8 @@ export default class Examples extends Component {
 							</div>
 						</div>
 					</div>}
-					{search === 'treemap' && <div class={style.control}>
-						<h3>树矩形组件</h3>
+					{search === 'treemaplayout' && <div class={style.control}>
+						<h3>树矩形组件（偏交互）</h3>
 						<TreeMapLayout
 							data={jsonData}
 							width="400"
@@ -443,6 +444,38 @@ export default class Examples extends Component {
 						<div class={style.apiContainer}>
 							<h3 class={style.title}>
 								TreeMapLayout
+							</h3>
+							<div class={style.description}>
+								树矩形组件，一种层级结构的可视化组件
+							</div>
+							<div class={style.box}>
+								<h3>参数</h3>
+								<ul>
+									{treeMapLayoutData.map((value, index) =>
+										<li key={index} class={style.list}>
+											<span class={style.name}>{value.name}</span>
+											<span> | </span>
+											<span class={style.type}>({value.type})</span>
+											{value.default && <div class={style.default}>default:<span>{value.default}</span></div>}
+											{value.options && <div class={style.options}>可选:<span style={{ background: '#ccc', padding: 3 }}>{value.options}</span></div>}
+											<div class={style.detail} dangerouslySetInnerHTML={{ __html: value.detail }} />
+										</li>
+									)}
+								</ul>
+							</div>
+						</div>
+					</div>}
+					{search === 'treemap' && <div class={style.control}>
+						<h3>树矩形组件(偏展示)</h3>
+						<TreeMap
+							width="660"
+							height="400"
+							value="size"
+							data={flareData}
+						/>
+						<div class={style.apiContainer}>
+							<h3 class={style.title}>
+								TreeMap
 							</h3>
 							<div class={style.description}>
 								树矩形组件，一种层级结构的可视化组件

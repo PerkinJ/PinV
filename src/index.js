@@ -4,9 +4,11 @@ import LineChart from './components/modules/LineChart'
 import PieChart from './components/modules/PieChart'
 import ScatterChart from './components/modules/ScatterChart'
 import AreaChart from './components/modules/AreaChart'
+import BarChart from './components/modules/BarChart'
 import TreeLayout from './components/modules/TreeLayout'
 import ClusterLayout from './components/modules/ClusterLayout'
 import TreeMapLayout from './components/modules/TreeMapLayout'
+import TreeMap from './components/modules/TreeMap'
 import PackLayout from './components/modules/PackLayout'
 import SunburstLayout from './components/modules/SunburstLayout'
 import PartitionLayout from './components/modules/PartitionLayout'
@@ -36,6 +38,7 @@ export  {
 	TreeLayout,
 	ClusterLayout,
 	TreeMapLayout,
+	TreeMap,
 	PackLayout,
 	SunburstLayout,
 	PartitionLayout,
@@ -44,6 +47,7 @@ export  {
 	ChordDiagram,
 	StreamGraph,
 	AreaChart,
+	BarChart,
 	Tooltip
 	/**
 	 * 可视化基础组件 basic
