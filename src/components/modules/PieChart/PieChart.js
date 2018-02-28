@@ -25,7 +25,8 @@ class PieChart extends Component {
 		hoverAnimation: true,
 		// default tooltip
 		showTooltip: true,
-		tooltipFormat: (d) =>`${d.seriesName}:${d.yValue}`
+		tooltipFormat: (d) =>`${d.seriesName}:${d.yValue}`,
+		tooltipColor:'white'
 	}
 	componentWillReceiveProps() {
 		this.setState({
@@ -98,7 +99,7 @@ class PieChart extends Component {
 						/>
 					</g>
 				</Chart>
-				{(props.showTooltip ? <Tooltip {...this.state.tooltip} /> : null)}
+				{(props.showTooltip ? <Tooltip 	tooltipColor={this.props.tooltipColor} {...this.state.tooltip} /> : null)}
 			</span>
 		)
 	}

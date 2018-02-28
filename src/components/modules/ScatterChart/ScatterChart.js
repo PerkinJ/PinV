@@ -52,8 +52,8 @@ class LineChart extends Component {
 		showTooltip: true,
 		tooltipFormat: (d,x,y) => `${x}:${String(d.xValue)},${y}:${String(d.yValue)}`,
 		circleRadiusMultiplier: 1.5,
-		shadeMultiplier: 0.2
-
+		shadeMultiplier: 0.2,
+		tooltipColor:'white'
 	}
 	componentWillReceiveProps() {
 		this.setState({
@@ -266,7 +266,7 @@ class LineChart extends Component {
 						/>
 					</g>
 				</Chart>
-				{(props.showTooltip ? <Tooltip {...this.state.tooltip} /> : null)}
+				{(props.showTooltip ? <Tooltip 	tooltipColor={this.props.tooltipColor} {...this.state.tooltip} /> : null)}
 			</span>
 		)
 	}

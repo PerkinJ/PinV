@@ -12,7 +12,8 @@ class Histogram extends Component {
 		tickSize: 5,
 		tickFormat: '',
 		stroke: '#673ab7',
-		interactive: true
+		interactive: true,
+		tooltipColor:'white'
 	}
 	constructor(props) {
 		super(props)
@@ -67,6 +68,7 @@ class Histogram extends Component {
 
 		return <div>
 			<Tooltip
+				tooltipColor={this.props.tooltipColor}
 				{...tooltip}
 			/>
 			<svg width={width + padding.left + padding.right} height={height + padding.top + padding.bottom}>
@@ -107,6 +109,7 @@ class Histogram extends Component {
 									key={index + 1}		//这里主要为了让activeIdx有一个默认的0为初始值
 									onMouseOver={interactive?(e) => this.handleMouseOver(e,d,index):null}
 									onMouseMove={interactive?(e) => this.handleMouseOver(e,d,index):null}
+									onMouseLeave={interactive?this.handleMouseOut:null}
 									width={width+2}
 									height={dHeight}
 									fill="#000"

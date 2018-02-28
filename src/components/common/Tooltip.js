@@ -11,9 +11,9 @@ class Tooltip extends Component {
 		//TODO: add 'right: 0px' style when tooltip is off the chart
 		let tooltipStyles = {
 			position: 'absolute',
-			backgroundColor: 'white',
+			backgroundColor: props.tooltipColor?props.tooltipColor:'white',
 			border: '1px solid',
-			borderColor: '#ddd',
+			borderColor: props.tooltipColor?props.tooltipColor:'#ddd',
 			borderRadius: '2px',
 			padding: '10px',
 			marginLeft: '10px',

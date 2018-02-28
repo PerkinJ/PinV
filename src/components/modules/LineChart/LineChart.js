@@ -50,7 +50,8 @@ class LineChart extends Component {
 		yOrient: 'default',
 		// default tooltip
 		showTooltip: true,
-		tooltipFormat: (d,x,y) => `${x}:${String(d.xValue)},${y}:${String(d.yValue)}`
+		tooltipFormat: (d,x,y) => `${x}:${String(d.xValue)},${y}:${String(d.yValue)}`,
+		tooltipColor:'white'
 	}
 	componentWillReceiveProps() {
 		this.setState({
@@ -263,7 +264,7 @@ class LineChart extends Component {
 						/>
 					</g>
 				</Chart>
-				{(props.showTooltip ? <Tooltip {...this.state.tooltip} /> : null)}
+				{(props.showTooltip ? <Tooltip tooltipColor={this.props.tooltipColor} {...this.state.tooltip} /> : null)}
 			</span>
 		)
 	}

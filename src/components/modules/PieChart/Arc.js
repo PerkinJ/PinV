@@ -19,7 +19,8 @@ class Arc extends Component {
 				style={{
 					'shapeRendering': 'crispEdges',
 					'textAnchor': 'middle',
-					'fill': props.valueTextFill
+					'fill': props.valueTextFill,
+					fontSize:12
 				}}>
 				{formattedValue}
 			</text>
@@ -33,7 +34,7 @@ class Arc extends Component {
 		let radius = props.outerRadius
 		let dist = radius + 35
 		let angle = (props.startAngle + props.endAngle) / 2
-		let x = dist * (1.2 * Math.sin(angle))
+		let x = dist * (1.1* Math.sin(angle))
 		let y = -dist * Math.cos(angle)
 		let t = `translate(${x},${y})`
 
@@ -42,8 +43,8 @@ class Arc extends Component {
 				<line
 					x1='0'
 					x2='0'
-					y1={-radius - 2}
-					y2={-radius - 26}
+					y1={-radius}
+					y2={-radius - 20}
 					stroke={props.labelTextFill}
 					transform={rotate}
 					style={{
@@ -58,7 +59,8 @@ class Arc extends Component {
 					style={{
 						'textAnchor': 'middle',
 						'fill': props.labelTextFill,
-						'shapeRendering': 'crispEdges'
+						'shapeRendering': 'crispEdges',
+						fontSize:12
 					}}>
 					{props.label}
 				</text>
