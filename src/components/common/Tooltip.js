@@ -10,7 +10,7 @@ class Tooltip extends Component {
 		let containerStyles = { position: 'fixed', top: props.y, left: props.x, display, opacity: 0.8 }
 		//TODO: add 'right: 0px' style when tooltip is off the chart
 		let tooltipStyles = {
-			position: 'absolute',
+			// position: 'absolute',
 			backgroundColor: props.tooltipColor?props.tooltipColor:'white',
 			border: '1px solid',
 			borderColor: props.tooltipColor?props.tooltipColor:'#ddd',

@@ -32,7 +32,8 @@ class LineChart extends Component {
 		tickTextStroke:'#673ab7',
 		tickStroke:'#673ab7',
 		textColor:'#673ab7',
-		colors: d3.scaleOrdinal(d3.schemeCategory20),
+		stroke: '#673ab7',
+		colors: d3.scaleOrdinal(d3.schemeCategory10),
 		colorAccessor: (d, idx) => idx,
 		height: 200,
 		horizontal: false,
@@ -169,7 +170,6 @@ class LineChart extends Component {
 		if (!Array.isArray(props.data)) {
 			props.data = [props.data]
 		}
-
 		// Returns an object of flattened allValues, xValues, and yValues
 		let flattenedData = flattenData(props.data, props.xAccessor, props.yAccessor)
 

@@ -34,7 +34,8 @@ class HierarchyLayout extends Component {
 		angle: 1,			// SunburstLayout 的angle范围[0-1]
 		backgroundColor: '#CDDC39',	// 默认背景颜色
 		hoverColor: 'rgba(139,195,74,0.8)',		// 悬浮颜色
-		onClick:null
+		onClick:null,
+		tooltipColor:'white'
 	}
 	handleClick = (e, d, index)=>{
 		const {onClick} = this.props
@@ -248,7 +249,7 @@ class HierarchyLayout extends Component {
 			case 'sunburst': {
 				let { radius, angle,dataKey,padding } = this.props
 
-				let color = d3.scaleOrdinal(d3.schemeCategory20)
+				let color = d3.scaleOrdinal(d3.schemeCategory10)
 				// 如果没有指定，则默认是长度或者宽度的一半
 				radius = radius?radius:Math.min(width, height) / 2
 
@@ -268,11 +269,11 @@ class HierarchyLayout extends Component {
 				let contentArr = content.indexOf(',') > -1?content.split(','):[]
 				return (
 					<div class={styles.container} style={{padding:`${top}px ${right}px ${bottom}px ${left}px`}}>
-						<Tooltip {...tooltip} />
+						<Tooltip tooltipColor={this.props.tooltipColor} {...tooltip} />
 						<ul class={styles.showText}>
 							{contentArr.length >0?contentArr.map((d,index)=>
 								<li key={index}>{d}</li>
-							):<li>{content}</li>}
+							):<li>{content?content:'旭日图'}</li>}
 						</ul>
 						<svg ref={el => this.pack = el} width={width} height={height}>
 							<g class={styles.node} transform={`translate(${width / 2}, ${height * .52} )`}>
@@ -285,7 +286,7 @@ class HierarchyLayout extends Component {
 											onClick={interactive ? (e) => this.handleClick(e, d, index) : null}
 											key={index + 1}>
 											<path
-												style={{display:d.depth ===0?'none':'block',opacity:sunburstHighlight && activeIdx !== index ?0.3:1}}
+												style={{display:d.depth ===0?'none':'block',opacity:sunburstHighlight && activeIdx !== index ?0.8:1}}
 												d={arc(d)}
 												fill={color((d.children ? d : d.parent).data.name)}
 												fill-rule="evenodd"

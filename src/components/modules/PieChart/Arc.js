@@ -8,9 +8,10 @@ class Arc extends Component {
 		showInnerLabels: true,
 		showOuterLabels: true
 	}
-	renderInnerLabel = (props, arc) =>{
+	renderInnerLabel = (props, arc) => {
 		// make value text can be formatted
-		let formattedValue = props.valueTextFormatter(Math.round(props.value/props.sum *100).toFixed(1))
+		let value = (+props.value / props.sum * 100).toFixed(1)
+		let formattedValue = props.valueTextFormatter(value)
 		return (
 			<text
 				className='piechart-value'
@@ -20,9 +21,9 @@ class Arc extends Component {
 					'shapeRendering': 'crispEdges',
 					'textAnchor': 'middle',
 					'fill': props.valueTextFill,
-					fontSize:12
+					fontSize: 12
 				}}>
-				{formattedValue}
+				{value >= 1 && formattedValue}
 			</text>
 		)
 	}
@@ -34,36 +35,38 @@ class Arc extends Component {
 		let radius = props.outerRadius
 		let dist = radius + 35
 		let angle = (props.startAngle + props.endAngle) / 2
-		let x = dist * (1.1* Math.sin(angle))
+		let x = dist * (1.1 * Math.sin(angle))
 		let y = -dist * Math.cos(angle)
 		let t = `translate(${x},${y})`
-
+		let value = (+props.value / props.sum * 100).toFixed(1)
 		return (
 			<g>
-				<line
-					x1='0'
-					x2='0'
-					y1={-radius}
-					y2={-radius - 20}
-					stroke={props.labelTextFill}
-					transform={rotate}
-					style={{
-						'fill': props.labelTextFill,
-						'strokeWidth': 1
-					}}
-				/>
-				<text
-					className='piechart-label'
-					transform={t}
-					dy='.35em'
-					style={{
-						'textAnchor': 'middle',
-						'fill': props.labelTextFill,
-						'shapeRendering': 'crispEdges',
-						fontSize:12
-					}}>
-					{props.label}
-				</text>
+				{value >= 1 ? <g>
+					<line
+						x1='0'
+						x2='0'
+						y1={-radius}
+						y2={-radius - 20}
+						stroke={props.labelTextFill}
+						transform={rotate}
+						style={{
+							'fill': props.labelTextFill,
+							'strokeWidth': 1
+						}}
+					/>
+					<text
+						className='piechart-label'
+						transform={t}
+						dy='.35em'
+						style={{
+							'textAnchor': 'middle',
+							'fill': props.labelTextFill,
+							'shapeRendering': 'crispEdges',
+							fontSize: 12
+						}}>
+						{props.label}
+					</text>
+				</g> : null}
 			</g>
 		)
 	}

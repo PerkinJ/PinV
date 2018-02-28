@@ -23,7 +23,7 @@ class DataSeries extends Component {
 		let pie = d3.pie().sort(null)
 
 		let arcData = pie(props.values)
-		let sum = props.values.reduce((total,num)=> total+num)
+		let sum = props.values.length>0&&props.values.reduce((total,num)=> total+num)
 		let arcs = arcData.map((arc, idx) => {
 			return (
 				<ArcContainer
