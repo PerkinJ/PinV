@@ -1,12 +1,12 @@
 @import '~style/helpers';
 
 .main{
+	overflow: hidden;
+	background:rgba(0,11,38,0.9);
 	width:100%;
 	height:100%;
-	background:rgba(0,11,38,0.9);
 	position: relative;
 	font-size:12px;
-	margin-top: 56px;
 	.desc{
 		display: block;
 		line-height: 30px;
@@ -15,11 +15,9 @@
 	}
 	.container{
 		width:1280px;
-		height:580px;
-		position: absolute;
-		left:50%;
-		top:50%;
-		transform: translate(-50%,-50%);
+		height:100%;
+		margin:30px auto;
+		position: relative;
 		box-sizing: content-box;
 		color:rgb(243,198,76);
 		.left{
@@ -31,7 +29,6 @@
 				height:280px;
 				border:1px solid rgb(9,80,145);
 				margin-bottom:10px;
-
 			}
 			.category{
 				width:100%;
@@ -78,6 +75,7 @@
 		}
 	}
 }
+
 .pageWrap {
 	width: 100%;
 	margin: 0 auto;
@@ -166,4 +164,57 @@
 
   .tabWrap [id^="tab"]:checked ~ .tabContent{
 	display: block;
+  }
+  select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	outline: 0;
+	box-shadow: none;
+	border: 0 !important;
+	background: #2c3e50;
+	background-image: none;
+  }
+  .select {
+	margin:10px auto -10px;
+	position: relative;
+	display: block;
+	width: 20em;
+	height: 2.5em;
+	line-height: 2.5;
+	background: #2c3e50;
+	overflow: hidden;
+	border-radius: .25em;
+  }
+  select {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0 0 0 .5em;
+	color: rgb(243,198,76);
+	cursor: pointer;
+  }
+  select::-ms-expand {
+	display: none;
+  }
+  /* Arrow */
+  .select::after {
+	content: '\25BC';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	padding: 0 1em;
+	background: #34495e;
+	pointer-events: none;
+  }
+  /* Transition */
+  .select:hover::after {
+	color: #f39c12;
+  }
+  .select::after {
+	-webkit-transition: .25s all ease;
+	-o-transition: .25s all ease;
+	transition: .25s all ease;
   }

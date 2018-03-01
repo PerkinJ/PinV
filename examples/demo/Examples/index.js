@@ -2,30 +2,24 @@ import { h, Component } from 'preact'
 import styles from './style.less'
 import { TreeMap, PieChart, Histogram, LineChart, ScatterChart, SunburstLayout } from 'pinv'
 import * as d3 from 'd3'
-import flareData from '../flare.json'
 import movieData from '../data/movie.json'
-console.log('flareData', flareData)
 const randomData = () => d3.range(0, 100, 5)
 	.map(key => ({
 		key,
 		value: Math.round(Math.random() * 80)
 	}))
 let catgegoryData = randomData()
-
-let scatterData = [
-	{
-		name: "series1",
-		values: [{ x: 0, y: 20 }, { x: 5, y: 7 }, { x: 8, y: 3 }, { x: 13, y: 33 }, { x: 12, y: 10 }, { x: 13, y: 15 }, { x: 24, y: 8 }, { x: 25, y: 15 }, { x: 16, y: 10 }, { x: 16, y: 10 }, { x: 19, y: 30 }, { x: 14, y: 30 }]
-	},
-	{
-		name: "series2",
-		values: [{ x: 40, y: 30 }, { x: 35, y: 37 }, { x: 48, y: 37 }, { x: 38, y: 33 }, { x: 52, y: 60 }, { x: 51, y: 55 }, { x: 54, y: 48 }, { x: 45, y: 45 }, { x: 46, y: 50 }, { x: 66, y: 50 }, { x: 39, y: 36 }, { x: 54, y: 30 }]
-	},
-	{
-		name: "series3",
-		values: [{ x: 80, y: 78 }, { x: 71, y: 58 }, { x: 78, y: 68 }, { x: 81, y: 47 }, { x: 72, y: 70 }, { x: 70, y: 88 }, { x: 81, y: 90 }, { x: 92, y: 80 }, { x: 81, y: 72 }, { x: 99, y: 95 }, { x: 67, y: 81 }, { x: 96, y: 78 }]
-	}
-]
+// let catgegoryData = [{
+// 	key:'剧情',
+// 	value:22
+// },{
+// 	key:'动作',
+// 	valu:20
+// },{
+// 	key:'爱情',
+// 	valu:30
+// }]
+console.log('catgegoryData',catgegoryData)
 // 处理treeMap
 const handleTreeMap = (data) => {
 	let treemapData = {
@@ -63,16 +57,19 @@ class Examples extends Component {
 			areaData: [],
 			scoreData: [],
 			treemapData: [],
-			select: 'treemap'
+			scatterData: [],
+			domain:{ x: [8, 10], y: [0, 250] }
 		}
 	}
 	componentDidMount() {
 		const areaData = this.handleAreaData(movieData)
 		const scoreData = this.handleScoreData(movieData)
 		// const treemapData = this.handleTreeMap(movieData)
+		const scatterData = this.handleScatter(movieData)
 		this.setState({
 			areaData,
 			scoreData,
+			scatterData
 			// treemapData
 		})
 	}
@@ -151,8 +148,90 @@ class Examples extends Component {
 		scoreData.push(json1)
 		return scoreData
 	}
+	// 处理散点
+	handleScatter = (data, type = 'score-rank') => {
+		let newObj = {}, newData = []
+		switch (type) {
+			case 'score-rank': {
+				data.forEach(d => {
+					let obj = {
+						x: d.score,
+						y: d.ranking
+					}
+					newData.push(obj)
+				})
+				this.setState({
+					domain:{ x: [8, 10], y: [1, 250] },
+					label:{
+						xAxisLabel:'评分',
+						yAxisLabel:'排名'
+					}
+				})
+			}
+				break
+			case 'ratings-rank': {
+				data.forEach(d => {
+					let obj = {
+						x: +d.ratings,
+						y: d.ranking
+					}
+					newData.push(obj)
+				})
+				this.setState({
+					domain:{ x: [100, 1000000], y: [ 260,1] },
+					label:{
+						xAxisLabel:'评分人数（万）',
+						yAxisLabel:'排名'
+					}
+				})
+			}
+				break
+			case 'year-rank':{
+				data.forEach(d => {
+					let obj = {
+						x: +d.year,
+						y: d.ranking
+					}
+					newData.push(obj)
+				})
+				this.setState({
+					domain:{ x: [1930, 2020], y: [ 260,1] },
+					label:{
+						xAxisLabel:'年份',
+						yAxisLabel:'排名'
+					}
+				})
+			}
+		}
 
-	render({ }, { areaData, scoreData, select }) {
+		newObj = {
+			name: type,
+			values: newData
+		}
+		let scatterData = []
+		scatterData.push(newObj)
+		return scatterData
+	}
+	handleSelect = (e)=>{
+		e = e || window.event
+		let val = e.target.value,scatterData
+		if (val === '1'){
+			scatterData = this.handleScatter(movieData,'score-rank')
+		} else if (val === '2'){
+			scatterData = this.handleScatter(movieData,'ratings-rank')
+
+		} else if (val === '3'){
+			scatterData = this.handleScatter(movieData,'year-rank')
+		}
+		this.setState({scatterData})
+	}
+	tickFormat = (val)=>{
+		if (val > 10000){
+			val =  val /10000
+		}
+		return val
+	}
+	render({ }, { areaData, scoreData, scatterData,domain,label }) {
 		return (
 			<div class={styles.main}>
 				<div class={styles.container}>
@@ -222,26 +301,6 @@ class Examples extends Component {
 									</li>
 								</ul>
 							</div>
-
-							{/* {select === 'treemap' ?
-								<TreeMap
-									width="660"
-									height="490"
-									value="score"
-									data={treemapData}
-								/> :
-								<SunburstLayout
-									data={treemapData}
-									width="660"
-									height="490"
-									padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
-									dataKey="score"
-									nameKey="name"
-									interactive={true}
-									radius={230}
-									tooltipColor='rgb(0,0,0)'
-								/>
-							} */}
 						</div>
 					</div>
 					<div class={styles.right}>
@@ -254,7 +313,7 @@ class Examples extends Component {
 								width='100%'
 								height={250}
 								viewBoxObject={{
-									x: 0,
+									x: -5,
 									y: 0,
 									width: 400,
 									height: 300
@@ -267,16 +326,25 @@ class Examples extends Component {
 								textColor='rgb(243,198,76)'
 								tooltipColor='rgb(0,0,0)'
 								stroke="rgb(180,36,40)"
+								xAxisLabel="年份"
+								yAxisLabel="评分"
 							/>
 						</div>
 						<div class={styles.scatter}>
 							<span class={styles.desc}>关系图</span>
+							<div class={styles.select}>
+								<select name="slct" onChange={this.handleSelect}>
+									<option value="1">评分与排名</option>
+									<option value="2">评分人数与排名</option>
+									<option value="3">年份与排名</option>
+								</select>
+							</div>
 							<ScatterChart
 								data={scatterData}
 								width={300}
 								height={250}
 								viewBoxObject={{
-									x: 0,
+									x: -5,
 									y: 0,
 									width: 400,
 									height: 250
@@ -286,7 +354,9 @@ class Examples extends Component {
 								tickStroke='rgb(243,198,76)'
 								textColor='rgb(243,198,76)'
 								tooltipColor='rgb(0,0,0)'
-								domain={{ y: [-15,], y: [-15,] }}
+								domain={domain}
+								xAxisFormatter={this.tickFormat}
+								{...label}
 							/>
 						</div>
 					</div>
