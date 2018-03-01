@@ -3,7 +3,6 @@ import Histogram from './components/modules/Histogram'
 import LineChart from './components/modules/LineChart'
 import PieChart from './components/modules/PieChart'
 import ScatterChart from './components/modules/ScatterChart'
-import AreaChart from './components/modules/AreaChart'
 import BarChart from './components/modules/BarChart'
 import TreeLayout from './components/modules/TreeLayout'
 import ClusterLayout from './components/modules/ClusterLayout'
@@ -14,7 +13,6 @@ import SunburstLayout from './components/modules/SunburstLayout'
 import PartitionLayout from './components/modules/PartitionLayout'
 import ForceDirectedGraph from './components/modules/ForceDirectedGraph'
 import ChordDiagram from './components/modules/ChordDiagram'
-// import StackedAreaChart from './components/modules/StackedAreaChart'
 import StreamGraph from './components/modules/StreamGraph'
 // import StreamGraph1 from './components/modules/StreamGraph1'
 //GL 可视化组件
@@ -46,7 +44,6 @@ export  {
 	ForceDirectedGraphGL,
 	ChordDiagram,
 	StreamGraph,
-	AreaChart,
 	BarChart,
 	Tooltip
 	/**

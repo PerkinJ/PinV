@@ -2,8 +2,6 @@ import { h, Component } from 'preact'
 import styles from './style.less'
 import { TreeMap, PieChart, Histogram, LineChart, ScatterChart, SunburstLayout } from 'pinv'
 import * as d3 from 'd3'
-import Tabs from 'preact-material-components/Tabs'
-import 'preact-material-components/Tabs/style.css'
 import flareData from '../flare.json'
 import movieData from '../data/movie.json'
 console.log('flareData', flareData)
@@ -191,19 +189,41 @@ class Examples extends Component {
 					<div class={styles.center}>
 						<div class={styles.title}>Top250全球电影可视化分析</div>
 						<div class={styles.treemap}>
-							<div className={styles.tabs}>
-								<Tabs className='demo-tabs' indicator-accent={false} style={{ float: 'left' }}>
-									<Tabs.Tab onClick={() => this.setState({ select: 'treemap' })}
-										style={{ color: select === 'treemap' ? 'rgb(243,198,76)' : '#fff' ,borderBottom:select === 'treemap' ? '3px solid rgb(243,198,76)':'none' }}>
-										TreeMap
-									</Tabs.Tab>
-									<Tabs.Tab onClick={() => this.setState({ select: 'sunburst' })}
-										style={{ color: select === 'sunburst' ? 'rgb(243,198,76)' : '#fff',borderBottom:select === 'sunburst' ? '3px solid rgb(243,198,76)':'none' }}>
-										sunburst
-									</Tabs.Tab>
-								</Tabs>
+							<div class={styles.pageWrap}>
+								<ul class={styles.tabWrap}>
+									<li>
+										<input type="radio" id="tab-1" name="tab" checked />
+										<label for="tab-1">TreeMap</label>
+										<article class={styles.tabContent}>
+											<TreeMap
+												width="660"
+												height="490"
+												value="score"
+												data={treemapData}
+											/>
+										</article>
+									</li>
+									<li>
+										<input type="radio" id="tab-2" name="tab" />
+										<label for="tab-2">Sunburst</label>
+										<article class={styles.tabContent}>
+											<SunburstLayout
+												data={treemapData}
+												width="660"
+												height="490"
+												padding={{ top: 0, bottom: 0, left: 10, right: 10 }}
+												dataKey="score"
+												nameKey="name"
+												interactive={true}
+												radius={230}
+												tooltipColor='rgb(0,0,0)'
+											/>
+										</article>
+									</li>
+								</ul>
 							</div>
-							{select === 'treemap' ?
+
+							{/* {select === 'treemap' ?
 								<TreeMap
 									width="660"
 									height="490"
@@ -221,7 +241,7 @@ class Examples extends Component {
 									radius={230}
 									tooltipColor='rgb(0,0,0)'
 								/>
-							}
+							} */}
 						</div>
 					</div>
 					<div class={styles.right}>

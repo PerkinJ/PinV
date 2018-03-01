@@ -10,7 +10,7 @@ const ENV = process.env.NODE_ENV || 'development'
 const CSS_MAPS = ENV!=='production'
 
 module.exports = {
-	context: path.resolve(__dirname, "src"),
+	context: path.resolve(__dirname, "examples"),
 	entry: './index.js',
 
 	output: {
