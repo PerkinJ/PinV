@@ -28,8 +28,8 @@ class Histogram extends Component {
 		e = e || window.event
 		this.setState({
 			tooltip: {
-				x: e.screenX + 10,
-				y: e.screenY - 140,
+				x: e.clientX+5,
+				y: e.clientY,
 				child:`${XAxis}  ${value[XAxis]} : ${YAxis}  ${value[YAxis]}`,
 				show:true
 			},

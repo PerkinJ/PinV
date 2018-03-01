@@ -1,54 +1,8 @@
 import { h, Component } from 'preact'
 import styles from './style.less'
-import { TreeMap, PieChart, Histogram, LineChart, ScatterChart, SunburstLayout } from 'pinv'
+import { TreeMap, PieChart, Histogram,BarChart, LineChart, ScatterChart, SunburstLayout } from 'pinv'
 import * as d3 from 'd3'
 import movieData from '../data/movie.json'
-const randomData = () => d3.range(0, 100, 5)
-	.map(key => ({
-		key,
-		value: Math.round(Math.random() * 80)
-	}))
-let catgegoryData = randomData()
-// let catgegoryData = [{
-// 	key:'剧情',
-// 	value:22
-// },{
-// 	key:'动作',
-// 	valu:20
-// },{
-// 	key:'爱情',
-// 	valu:30
-// }]
-console.log('catgegoryData',catgegoryData)
-// 处理treeMap
-const handleTreeMap = (data) => {
-	let treemapData = {
-		name: 'movies'
-	}
-	let s = new Set() 		// 获得地区列表
-	data.forEach(d => s.add(d.area))
-	let children = []
-	s.forEach(d => {
-		let childrenObj = {
-			name: d
-		}
-		let childs = []
-		data.forEach(val => {
-			if (d === val.area) {
-				childs.push({
-					name: val.name,
-					score: val.score
-				})
-			}
-		})
-		childrenObj.children = childs
-		children.push(childrenObj)
-	})
-	treemapData.children = children
-
-	return treemapData
-}
-const treemapData = handleTreeMap(movieData)
 
 class Examples extends Component {
 	constructor(props) {
@@ -58,19 +12,22 @@ class Examples extends Component {
 			scoreData: [],
 			treemapData: [],
 			scatterData: [],
+			categoryData:[],
 			domain:{ x: [8, 10], y: [0, 250] }
 		}
 	}
-	componentDidMount() {
+	componentWillMount() {
 		const areaData = this.handleAreaData(movieData)
 		const scoreData = this.handleScoreData(movieData)
-		// const treemapData = this.handleTreeMap(movieData)
+		const categoryData = this.handleCategory(movieData)
+		const treemapData = this.handleTreeMap(movieData)
 		const scatterData = this.handleScatter(movieData)
 		this.setState({
 			areaData,
 			scoreData,
-			scatterData
-			// treemapData
+			scatterData,
+			categoryData,
+			treemapData
 		})
 	}
 	// 处理地区占比
@@ -91,6 +48,34 @@ class Examples extends Component {
 			areaData.push(json)
 		})
 		return areaData
+	}
+	// 处理层次型结构
+	handleTreeMap = (data) => {
+		let treemapData = {
+			name: 'movies'
+		}
+		let s = new Set() 		// 获得地区列表
+		data.forEach(d => s.add(d.area))
+		let children = []
+		s.forEach(d => {
+			let childrenObj = {
+				name: d
+			}
+			let childs = []
+			data.forEach(val => {
+				if (d === val.area) {
+					childs.push({
+						name: val.name,
+						score: val.score
+					})
+				}
+			})
+			childrenObj.children = childs
+			children.push(childrenObj)
+		})
+		treemapData.children = children
+
+		return treemapData
 	}
 	// 处理评分走势
 	handleScoreData = (data) => {
@@ -148,8 +133,26 @@ class Examples extends Component {
 		scoreData.push(json1)
 		return scoreData
 	}
+	// 处理类型
+	handleCategory = (data) => {
+		let s = new Set() 		// 获得地区列表
+		data.forEach(d => s.add(d.type))
+		let categoryData = []
+		s.forEach(d => {
+			let json = {}
+			json.type = d
+			json.value = 0
+			data.forEach(val => {
+				if (d === val.type) {
+					++json.value
+				}
+			})
+			categoryData.push(json)
+		})
+		return categoryData
+	}
 	// 处理散点
-	handleScatter = (data, type = 'score-rank') => {
+	handleScatter = (data, type = 'ratings-rank') => {
 		let newObj = {}, newData = []
 		switch (type) {
 			case 'score-rank': {
@@ -216,10 +219,9 @@ class Examples extends Component {
 		e = e || window.event
 		let val = e.target.value,scatterData
 		if (val === '1'){
-			scatterData = this.handleScatter(movieData,'score-rank')
-		} else if (val === '2'){
 			scatterData = this.handleScatter(movieData,'ratings-rank')
-
+		} else if (val === '2'){
+			scatterData = this.handleScatter(movieData,'score-rank')
 		} else if (val === '3'){
 			scatterData = this.handleScatter(movieData,'year-rank')
 		}
@@ -231,7 +233,7 @@ class Examples extends Component {
 		}
 		return val
 	}
-	render({ }, { areaData, scoreData, scatterData,domain,label }) {
+	render({ }, { areaData, scoreData, scatterData,categoryData,treemapData,domain,label }) {
 		return (
 			<div class={styles.main}>
 				<div class={styles.container}>
@@ -252,7 +254,20 @@ class Examples extends Component {
 						</div>
 						<div class={styles.category}>
 							<span class={styles.desc}>类型划分</span>
-							<Histogram
+							<BarChart
+								width={300}
+								height={220}
+								data={categoryData}
+								XAxis="type"
+								YAxis="value"
+								axesColor="rgb(243,198,76)"
+								tickTextStroke='rgb(243,198,76)'
+								tickStroke='rgb(243,198,76)'
+								stroke='rgb(9,80,145)'
+								domain={{y:[0,170]}}
+								yAxisLabel="数量"
+							/>
+							{/* <Histogram
 								hidden={true}
 								XAxis="key"
 								YAxis="value"
@@ -262,7 +277,7 @@ class Examples extends Component {
 								width={300}
 								height={250}
 								padding={{ top: 32, bottom: 32, left: 30, right: 20 }}
-							/>
+							/> */}
 						</div>
 					</div>
 					<div class={styles.center}>
@@ -334,12 +349,13 @@ class Examples extends Component {
 							<span class={styles.desc}>关系图</span>
 							<div class={styles.select}>
 								<select name="slct" onChange={this.handleSelect}>
-									<option value="1">评分与排名</option>
-									<option value="2">评分人数与排名</option>
+									<option value="1">评分人数与排名</option>
+									<option value="2">评分与排名</option>
 									<option value="3">年份与排名</option>
 								</select>
 							</div>
 							<ScatterChart
+								circleRadius={2}
 								data={scatterData}
 								width={300}
 								height={250}

@@ -22,7 +22,7 @@ class VoronoiCircleContainer extends Component {
 		let props = this.props
 		if (props.hoverAnimation) {
 			let e = event || window.event
-			this.props.onMouseOver.call(this, e.x, e.y, this.props.dataPoint)
+			this.props.onMouseOver.call(this, e.x+5, e.y, this.props.dataPoint)
 			this.setState({
 			  circleFill:   shade(props.circleFill, props.shadeMultiplier),
 			  circleRadius: props.circleRadius * props.circleRadiusMultiplier

@@ -1,5 +1,3 @@
-.path{
-	path{
-		cursor: pointer;
-	}
+.path path{
+	cursor: pointer;
 }

@@ -26,7 +26,6 @@ class DataSeries extends Component {
 		})
 	}
 	_renderBarContainer(segment, seriesIdx) {
-		console.log('test',segment)
 		let { colors, colorAccessor, hoverAnimation, xScale, yScale } = this.props
 		let barHeight = Math.abs(yScale(0) - yScale(segment))
 		let y = yScale(segment.y0 + segment.y)

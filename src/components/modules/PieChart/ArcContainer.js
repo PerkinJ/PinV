@@ -17,7 +17,7 @@ class ArcContainer extends Component {
 		let props = this.props
 		if (props.hoverAnimation) {
 			let e = event || window.event
-			this.props.onMouseOver.call(this, e.x, e.y, this.props.dataPoint)
+			this.props.onMouseOver.call(this, e.x+5, e.y, this.props.dataPoint)
 			this.setState({
 				fill: shade(this.props.fill, 0.2)
 			})
