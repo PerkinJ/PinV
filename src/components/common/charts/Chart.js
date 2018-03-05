@@ -17,6 +17,7 @@ class Chart extends Component {
 		if (props.legend) {
 			return (
 				<LegendChart
+					legendPosition={props.legendPosition}
 					svgClassName={props.svgClassName}
 					titleClassName={props.titleClassName}
 					{...this.props}

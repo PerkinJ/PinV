@@ -616,7 +616,7 @@ export default class Examples extends Component {
 						<LineChart
 							legend={true}
 							data={lineData}
-							width='80%'
+							width={500}
 							height={400}
 							sideOffset={100}
 							legendPosition="top"
@@ -715,7 +715,8 @@ export default class Examples extends Component {
 							data={scatterData}
 							width={500}
 							height={400}
-
+							legend={true}
+							legendPosition="top"
 							domain={{ y: [-15,], y: [-15,] }}
 							title="Scatter Chart"
 						/>

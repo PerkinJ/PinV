@@ -8,12 +8,12 @@ class LegendChart extends Component {
 		colorAccessor: (d, idx) => idx,
 		data: [],
 		legend: false,
-		legendPosition: 'right',
+		legendPosition: 'top',
 		sideOffset: 100,     // legend的长度
 		svgClassName: 'rd3-chart',
 		titleClassName: 'rd3-chart-title'
 	}
-	_renderLegend =()=> {
+	_renderLegend = () => {
 		let props = this.props
 
 		if (props.legend) {
@@ -51,7 +51,7 @@ class LegendChart extends Component {
 				className={props.svgClassName}
 				height="100%"
 				viewBox={props.viewBox}
-				width="100%"
+				width={props.width}
 			>
 				{props.children}
 			</svg>
@@ -59,21 +59,32 @@ class LegendChart extends Component {
 	}
 	render() {
 		let props = this.props
-
+		let {legendPosition} = props
 		return (
 			<div
 				className={props.className}
-				style={{ 'width': props.width, 'height': props.height }}
 			>
 				{this._renderTitle()}
-				<div style={{ display: 'table', width: '100%', height: '100%' }}>
-					<div style={{ display: 'table-cell' }}>
-						{this._renderChart()}
-					</div>
-					<div style={{ display: 'table-cell', width: props.sideOffset, 'verticalAlign': 'top' }}>
+				{legendPosition === 'top' && <div>
+					{this._renderLegend()}
+					{this._renderChart()}
+				</div>}
+				{legendPosition === 'bottom' && <div>
+					{this._renderChart()}
+					{this._renderLegend()}
+				</div>}
+				{legendPosition === 'right' && <div style={{ display: 'flex' }}>
+					{this._renderChart()}
+					<div style={{ width: props.sideOffset }}>
 						{this._renderLegend()}
 					</div>
-				</div>
+				</div>}
+				{legendPosition === 'left' && <div style={{ display: 'flex' }}>
+					<div style={{ width: props.sideOffset }}>
+						{this._renderLegend()}
+					</div>
+					{this._renderChart()}
+				</div>}
 			</div>
 		)
 	}

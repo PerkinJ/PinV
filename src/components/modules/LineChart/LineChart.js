@@ -52,7 +52,13 @@ class LineChart extends Component {
 		// default tooltip
 		showTooltip: true,
 		tooltipFormat: (d,x,y) => `${x}:${String(d.xValue)},${y}:${String(d.yValue)}`,
-		tooltipColor:'white'
+		tooltipColor:'white',
+		viewBoxObject:{
+			x: 0,
+			y: 0,
+			width: 550,
+			height: 400
+		}
 	}
 	componentWillReceiveProps() {
 		this.setState({

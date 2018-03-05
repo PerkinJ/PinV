@@ -34,7 +34,7 @@ class LineChart extends Component {
 		textColor:'#673ab7',
 		colors: d3.scaleOrdinal(d3.schemeCategory20),
 		colorAccessor: (d, idx) => idx,
-		height: 200,
+		height: 500,
 		horizontal: false,
 		legend: false,
 		legendOffset: 120,
@@ -53,7 +53,13 @@ class LineChart extends Component {
 		tooltipFormat: (d,x,y) => `${x}:${String(d.xValue)},${y}:${String(d.yValue)}`,
 		circleRadiusMultiplier: 1.5,
 		shadeMultiplier: 0.2,
-		tooltipColor:'white'
+		tooltipColor:'white',
+		viewBoxObject:{
+			x: 0,
+			y: 0,
+			width: 550,
+			height: 400
+		}
 	}
 	componentWillReceiveProps() {
 		this.setState({

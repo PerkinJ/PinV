@@ -8,11 +8,12 @@ class Legend extends Component {
 		colors: d3.scaleOrdinal(d3.schemeCategory20c),
 		colorAccessor: (d, idx) => idx,
 		itemClassName: 'rd3-Tooltip-item',
-		text: '#000'
+		text: '#000',
+		legendPosition:'top'
 	}
 	render() {
 		let props = this.props
-
+		const { legendPosition,data} = props
 		let textStyle = {
 			'color': 'black',
 			'fontSize': '50%',
@@ -21,11 +22,12 @@ class Legend extends Component {
 
 		let legendItems = []
 
-		props.data.forEach((series, idx) => {
+		data.forEach((series, idx) => {
 			let itemStyle = {
 				'color': props.colors(props.colorAccessor(series, idx)),
 				'lineHeight': '60%',
-				'fontSize': '200%'
+				'fontSize': '200%',
+				margin:legendPosition === 'right' || legendPosition === 'left'?'0px':'10px'
 			}
 			legendItems.push(
 				<li
@@ -47,11 +49,14 @@ class Legend extends Component {
 
 		let legendBlockStyle = {
 			'wordWrap': 'break-word',
-			'width': props.width,
+			'width': '100%',
 			'paddingLeft': '0',
 			'marginBottom': '0',
 			'marginTop': topMargin,
-			'listStylePosition': 'inside'
+			'listStylePosition': 'inside',
+			'textAlign':'center',
+			'display':legendPosition === 'right' || legendPosition === 'left'?'block':'flex',
+			'justify-content':'center'
 		}
 
 		return (
